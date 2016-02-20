@@ -33,6 +33,7 @@
 	</div>
 	</nav>
 	Es Vd el usuario número: ${contador}
+	<a href="registrarViaje.jsp">Registrar un viaje</a>
 	<div class="container">
 		<h3>Viajes activos</h3>
 		<hr />

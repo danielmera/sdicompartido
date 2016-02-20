@@ -16,6 +16,7 @@ import uo.sdi.acciones.ListarViajesAction;
 import uo.sdi.acciones.ListarViajesUsuario;
 import uo.sdi.acciones.ModificarDatosAction;
 import uo.sdi.acciones.RegistrarUsuario;
+import uo.sdi.acciones.RegistrarViaje;
 import uo.sdi.acciones.ValidarseAction;
 import alb.util.log.Log;
 
@@ -120,6 +121,7 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		mapaRegistrado.put("cerrarSesion",new CerrarSesion());
 		mapaRegistrado.put("listarViajes", new ListarViajesAction());
 		mapaRegistrado.put("listarViajesUsuario", new ListarViajesUsuario());
+		mapaRegistrado.put("registrarViaje", new RegistrarViaje());
 		mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
 	}
 	
@@ -164,6 +166,10 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		resJSP=new HashMap<String, String>();
 		resJSP.put("EXITO","/principal.jsp");
 		opcionResJSP.put("listarViajesUsuario", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listarViajesDetalle.jsp");
+		resJSP.put("FRACASO","/registrarViaje.jsp");
+		opcionResJSP.put("registrarUsuario", resJSP);
 		
 		mapaDeNavegacion.put("REGISTRADO",opcionResJSP);
 	}
