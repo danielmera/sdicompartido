@@ -51,5 +51,6 @@
 			</tbody>
 		</table>
 	</div>
+	<a href="registrarViaje.jsp">Registrar viaje</a>
 </body>
 </html>
