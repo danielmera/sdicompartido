@@ -1,5 +1,6 @@
 package uo.sdi.acciones;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class RegistrarViaje implements Accion {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String resultado = "EXITO";
-		
+
 		// Datos Salida
 		String calle = request.getParameter("calle");
 		String ciudad = request.getParameter("ciudad");
@@ -42,13 +43,7 @@ public class RegistrarViaje implements Accion {
 		 * actual o no.
 		 */
 
-		String f = request.getParameter("fechasalida");
-		String[] dateTime = f.split("T");
-		String[] date = dateTime[0].split("-");
-		String[] time = dateTime[1].split(":");
-		Date fechasalida = new Date(new Integer(date[0]), new Integer(date[1]),
-				new Integer(date[2]), new Integer(time[0]),
-				new Integer(time[1]));
+		Date fechasalida = convertDate(request.getParameter("fechasalida"));
 
 		// Datos Llegada
 		String calledest = request.getParameter("calledest");
@@ -62,19 +57,8 @@ public class RegistrarViaje implements Accion {
 		AddressPoint llegada = new AddressPoint(calledest, ciudaddest,
 				provinciadest, paisdest, zipcodedest, waypointllegada);
 
-		f = request.getParameter("fechallegada");
-		dateTime = f.split("T");
-		time = dateTime[1].split(":");
-		Date fechallegada = new Date(new Integer(date[0]), new Integer(date[1]),
-				new Integer(date[2]), new Integer(time[0]),
-				new Integer(time[1]));
-		
-		f = request.getParameter("fechalimite");
-		dateTime = f.split("T");
-		time = dateTime[1].split(":");
-		Date fechalimite = new Date(new Integer(date[0]), new Integer(date[1]),
-				new Integer(date[2]), new Integer(time[0]),
-				new Integer(time[1]));
+		Date fechallegada = convertDate(request.getParameter("fechallegada"));
+		Date fechalimite = convertDate(request.getParameter("fechalimite"));
 
 		Double coste = new Double(request.getParameter("coste"));
 		String comentarios = request.getParameter("comentarios");
@@ -83,35 +67,56 @@ public class RegistrarViaje implements Accion {
 		HttpSession session = request.getSession();
 		User usuario = ((User) session.getAttribute("user"));
 
-		Trip trip = new Trip(usuario.getId(), salida, fechasalida, llegada,
-				fechallegada, fechalimite, coste, comentarios, maxpax);
-
+		
 		TripDao dao = PersistenceFactory.newTripDao();
+		Date now = new Date();
+		
 		// fecha de salida es menor que el momento actual
-		if (fechasalida.compareTo(new Date()) > 0) {
+		if (fechasalida.compareTo(now) > 0) {
 			// fecha de salida es menor que la fecha de llegada
 			if (fechasalida.compareTo(fechallegada) < 0) {
-				// fecha de salida es menor que la fecha de llegada
-				if (fechalimite.compareTo(fechasalida) < 0) {
+				// fecha limite es menor que la fecha de salida
+				if (fechalimite.compareTo(fechasalida) <= 0) {
+					Trip trip = new Trip(usuario.getId(), salida, fechasalida, llegada,
+							fechallegada, fechalimite, coste, comentarios, maxpax);
+
 					dao.save(trip);
 					Log.debug("Viaje [%s] creado correctamente", trip.getId());
+				} else {
+					resultado = "FRACASO";
+					Log.info("Error: la fecha límite ha de ser previa a la fecha"
+							+ " de salida.");
+					request.setAttribute("message",
+							"la fecha límite ha de ser previa a la fecha "
+									+ "de salida.");
 				}
 			} else {
 				resultado = "FRACASO";
-				Log.info("Error: la fecha de salida ha de ser previa a la fecha"
+				Log.info("Error: la fecha de salida ha de ser previa a la fecha "
 						+ "de llegada.");
 				request.setAttribute("message",
-						"la fecha de salida ha de ser previa a la fecha"
+						"La fecha de salida ha de ser previa a la fecha "
 								+ "de llegada.");
 			}
 		} else {
 			resultado = "FRACASO";
 			Log.info("Error: la fecha de salida ha de ser posterior a la fecha actual");
 			request.setAttribute("message",
-					"la fecha de salida ha de ser posterior a la fecha actual");
+					"La fecha de salida ha de ser posterior a la fecha actual");
 		}
 
 		return resultado;
+	}
+	
+	private Date convertDate(String entrada){
+		String[] dateTime = entrada.split("T");
+		String[] date = dateTime[0].split("-");
+		String[] time = dateTime[1].split(":");
+		@SuppressWarnings("deprecation")
+		Date fecha = new Date(new Integer(date[0])-1900, new Integer(date[1])-1,
+				new Integer(date[2]), new Integer(time[0]),
+				new Integer(time[1]));
+		return fecha;
 	}
 
 }

@@ -134,7 +134,7 @@
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Registrar viaje</button>
 			<button type="button" class="btn btn-primary"
-				onclick="location.href='principal.jsp'">Cancelar</button>
+				onclick="location.href='listarViajesUsuario'">Cancelar</button>
 		</div>
 	</form>
 	<div class="footer navbar-fixed-bottom navbar-inner">
