@@ -21,7 +21,7 @@
 				<a class="navbar-brand">ShareMyTrip</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li><a href="principal.jsp">Home</a></li>
+				<li><a href="listarViajesUsuario">Home</a></li>
 				<li><a href="listarViajes">Viajes</a></li>
 				<li><a href="modificarperfil.jsp">Perfil</a></li>
 			</ul>
@@ -80,12 +80,12 @@
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">Modificar</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='principal.jsp'">Cancelar</button>
+				<button type="button" class="btn btn-primary" onclick="location.href='listarViajesUsuario'">Cancelar</button>
 			</div>
 		</form>
 	</div>
 	<div class="footer navbar-fixed-bottom navbar-inner">
-			<p class="text-muted">@ShareMyTrip SDI 2016</p>
+			<p class="text-muted" align="center">@ShareMyTrip SDI 2016</p>
 	</div>
 </body>
 </html>

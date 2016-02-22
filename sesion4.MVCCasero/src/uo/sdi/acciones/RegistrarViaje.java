@@ -1,6 +1,5 @@
 package uo.sdi.acciones;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,21 +66,24 @@ public class RegistrarViaje implements Accion {
 		HttpSession session = request.getSession();
 		User usuario = ((User) session.getAttribute("user"));
 
-		
 		TripDao dao = PersistenceFactory.newTripDao();
 		Date now = new Date();
-		
+
 		// fecha de salida es menor que el momento actual
 		if (fechasalida.compareTo(now) > 0) {
 			// fecha de salida es menor que la fecha de llegada
 			if (fechasalida.compareTo(fechallegada) < 0) {
 				// fecha limite es menor que la fecha de salida
 				if (fechalimite.compareTo(fechasalida) <= 0) {
-					Trip trip = new Trip(usuario.getId(), salida, fechasalida, llegada,
-							fechallegada, fechalimite, coste, comentarios, maxpax);
+					Trip trip = new Trip(usuario.getId(), salida, fechasalida,
+							llegada, fechallegada, fechalimite, coste,
+							comentarios, maxpax);
 
 					dao.save(trip);
 					Log.debug("Viaje [%s] creado correctamente", trip.getId());
+					request.setAttribute(
+							"messageSuccess",
+							"El viaje se ha registrado correctamente, para ver el viaje vaya a la pestaña de 'Ver viajes'");
 				} else {
 					resultado = "FRACASO";
 					Log.info("Error: la fecha límite ha de ser previa a la fecha"
@@ -107,15 +109,15 @@ public class RegistrarViaje implements Accion {
 
 		return resultado;
 	}
-	
-	private Date convertDate(String entrada){
+
+	private Date convertDate(String entrada) {
 		String[] dateTime = entrada.split("T");
 		String[] date = dateTime[0].split("-");
 		String[] time = dateTime[1].split(":");
 		@SuppressWarnings("deprecation")
-		Date fecha = new Date(new Integer(date[0])-1900, new Integer(date[1])-1,
-				new Integer(date[2]), new Integer(time[0]),
-				new Integer(time[1]));
+		Date fecha = new Date(new Integer(date[0]) - 1900,
+				new Integer(date[1]) - 1, new Integer(date[2]), new Integer(
+						time[0]), new Integer(time[1]));
 		return fecha;
 	}
 

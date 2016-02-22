@@ -52,8 +52,8 @@ public class AddressPoint {
 
 	@Override
 	public String toString() {
-		return "Destination [address=" + address + ", city=" + city 
-				+ ", state=" + state + ", country=" + country
+		return "[Dirección=" + address + ", Ciudad=" + city 
+				+ ", Provincia=" + state + ", País=" + country
 				+ ", zipCode=" + zipCode + ", waypoint=" + waypoint + "]";
 	}
 

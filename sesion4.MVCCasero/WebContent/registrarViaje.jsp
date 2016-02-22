@@ -20,11 +20,23 @@
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="principal.jsp">Home</a></li>
+			<li><a href="listarViajesUsuario">Home</a></li>
 		</ul>
 	</div>
 	</nav>
-	<!-- Mensaje de alerta para mostrar información de la operación de registro al usuario PÚBLICO -->
+	<!-- Mensaje de alerta para mostrar información de la operación de registro de viajes al 
+		usuario registrado en caso de éxito-->
+	<%
+		if (request.getAttribute("messageSuccess") != null) {
+	%>
+	<div class="alert alert-success">
+		<%=request.getAttribute("messageSuccess")%>
+	</div>
+	<%
+		}
+	%>
+	<!-- Mensaje de alerta para mostrar información de la operación de de registro de viajes
+		al usuario registrado en caso de error -->
 	<%
 		if (request.getAttribute("message") != null) {
 	%>
@@ -34,109 +46,119 @@
 	<%
 		}
 	%>
-	<form class="form-signin" action="registrarViaje" method="POST">
-		<h4 class="from-signin-heading">Registrar un viaje</h4>
-		<br>
-		<h3 class="from-signin-heading">Lugar de salida</h3>
-		<div class="form-group">
-			<label for="calle">Calle:</label> <input type="text"
-				class="form-control" id="calle" name="calle" required>
-		</div>
-		<div class="form-group">
-			<label for="ciudad">Ciudad:</label> <input type="text"
-				class="form-control" id="ciudad" name="ciudad" required>
-		</div>
-		<div class="form-group">
-			<label for="provincia">Provincia:</label> <input type="text"
-				class="form-control" id="provincia" name="provincia" required>
-		</div>
-		<div class="form-group">
-			<label for="pais">País:</label> <input type="text"
-				class="form-control" id="pais" name="pais" required>
-		</div>
-		<div class="form-group">
-			<label for="zipcode">ZIP Code:</label> <input type="text"
-				class="form-control" id="zipcode" name="zipcode" required>
-		</div>
-		<div class="form-group">
-			<label for="latitud">Latitud:</label> <input type="text"
-				class="form-control" id="latitud" name="latitud" required>
-		</div>
-		<div class="form-group">
-			<label for="longitud">Longitud:</label> <input type="text"
-				class="form-control" id="longitud" name="longitud" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="fechasalida">Fecha salida:</label> <input
-				type="datetime-local" class="form-control" id="fechasalida"
-				name="fechasalida" required>
-		</div>
-		<br>
-		<h3 class="from-signin-heading">Lugar de destino</h3>
-		<div class="form-group">
-			<label for="calledest">Calle:</label> <input type="text"
-				class="form-control" id="calledest" name="calledest" required>
-		</div>
-		<div class="form-group">
-			<label for="ciudaddest">Ciudad:</label> <input type="text"
-				class="form-control" id="ciudaddest" name="ciudaddest" required>
-		</div>
-		<div class="form-group">
-			<label for="provinciadest">Provincia:</label> <input type="text"
-				class="form-control" id="provinciadest" name="provinciadest"
-				required>
-		</div>
-		<div class="form-group">
-			<label for="paisdest">País:</label> <input type="text"
-				class="form-control" id="paisdest" name="paisdest" required>
-		</div>
-		<div class="form-group">
-			<label for="zipcodedest">ZIP Code:</label> <input type="text"
-				class="form-control" id="zipcodedest" name="zipcodedest" required>
-		</div>
-		<div class="form-group">
-			<label for="latituddest">Latitud:</label> <input type="text"
-				class="form-control" id="latituddest" name="latituddest" required>
-		</div>
-		<div class="form-group">
-			<label for="longituddest">Longitud:</label> <input type="text"
-				class="form-control" id="longituddest" name="longituddest" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="fechallegada">Fecha estimada de llegada:</label> <input
-				type="datetime-local" class="form-control" id="fechallegada"
-				name="fechallegada" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="fechalimite">Fecha límite para apuntarse:</label> <input
-				type="datetime-local" class="form-control" id="fechalimite"
-				name="fechalimite" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="coste">Coste estimado:</label> <input type="text"
-				class="form-control" id="coste" name="coste" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="comentarios">Comentarios:</label> <input type="text"
-				class="form-control" id="comentarios" name="comentarios" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="maxpax">Número máximo de plazas:</label> <input type="text"
-				class="form-control" id="maxpax" name="maxpax" required>
-		</div>
-		<br>
-		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Registrar viaje</button>
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='listarViajesUsuario'">Cancelar</button>
-		</div>
-	</form>
+	<div class="container">
+		<form action="registrarViaje" method="POST">
+			<h2 class="from-signin-heading">Registrar un viaje</h2>
+			<hr>
+			<div class="row">
+				<div class="col-md-6">
+					<h3 class="from-signin-heading">Lugar de salida</h3>
+					<div class="form-group">
+						<label for="calle">Calle:</label> <input type="text"
+							class="form-control" id="calle" name="calle" required>
+					</div>
+					<div class="form-group">
+						<label for="ciudad">Ciudad:</label> <input type="text"
+							class="form-control" id="ciudad" name="ciudad" required>
+					</div>
+					<div class="form-group">
+						<label for="provincia">Provincia:</label> <input type="text"
+							class="form-control" id="provincia" name="provincia" required>
+					</div>
+					<div class="form-group">
+						<label for="pais">País:</label> <input type="text"
+							class="form-control" id="pais" name="pais" required>
+					</div>
+					<div class="form-group">
+						<label for="zipcode">ZIP Code:</label> <input type="text"
+							class="form-control" id="zipcode" name="zipcode" required>
+					</div>
+					<div class="form-group">
+						<label for="latitud">Latitud:</label> <input type="text"
+							class="form-control" id="latitud" name="latitud" required>
+					</div>
+					<div class="form-group">
+						<label for="longitud">Longitud:</label> <input type="text"
+							class="form-control" id="longitud" name="longitud" required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="fechasalida">Fecha salida:</label> <input
+							type="datetime-local" class="form-control" id="fechasalida"
+							name="fechasalida" required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="fechalimite">Fecha límite para apuntarse:</label> <input
+							type="datetime-local" class="form-control" id="fechalimite"
+							name="fechalimite" required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="comentarios">Comentarios:</label> <input type="text"
+							class="form-control" id="comentarios" name="comentarios" required>
+					</div>
+					
+				</div>
+				<div class="col-md-6">
+					<h3 class="from-signin-heading">Lugar de destino</h3>
+					<div class="form-group">
+						<label for="calledest">Calle:</label> <input type="text"
+							class="form-control" id="calledest" name="calledest" required>
+					</div>
+					<div class="form-group">
+						<label for="ciudaddest">Ciudad:</label> <input type="text"
+							class="form-control" id="ciudaddest" name="ciudaddest" required>
+					</div>
+					<div class="form-group">
+						<label for="provinciadest">Provincia:</label> <input type="text"
+							class="form-control" id="provinciadest" name="provinciadest"
+							required>
+					</div>
+					<div class="form-group">
+						<label for="paisdest">País:</label> <input type="text"
+							class="form-control" id="paisdest" name="paisdest" required>
+					</div>
+					<div class="form-group">
+						<label for="zipcodedest">ZIP Code:</label> <input type="text"
+							class="form-control" id="zipcodedest" name="zipcodedest" required>
+					</div>
+					<div class="form-group">
+						<label for="latituddest">Latitud:</label> <input type="text"
+							class="form-control" id="latituddest" name="latituddest" required>
+					</div>
+					<div class="form-group">
+						<label for="longituddest">Longitud:</label> <input type="text"
+							class="form-control" id="longituddest" name="longituddest"
+							required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="fechallegada">Fecha estimada de llegada:</label> <input
+							type="datetime-local" class="form-control" id="fechallegada"
+							name="fechallegada" required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="coste">Coste estimado:</label> <input type="text"
+							class="form-control" id="coste" name="coste" required>
+					</div>
+					<br>
+					<div class="form-group">
+						<label for="maxpax">Número máximo de plazas:</label> <input
+							type="text" class="form-control" id="maxpax" name="maxpax"
+							required>
+					</div>
+				</div>
+				<div class="form-group" align="center">
+					<button type="submit" class="btn btn-primary">Registrar
+						viaje</button>
+					<button type="button" class="btn btn-primary"
+						onclick="location.href='listarViajesUsuario'">Cancelar</button>
+				</div>
+			</div>
+		</form>
+	</div>
 	<div class="footer navbar-fixed-bottom navbar-inner">
 		<p class="text-muted" align="center">@ShareMyTrip SDI 2016</p>
 	</div>

@@ -22,7 +22,7 @@
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="principal.jsp">Home</a></li>
+			<li><a href="listarViajesUsuario">Home</a></li>
 			<li><a href="listarViajes">Viajes</a></li>
 			<li><a href="modificarperfil.jsp">Perfil</a></li>
 		</ul>
@@ -56,7 +56,7 @@
 			<tbody>
 				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
+						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
 						<td>${entry.departure.city}</td>
 						<td>${entry.departure.country}</td>
 						<td>${entry.departure.state}</td>
@@ -76,7 +76,7 @@
 		</table>
 	</div>
 	<div class="footer navbar-fixed-bottom navbar-inner">
-		<p class="text-muted">@ShareMyTrip SDI 2016</p>
+		<p class="text-muted" align="center">@ShareMyTrip SDI 2016</p>
 	</div>
 </body>
 </html>

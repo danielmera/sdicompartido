@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uo.sdi.acciones.Accion;
+import uo.sdi.acciones.CargarViaje;
 import uo.sdi.acciones.CerrarSesion;
 import uo.sdi.acciones.ListarViajesAction;
 import uo.sdi.acciones.ListarViajesUsuario;
 import uo.sdi.acciones.ModificarDatosAction;
 import uo.sdi.acciones.RegistrarUsuario;
 import uo.sdi.acciones.RegistrarViaje;
+import uo.sdi.acciones.SolicitarPlaza;
 import uo.sdi.acciones.ValidarseAction;
 import alb.util.log.Log;
 
@@ -122,6 +124,8 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		mapaRegistrado.put("listarViajes", new ListarViajesAction());
 		mapaRegistrado.put("listarViajesUsuario", new ListarViajesUsuario());
 		mapaRegistrado.put("registrarViaje", new RegistrarViaje());
+		mapaRegistrado.put("cargarViaje", new CargarViaje());
+		mapaRegistrado.put("solicitarPlaza",new SolicitarPlaza());
 		mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
 	}
 	
@@ -167,9 +171,16 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		resJSP.put("EXITO","/principal.jsp");
 		opcionResJSP.put("listarViajesUsuario", resJSP);
 		resJSP=new HashMap<String, String>();
-		resJSP.put("EXITO","/listaViajesDetalle.jsp");
+		resJSP.put("EXITO","/registrarViaje.jsp");
 		resJSP.put("FRACASO","/registrarViaje.jsp");
 		opcionResJSP.put("registrarViaje", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/mostrarViaje.jsp");
+		opcionResJSP.put("cargarViaje", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listarViajesUsuario");
+		resJSP.put("FRACASO","/mostrarViaje.jsp");
+		opcionResJSP.put("solicitarPlaza", resJSP);
 		
 		mapaDeNavegacion.put("REGISTRADO",opcionResJSP);
 	}

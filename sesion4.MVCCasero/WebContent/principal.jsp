@@ -23,7 +23,7 @@
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="principal.jsp">Home</a></li>
+			<li><a href="listarViajesUsuario">Home</a></li>
 			<li><a href="listarViajes">Viajes</a></li>
 			<li><a href="modificarperfil.jsp">Perfil</a></li>
 		</ul>

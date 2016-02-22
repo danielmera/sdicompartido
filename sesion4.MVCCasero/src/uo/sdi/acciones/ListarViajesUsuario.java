@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import uo.sdi.model.Trip;
 import uo.sdi.model.User;
 import uo.sdi.persistence.PersistenceFactory;
+import uo.sdi.persistence.TripDao;
 import alb.util.log.Log;
 
 public class ListarViajesUsuario implements Accion {
@@ -20,14 +21,20 @@ public class ListarViajesUsuario implements Accion {
 		
 		List<Trip> viajesActivos;
 		List<Trip> viajesHechos;
+		List<Trip> viajesPendientes;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		TripDao dao = PersistenceFactory.newTripDao();
 		try {
-			viajesActivos=PersistenceFactory.newTripDao().findByUserIdAndStatusOpenOrClose(user.getId());
+			viajesPendientes= dao.findByUserIdPendingTrips(user.getId());
+			request.setAttribute("listaViajesPendientes", viajesPendientes);
+			Log.debug("Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes", viajesPendientes.size());
+			
+			viajesActivos=dao.findByUserIdAndStatusOpenOrClose(user.getId());
 			request.setAttribute("listaViajesActivos", viajesActivos);
 			Log.debug("Obtenida lista de viajes activos conteniendo [%d] viajes", viajesActivos.size());
 			
-			viajesHechos=PersistenceFactory.newTripDao().findByUserIdAndStatusDone(user.getId());
+			viajesHechos=dao.findByUserIdAndStatusDone(user.getId());
 			request.setAttribute("listaViajesHechos", viajesHechos);
 			Log.debug("Obtenida lista de viajes hechos conteniendo [%d] viajes", viajesHechos.size());
 		}
