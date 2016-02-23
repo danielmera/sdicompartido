@@ -55,7 +55,6 @@ public class ListarViajesUsuario implements Accion {
 			Log.debug(
 					"Obtenida lista de viajes como promotor conteniendo [%d] viajes",
 					viajesComoPromotor.size());
-
 			viajesHechos = dao.findByUserIdAndStatusDone(user.getId());
 			request.setAttribute("listaViajesHechos", viajesHechos);
 			Log.debug(
