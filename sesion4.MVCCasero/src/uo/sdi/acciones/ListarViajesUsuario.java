@@ -1,6 +1,5 @@
 package uo.sdi.acciones;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +59,7 @@ public class ListarViajesUsuario implements Accion {
 			Log.debug(
 					"Obtenida lista de viajes hechos conteniendo [%d] viajes",
 					viajesHechos.size());
+
 		} catch (Exception e) {
 			Log.error("Algo ha ocurrido obteniendo lista de viajes");
 		}
