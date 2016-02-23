@@ -140,6 +140,17 @@ public class Trip {
 	public void setPromoterId(Long promoterId) {
 		this.promoterId = promoterId;
 	}
+	
+	//Atributo para guardar la relación que tiene con el viaje el usuario
+	private String relacion;
+	
+	public void setRelacion(String relacion){
+		this.relacion = relacion;
+	}
+	
+	public String getRelacion(){
+		return this.relacion;
+	}
 
 	@Override
 	public String toString() {

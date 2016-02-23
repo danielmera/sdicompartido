@@ -20,7 +20,8 @@ public class ListarViajesUsuario implements Accion {
 			HttpServletResponse response) {
 		String resultado = "EXITO";
 
-		List<Trip> viajesPendientesConfirmados;
+		List<Trip> viajesPendientesConfirmadosAdmitidos;
+		List<Trip> viajesPendientesConfirmadosExcluidos;
 		List<Trip> viajesHechos;
 		List<Trip> viajesPendientesSinConfirmar;
 		List<Trip> viajesComoPromotor;
@@ -35,13 +36,20 @@ public class ListarViajesUsuario implements Accion {
 			Log.debug(
 					"Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes",
 					viajesPendientesSinConfirmar.size());
-			viajesPendientesConfirmados = dao
-					.findByUserIdAndStatusOpenOrClose(user.getId());
-			request.setAttribute("listaViajesPendientesConfirmados",
-					viajesPendientesConfirmados);
+			viajesPendientesConfirmadosAdmitidos = dao
+					.findByUserIdAndStatusOpenOrCloseAccepted(user.getId());
+			request.setAttribute("listaViajesPendientesConfirmadosAdmitidos",
+					viajesPendientesConfirmadosAdmitidos);
 			Log.debug(
 					"Obtenida lista de viajes activos conteniendo [%d] viajes",
-					viajesPendientesConfirmados.size());
+					viajesPendientesConfirmadosAdmitidos.size());
+			viajesPendientesConfirmadosExcluidos = dao
+					.findByUserIdAndStatusOpenOrCloseExcluded(user.getId());
+			request.setAttribute("listaViajesPendientesConfirmadosExcluidos",
+					viajesPendientesConfirmadosExcluidos);
+			Log.debug(
+					"Obtenida lista de viajes activos conteniendo [%d] viajes",
+					viajesPendientesConfirmadosExcluidos.size());
 			viajesComoPromotor = dao.findByPromotorId(user.getId());
 			request.setAttribute("listaViajesPromotor", viajesComoPromotor);
 			Log.debug(
