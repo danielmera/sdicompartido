@@ -79,9 +79,9 @@
 				</tr>
 			</tbody>
 		</table>
-		<form action="solicitarPlaza?id=<%=trip.getId()%>">
-			<button type="submit" class="btn btn-primary">Solicitar Plaza</button>
-		</form>
+		<button type="submit" class="btn btn-primary"
+			onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip" />'">
+			SolicitarPlaza</button>
 	</div>
 </body>
 </html>

@@ -156,4 +156,10 @@ public class TripDaoJdbcImpl implements TripDao {
 				new TripMapper(), id, id);
 	}
 
+	@Override
+	public List<Trip> findByPromotorId(Long id) {
+		return jdbcTemplate.queryForList("TRIP_FIND_BY_USERID_PROMOTOR",
+				new TripMapper(),id);
+	}
+
 }

@@ -18,5 +18,7 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByUserIdPendingTrips(Long id);
 
+	List<Trip> findByPromotorId(Long id);
+
 	
 }

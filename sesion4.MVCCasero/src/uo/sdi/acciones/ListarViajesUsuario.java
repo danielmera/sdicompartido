@@ -1,5 +1,6 @@
 package uo.sdi.acciones;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,30 +19,44 @@ public class ListarViajesUsuario implements Accion {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String resultado = "EXITO";
-		
-		List<Trip> viajesActivos;
+
+		List<Trip> viajesPendientesConfirmados;
 		List<Trip> viajesHechos;
-		List<Trip> viajesPendientes;
+		List<Trip> viajesPendientesSinConfirmar;
+		List<Trip> viajesComoPromotor;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		TripDao dao = PersistenceFactory.newTripDao();
 		try {
-			viajesPendientes= dao.findByUserIdPendingTrips(user.getId());
-			request.setAttribute("listaViajesPendientes", viajesPendientes);
-			Log.debug("Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes", viajesPendientes.size());
-			
-			viajesActivos=dao.findByUserIdAndStatusOpenOrClose(user.getId());
-			request.setAttribute("listaViajesActivos", viajesActivos);
-			Log.debug("Obtenida lista de viajes activos conteniendo [%d] viajes", viajesActivos.size());
-			
-			viajesHechos=dao.findByUserIdAndStatusDone(user.getId());
+			viajesPendientesSinConfirmar = dao.findByUserIdPendingTrips(user
+					.getId());
+			request.setAttribute("listaViajesPendientesSinConfirmar",
+					viajesPendientesSinConfirmar);
+			Log.debug(
+					"Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes",
+					viajesPendientesSinConfirmar.size());
+			viajesPendientesConfirmados = dao
+					.findByUserIdAndStatusOpenOrClose(user.getId());
+			request.setAttribute("listaViajesPendientesConfirmados",
+					viajesPendientesConfirmados);
+			Log.debug(
+					"Obtenida lista de viajes activos conteniendo [%d] viajes",
+					viajesPendientesConfirmados.size());
+			viajesComoPromotor = dao.findByPromotorId(user.getId());
+			request.setAttribute("listaViajesPromotor", viajesComoPromotor);
+			Log.debug(
+					"Obtenida lista de viajes como promotor conteniendo [%d] viajes",
+					viajesComoPromotor.size());
+
+			viajesHechos = dao.findByUserIdAndStatusDone(user.getId());
 			request.setAttribute("listaViajesHechos", viajesHechos);
-			Log.debug("Obtenida lista de viajes hechos conteniendo [%d] viajes", viajesHechos.size());
-		}
-		catch (Exception e) {
+			Log.debug(
+					"Obtenida lista de viajes hechos conteniendo [%d] viajes",
+					viajesHechos.size());
+		} catch (Exception e) {
 			Log.error("Algo ha ocurrido obteniendo lista de viajes");
 		}
-		
+
 		return resultado;
 	}
 

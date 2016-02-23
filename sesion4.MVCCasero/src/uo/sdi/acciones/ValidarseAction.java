@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import uo.sdi.model.Trip;
 import uo.sdi.model.User;
 import uo.sdi.persistence.PersistenceFactory;
+import uo.sdi.persistence.TripDao;
 import uo.sdi.persistence.UserDao;
 import alb.util.log.Log;
 
@@ -17,63 +18,90 @@ public class ValidarseAction implements Accion {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
-		
-		String resultado="EXITO";
-		String nombreUsuario=request.getParameter("nombreUsuario");
-		String password=request.getParameter("password");
-		HttpSession session=request.getSession();
-		if (session.getAttribute("user")==null) {
+
+		String resultado = "EXITO";
+		String nombreUsuario = request.getParameter("nombreUsuario");
+		String password = request.getParameter("password");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
 			UserDao dao = PersistenceFactory.newUserDao();
 			User userByLogin = dao.findByLogin(nombreUsuario);
-			if (userByLogin!=null) {
-				if(userByLogin.getPassword().equals(password)){
+			if (userByLogin != null) {
+				if (userByLogin.getPassword().equals(password)) {
 					session.setAttribute("user", userByLogin);
-					int contador=Integer.parseInt((String)request.getServletContext().getAttribute("contador"));
-					request.getServletContext().setAttribute("contador", String.valueOf(contador+1));
-					Log.info("El usuario [%s] ha iniciado sesión",nombreUsuario);
-					cargarViajesUsuario(userByLogin,request);
-				}else{
-					Log.info("La password [%s] no es correcta",password);
-					request.setAttribute("message","Password incorrecta, prueba con otra");
-					resultado="FRACASO";
+					int contador = Integer.parseInt((String) request
+							.getServletContext().getAttribute("contador"));
+					request.getServletContext().setAttribute("contador",
+							String.valueOf(contador + 1));
+					Log.info("El usuario [%s] ha iniciado sesión",
+							nombreUsuario);
+					cargarViajesUsuario(userByLogin, request);
+				} else {
+					Log.info("La password [%s] no es correcta", password);
+					request.setAttribute("message",
+							"Password incorrecta, prueba con otra");
+					resultado = "FRACASO";
 				}
-			}
-			else {
+			} else {
 				session.invalidate();
-				Log.info("El usuario [%s] no está registrado",nombreUsuario);
-				request.setAttribute("message","El usuario con el que está intentando acceder no existe");
-				resultado="FRACASO";
+				Log.info("El usuario [%s] no está registrado", nombreUsuario);
+				request.setAttribute("message",
+						"El usuario con el que está intentando acceder no existe");
+				resultado = "FRACASO";
 			}
+		} else if (!nombreUsuario.equals(session.getAttribute("user"))) {
+			Log.info(
+					"Se ha intentado iniciar sesión como [%s] teniendo la sesión iniciada como [%s]",
+					nombreUsuario,
+					((User) session.getAttribute("user")).getLogin());
+			session.invalidate();
+			resultado = "FRACASO";
 		}
-		else
-			if (!nombreUsuario.equals(session.getAttribute("user"))) {
-				Log.info("Se ha intentado iniciar sesión como [%s] teniendo la sesión iniciada como [%s]",nombreUsuario,((User)session.getAttribute("user")).getLogin());
-				session.invalidate();
-				resultado="FRACASO";
-			}
 		return resultado;
 	}
-	
+
 	@Override
 	public String toString() {
 		return getClass().getName();
 	}
-	
-	private void cargarViajesUsuario(User user, HttpServletRequest request){
-		List<Trip> viajesActivos;
+
+	private void cargarViajesUsuario(User user, HttpServletRequest request) {
+		List<Trip> viajesPendientesConfirmados;
 		List<Trip> viajesHechos;
+		List<Trip> viajesPendientesSinConfirmar;
+		List<Trip> viajesComoPromotor;
+		TripDao dao = PersistenceFactory.newTripDao();
 		try {
-			viajesActivos=PersistenceFactory.newTripDao().findByUserIdAndStatusOpenOrClose(user.getId());
-			request.setAttribute("listaViajesActivos", viajesActivos);
-			Log.debug("Obtenida lista de viajes activos conteniendo [%d] viajes", viajesActivos.size());
-			
-			viajesHechos=PersistenceFactory.newTripDao().findByUserIdAndStatusDone(user.getId());
+			viajesPendientesSinConfirmar = dao.findByUserIdPendingTrips(user
+					.getId());
+			request.setAttribute("listaViajesPendientesSinConfirmar",
+					viajesPendientesSinConfirmar);
+			Log.debug(
+					"Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes",
+					viajesPendientesSinConfirmar.size());
+
+			viajesPendientesConfirmados = dao
+					.findByUserIdAndStatusOpenOrClose(user.getId());
+			request.setAttribute("listaPendientesConfirmados",
+					viajesPendientesConfirmados);
+			Log.debug(
+					"Obtenida lista de viajes activos conteniendo [%d] viajes",
+					viajesPendientesConfirmados.size());
+
+			viajesComoPromotor = dao.findByPromotorId(user.getId());
+			request.setAttribute("listaViajesPromotor", viajesComoPromotor);
+			Log.debug(
+					"Obtenida lista de viajes como promotor conteniendo [%d] viajes",
+					viajesComoPromotor.size());
+
+			viajesHechos = dao.findByUserIdAndStatusDone(user.getId());
 			request.setAttribute("listaViajesHechos", viajesHechos);
-			Log.debug("Obtenida lista de viajes hechos conteniendo [%d] viajes", viajesHechos.size());
-		}
-		catch (Exception e) {
+			Log.debug(
+					"Obtenida lista de viajes hechos conteniendo [%d] viajes",
+					viajesHechos.size());
+		} catch (Exception e) {
 			Log.error("Algo ha ocurrido obteniendo lista de viajes");
 		}
 	}
-	
+
 }
