@@ -1,6 +1,9 @@
 package uo.sdi.acciones;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,53 +21,90 @@ public class ListarViajesUsuario implements Accion {
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		String resultado = "EXITO";
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		/* Comprobamos que si se ha cargado la lista de los viajes del usuario
+		 * en caso de no ser así se cargan los viajes del mismo y se guardan en la sesión
+		 * para ahorrar tiempo de procesamiento, y que la comunicación sea más fluida.
+		 */
+		if (session.getAttribute("viajesAux") == null) {
+			cargarViajesUsuario(user, request);
+		}
+		return resultado;
+	}
 
+	protected void cargarViajesUsuario(User user, HttpServletRequest request) {
 		List<Trip> viajesPendientesConfirmadosAdmitidos;
 		List<Trip> viajesPendientesConfirmadosExcluidos;
+		List<Trip> viajesPendientesSinPlazas;
 		List<Trip> viajesHechos;
 		List<Trip> viajesPendientesSinConfirmar;
 		List<Trip> viajesComoPromotor;
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		List<Map<String, Object>> auxViajes = new ArrayList<Map<String, Object>>();
 		TripDao dao = PersistenceFactory.newTripDao();
 		try {
 			viajesPendientesSinConfirmar = dao.findByUserIdPendingTrips(user
 					.getId());
-			request.setAttribute("listaViajesPendientesSinConfirmar",
-					viajesPendientesSinConfirmar);
 			Log.debug(
 					"Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes",
 					viajesPendientesSinConfirmar.size());
+			crearMapaAuxiliar(auxViajes, viajesPendientesSinConfirmar,
+					"PENDIENTE DE CONFIRMACIÓN");
+
 			viajesPendientesConfirmadosAdmitidos = dao
 					.findByUserIdAndStatusOpenOrCloseAccepted(user.getId());
-			request.setAttribute("listaViajesPendientesConfirmadosAdmitidos",
-					viajesPendientesConfirmadosAdmitidos);
 			Log.debug(
-					"Obtenida lista de viajes activos conteniendo [%d] viajes",
+					"Obtenida lista de viajes pendientes confirmados admitidos conteniendo [%d] viajes",
 					viajesPendientesConfirmadosAdmitidos.size());
+			crearMapaAuxiliar(auxViajes, viajesPendientesConfirmadosAdmitidos,
+					"ADMITIDO");
+
 			viajesPendientesConfirmadosExcluidos = dao
 					.findByUserIdAndStatusOpenOrCloseExcluded(user.getId());
-			request.setAttribute("listaViajesPendientesConfirmadosExcluidos",
-					viajesPendientesConfirmadosExcluidos);
 			Log.debug(
-					"Obtenida lista de viajes activos conteniendo [%d] viajes",
+					"Obtenida lista de viajes pendientes confirmados excluidos conteniendo [%d] viajes",
 					viajesPendientesConfirmadosExcluidos.size());
+			crearMapaAuxiliar(auxViajes, viajesPendientesConfirmadosExcluidos,
+					"EXCLUIDO");
+
+			viajesPendientesSinPlazas = dao
+					.findByUserIdAndStatusOpenWithoutAvailablePax(user.getId());
+			Log.debug(
+					"Obtenida lista de viajes pendientes confirmados excluidos conteniendo [%d] viajes",
+					viajesPendientesSinPlazas.size());
+			crearMapaAuxiliar(auxViajes, viajesPendientesSinPlazas,
+					"SIN_PLAZAS");
+
 			viajesComoPromotor = dao.findByPromotorId(user.getId());
-			request.setAttribute("listaViajesPromotor", viajesComoPromotor);
 			Log.debug(
 					"Obtenida lista de viajes como promotor conteniendo [%d] viajes",
 					viajesComoPromotor.size());
+			crearMapaAuxiliar(auxViajes, viajesComoPromotor, "PROMOTOR");
+
+			/* Guardamos este objeto dentro de sessión para no tener que 
+			 * cargar los viajes del usuario cada vez que vayamos a la vista
+			 * principal.jsp de cada usuario.
+			 */
+			request.getSession().setAttribute("viajesAux", auxViajes);
+
 			viajesHechos = dao.findByUserIdAndStatusDone(user.getId());
 			request.setAttribute("listaViajesHechos", viajesHechos);
 			Log.debug(
 					"Obtenida lista de viajes hechos conteniendo [%d] viajes",
 					viajesHechos.size());
-
 		} catch (Exception e) {
-			Log.error("Algo ha ocurrido obteniendo lista de viajes");
+			Log.error("Algo ha ocurrido obteniendo la lista de viajes");
 		}
+	}
 
-		return resultado;
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void crearMapaAuxiliar(List<Map<String, Object>> auxViajes,
+			List<Trip> viajes, String mensaje) {
+		Map map = new HashMap<String, Object>();
+		map.clear();
+		map.put("viajes", viajes);
+		map.put("relacion", mensaje);
+		auxViajes.add(map);
 	}
 
 }

@@ -1,6 +1,7 @@
+<%@page import="com.sun.jndi.url.iiopname.iiopnameURLContextFactory"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@ include file="comprobarNavegacion.jsp" %>--%>
+<%@ include file="comprobarUsuarioConectado.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -46,33 +47,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="entry" items="${listaViajesPendientesSinConfirmar}" varStatus="i">
-					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.closingDate}</td>
-						<td>PENDIENTE DE CONFIRMACIÓN</td>
+				<c:forEach var="entry" items="${viajesAux}" varStatus="i">
+					<c:forEach var="viaje" items="${entry.viajes}" varStatus="j">
+					<tr>
+						<td><a href="mostrarViaje?id=${viaje.id}">${viaje.id}</a></td>
+						<td>${viaje.closingDate}</td>
+						<td>${entry.relacion}</td>
 					</tr>
-				</c:forEach>
-				<c:forEach var="entry" items="${listaViajesPendientesConfirmadosAdmitidos}" varStatus="i">
-					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.closingDate}</td>
-						<td>ADMITIDO</td>
-					</tr>	
-				</c:forEach>
-				<c:forEach var="entry" items="${listaViajesPendientesConfirmadosExcluidos}" varStatus="i">
-					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.closingDate}</td>
-						<td>EXCLUIDO</td>
-					</tr>	
-				</c:forEach>
-				<c:forEach var="entry" items="${listaViajesPromotor}" varStatus="i">
-					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.closingDate}</td>
-						<td>PROMOTOR</td>
-					</tr>	
+					</c:forEach>	
 				</c:forEach>
 			</tbody>
 		</table>

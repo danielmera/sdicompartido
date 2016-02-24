@@ -149,6 +149,12 @@ public class TripDaoJdbcImpl implements TripDao {
 		return jdbcTemplate.queryForList(
 				"TRIP_FIND_BY_USERID_STATUSOPENORCLOSE_EXCLUDED", new TripMapper(), id);
 	}
+	
+	@Override
+	public List<Trip> findByUserIdAndStatusOpenWithoutAvailablePax(Long id) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_USERID_STATUSOPEN_WITHOUTAVAILABLEPAX", new TripMapper(), id,id);
+	}
 
 	@Override
 	public List<Trip> findByUserIdAndStatusDone(Long id) {

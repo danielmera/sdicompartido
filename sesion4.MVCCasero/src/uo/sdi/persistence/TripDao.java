@@ -22,5 +22,7 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByUserIdAndStatusOpenOrCloseExcluded(Long id);
 
+	List<Trip> findByUserIdAndStatusOpenWithoutAvailablePax(Long id);
+
 	
 }

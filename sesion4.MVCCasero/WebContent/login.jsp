@@ -1,4 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -28,14 +29,11 @@
 	</div>
 	</nav>
 	<!-- Código para mostrar mensajes informativos en caso de validarse incorrectamente -->
-	
-	<%
-	if (request.getAttribute("message") != null) {
-	%>
-	<div class="alert alert-danger">
-		<%=request.getAttribute("message")%>
-	</div>
-	<% }%>
+	<c:if test="${requestScope.message!=null}">
+		<div class="alert alert-danger">
+			<%=request.getAttribute("message")%>
+		</div>
+	</c:if>
 	<div class="container">
 		<form class="form-signin" action="validarse" method="post">
 			<h3 class="form-signin-heading">Iniciar sesión</h3>
