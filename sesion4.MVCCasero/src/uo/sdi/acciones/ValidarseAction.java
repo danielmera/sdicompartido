@@ -66,7 +66,8 @@ public class ValidarseAction implements Accion {
 	}
 
 	private void cargarViajesUsuario(User user, HttpServletRequest request) {
-		List<Trip> viajesPendientesConfirmados;
+		List<Trip> viajesPendientesConfirmadosAdmitidos;
+		List<Trip> viajesPendientesConfirmadosExcluidos;
 		List<Trip> viajesHechos;
 		List<Trip> viajesPendientesSinConfirmar;
 		List<Trip> viajesComoPromotor;
@@ -80,13 +81,20 @@ public class ValidarseAction implements Accion {
 					"Obtenida lista de viajes pendientes por confirmar conteniendo [%d] viajes",
 					viajesPendientesSinConfirmar.size());
 
-			viajesPendientesConfirmados = dao
-					.findByUserIdAndStatusOpenOrClose(user.getId());
-			request.setAttribute("listaPendientesConfirmados",
-					viajesPendientesConfirmados);
+			viajesPendientesConfirmadosAdmitidos = dao
+					.findByUserIdAndStatusOpenOrCloseAccepted(user.getId());
+			request.setAttribute("listaViajesPendientesConfirmadosAdmitidos",
+					viajesPendientesConfirmadosAdmitidos);
 			Log.debug(
-					"Obtenida lista de viajes activos conteniendo [%d] viajes",
-					viajesPendientesConfirmados.size());
+					"Obtenida lista de viajes pendientes confirmados admitidos conteniendo [%d] viajes",
+					viajesPendientesConfirmadosAdmitidos.size());
+			viajesPendientesConfirmadosExcluidos = dao
+					.findByUserIdAndStatusOpenOrCloseExcluded(user.getId());
+			request.setAttribute("listaViajesPendientesConfirmadosExcluidos",
+					viajesPendientesConfirmadosExcluidos);
+			Log.debug(
+					"Obtenida lista de viajes pendientes confirmados excluidos conteniendo [%d] viajes",
+					viajesPendientesConfirmadosExcluidos.size());
 
 			viajesComoPromotor = dao.findByPromotorId(user.getId());
 			request.setAttribute("listaViajesPromotor", viajesComoPromotor);
