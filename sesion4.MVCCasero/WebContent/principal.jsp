@@ -35,36 +35,51 @@
 	Es Vd el usuario número: ${contador}
 	<a href="registrarViaje.jsp">Registrar un viaje</a>
 	<div class="container">
-		<h3>Viajes activos</h3>
+		<h3>Viajes pendientes</h3>
 		<hr />
-		<table class="table table-bordered"
-			style="background-color: LightGray">
+		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Origen</th>
-					<th>Destino</th>
-					<th>Promotor</th>
-					<th>Precio</th>
+					<th>Fecha de cierre</th>
+					<th>Relacion</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="entry" items="${listaViajesActivos}" varStatus="i">
+				<c:forEach var="entry" items="${listaViajesPendientesSinConfirmar}" varStatus="i">
 					<tr id="item_${i.index}">
 						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.departure.city}</td>
-						<td>${entry.destination.city}</td>
-						<td>${entry.promoterId}</td>
-						<td>${entry.estimatedCost}</td>
+						<td>${entry.closingDate}</td>
+						<td>PENDIENTE DE CONFIRMACIÓN</td>
 					</tr>
+				</c:forEach>
+				<c:forEach var="entry" items="${listaViajesPendientesConfirmadosAdmitidos}" varStatus="i">
+					<tr id="item_${i.index}">
+						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
+						<td>${entry.closingDate}</td>
+						<td>ADMITIDO</td>
+					</tr>	
+				</c:forEach>
+				<c:forEach var="entry" items="${listaViajesPendientesConfirmadosExcluidos}" varStatus="i">
+					<tr id="item_${i.index}">
+						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
+						<td>${entry.closingDate}</td>
+						<td>EXCLUIDO</td>
+					</tr>	
+				</c:forEach>
+				<c:forEach var="entry" items="${listaViajesPromotor}" varStatus="i">
+					<tr id="item_${i.index}">
+						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
+						<td>${entry.closingDate}</td>
+						<td>PROMOTOR</td>
+					</tr>	
 				</c:forEach>
 			</tbody>
 		</table>
 		<br>
 		<h3>Viajes realizados</h3>
 		<hr />
-		<table class="table table-bordered"
-			style="background-color: LightGray">
+		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Id</th>

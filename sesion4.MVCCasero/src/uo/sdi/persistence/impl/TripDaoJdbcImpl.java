@@ -52,7 +52,7 @@ public class TripDaoJdbcImpl implements TripDao {
 			res.setPromoterId(rs.getLong("promoter_Id"));
 			res.setStatus(TripStatus.values()[rs.getInt("status")]);
 			res.setId(rs.getLong("id"));
-
+			
 			return res;
 		}
 
@@ -139,9 +139,15 @@ public class TripDaoJdbcImpl implements TripDao {
 	}
 
 	@Override
-	public List<Trip> findByUserIdAndStatusOpenOrClose(Long id) {
+	public List<Trip> findByUserIdAndStatusOpenOrCloseAccepted(Long id) {
 		return jdbcTemplate.queryForList(
-				"TRIP_FIND_BY_USERID_STATUSOPENORCLOSE", new TripMapper(), id);
+				"TRIP_FIND_BY_USERID_STATUSOPENORCLOSE_ACCEPTED", new TripMapper(), id);
+	}
+	
+	@Override
+	public List<Trip> findByUserIdAndStatusOpenOrCloseExcluded(Long id) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_USERID_STATUSOPENORCLOSE_EXCLUDED", new TripMapper(), id);
 	}
 
 	@Override
@@ -154,6 +160,12 @@ public class TripDaoJdbcImpl implements TripDao {
 	public List<Trip> findByUserIdPendingTrips(Long id) {
 		return jdbcTemplate.queryForList("TRIP_FIND_BY_USERID_PENDINGTRIPS",
 				new TripMapper(), id, id);
+	}
+
+	@Override
+	public List<Trip> findByPromotorId(Long id) {
+		return jdbcTemplate.queryForList("TRIP_FIND_BY_USERID_PROMOTOR",
+				new TripMapper(),id);
 	}
 
 }
