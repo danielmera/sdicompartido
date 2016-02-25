@@ -59,26 +59,29 @@
 			</tbody>
 		</table>
 		<br>
-		<h3>Viajes realizados</h3>
+		<h3>Viajes realizados o cancelados</h3>
 		<hr />
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Origen</th>
-					<th>Destino</th>
-					<th>Promotor</th>
-					<th>Precio</th>
+					<th>Fecha de cierre</th>
+					<th>Relacion</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="entry" items="${listaViajesHechos}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td><a href="mostrarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.departure.city}</td>
-						<td>${entry.destination.city}</td>
-						<td>${entry.promotorId}</td>
-						<td>${entry.estimatedCost}</td>
+						<td>${entry.id}</td>
+						<td>${entry.closingDate}</td>
+						<td>"HECHO"</td>
+					</tr>
+				</c:forEach>
+				<c:forEach var="entry" items="${listaViajesCancelados}" varStatus="i">
+					<tr id="item_${i.index}">
+						<td>${entry.id}</td>
+						<td>${entry.closingDate}</td>
+						<td>"CANCELADO"</td>
 					</tr>
 				</c:forEach>
 			</tbody>

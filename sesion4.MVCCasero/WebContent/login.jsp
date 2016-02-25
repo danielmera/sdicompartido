@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -28,12 +29,14 @@
 		</ul>
 	</div>
 	</nav>
+	<!-- Mensaje de alerta para mostrar información de la operación de registro de viajes al 
+		usuario registrado en caso de éxito-->
+	<tags:messageSuccess mensaje="${requestScope.messageSuccess}" />
+
 	<!-- Código para mostrar mensajes informativos en caso de validarse incorrectamente -->
-	<c:if test="${requestScope.message!=null}">
-		<div class="alert alert-danger">
-			<%=request.getAttribute("message")%>
-		</div>
-	</c:if>
+
+	<tags:messageError mensaje="${requestScope.message}" />
+
 	<div class="container">
 		<form class="form-signin" action="validarse" method="post">
 			<h3 class="form-signin-heading">Iniciar sesión</h3>
@@ -41,11 +44,13 @@
 			<br>
 			<div class="form-group">
 				<label for="nombreUsuario">Login:</label> <input type="text"
-					class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Enter login">
+					class="form-control" id="nombreUsuario" name="nombreUsuario"
+					placeholder="Enter login">
 			</div>
 			<div class="form-group">
 				<label for="password">Password:</label> <input type="password"
-					class="form-control" id="password" name="password" placeholder="Enter password">
+					class="form-control" id="password" name="password"
+					placeholder="Enter password">
 			</div>
 			<button type="submit" class="btn btn-primary btn-block">Aceptar</button>
 		</form>

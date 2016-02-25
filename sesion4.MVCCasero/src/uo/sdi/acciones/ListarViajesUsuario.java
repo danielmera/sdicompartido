@@ -27,9 +27,9 @@ public class ListarViajesUsuario implements Accion {
 		 * en caso de no ser así se cargan los viajes del mismo y se guardan en la sesión
 		 * para ahorrar tiempo de procesamiento, y que la comunicación sea más fluida.
 		 */
-		if (session.getAttribute("viajesAux") == null) {
+		//if (session.getAttribute("viajesAux") == null) {
 			cargarViajesUsuario(user, request);
-		}
+		//}
 		return resultado;
 	}
 
@@ -40,6 +40,7 @@ public class ListarViajesUsuario implements Accion {
 		List<Trip> viajesHechos;
 		List<Trip> viajesPendientesSinConfirmar;
 		List<Trip> viajesComoPromotor;
+		List<Trip> viajesCancelados;
 		List<Map<String, Object>> auxViajes = new ArrayList<Map<String, Object>>();
 		TripDao dao = PersistenceFactory.newTripDao();
 		try {
@@ -92,6 +93,12 @@ public class ListarViajesUsuario implements Accion {
 			Log.debug(
 					"Obtenida lista de viajes hechos conteniendo [%d] viajes",
 					viajesHechos.size());
+			
+			viajesCancelados = dao.findByUserIdAndStatusCancelled(user.getId());
+			request.setAttribute("listaViajesCancelados", viajesCancelados);
+			Log.debug(
+					"Obtenida lista de viajes cancelados conteniendo [%d] viajes",
+					viajesCancelados.size());
 		} catch (Exception e) {
 			Log.error("Algo ha ocurrido obteniendo la lista de viajes");
 		}

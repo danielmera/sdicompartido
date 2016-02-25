@@ -1,4 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -22,13 +23,7 @@
 	</div>
 	</nav>
 	
-		<%
-	if (request.getAttribute("message") != null) {
-	%>
-	<div class="alert alert-danger">
-		<%=request.getAttribute("message")%>
-	</div>
-	<% }%>
+	<tags:messageError mensaje="${requestScope.message}"/>
 	
 	<a class="a-center" href="login.jsp">Volver al inicio</a>
 	

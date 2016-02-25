@@ -14,6 +14,8 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByUserIdAndStatusDone(Long id);
 
+	List<Trip> findByUserIdAndStatusCancelled(Long id);
+
 	List<Trip> findByUserIdPendingTrips(Long id);
 
 	List<Trip> findByPromotorId(Long id);
@@ -24,5 +26,6 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByUserIdAndStatusOpenWithoutAvailablePax(Long id);
 
-	
+	List<Trip> findByClosingDateOpenStatusWithFilter(Date actualDate, Long id);
+
 }

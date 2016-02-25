@@ -38,14 +38,13 @@
 			<thead>
 				<tr>
 					<th>ID viaje</th>
+					<th>Fecha Cierre</th>
+					<th>Fecha Llegada</th>
+					<th>Fecha Salida</th>
 					<th>Ciudad Origen</th>
 					<th>País Origen</th>
-					<th>Provincia Origen</th>
-					<th>Zipcode Origen</th>
 					<th>Ciudad Destino</th>
 					<th>País Destino</th>
-					<th>Provincia Destino</th>
-					<th>Zipcode Destino</th>
 					<th>Plazas libres</th>
 					<th>Precio</th>
 					<th>Comentarios</th>
@@ -57,14 +56,13 @@
 				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 					<tr id="item_${i.index}">
 						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
+						<td>${entry.closingDate}</td>
+						<td>${entry.departureDate}</td>
+						<td>${entry.arrivalDate}</td>
 						<td>${entry.departure.city}</td>
 						<td>${entry.departure.country}</td>
-						<td>${entry.departure.state}</td>
-						<td>${entry.departure.zipCode}</td>
 						<td>${entry.destination.city}</td>
 						<td>${entry.destination.country}</td>
-						<td>${entry.destination.state}</td>
-						<td>${entry.destination.zipCode}</td>
 						<td>${entry.availablePax}</td>
 						<td>${entry.estimatedCost}$</td>
 						<td>${entry.comments}</td>

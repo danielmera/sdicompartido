@@ -1,4 +1,5 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -25,13 +26,8 @@
 	</div>
 	</nav>
 	<!-- Mensaje de alerta para mostrar información de la operación de registro al usuario PÚBLICO -->
-	<%
-	if (request.getAttribute("message") != null) {
-	%>
-	<div class="alert alert-danger">
-		<%=request.getAttribute("message")%>
-	</div>
-	<% }%>
+		<tags:messageError mensaje="${requestScope.message}"/>
+
 	<form class="form-signin" action="registrarUsuario" method="POST">
 		<%-- <input id='mv' type='hidden' value='${requestScope.message}' /> --%>
 		<h4 class="from-signin-heading">Registrarse como usuario</h4>

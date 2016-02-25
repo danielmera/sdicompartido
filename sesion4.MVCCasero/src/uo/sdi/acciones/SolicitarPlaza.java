@@ -27,10 +27,10 @@ public class SolicitarPlaza implements Accion {
 				User user = (User) request.getSession().getAttribute("user");
 				dao.save(new Application(user.getId(), new Long(trip_id)));
 				// Actualizamos el número de plazas del vuelo
-				trip.setAvailablePax(trip.getAvailablePax() - 1);
-				if (trip.getAvailablePax() == 0)
-					trip.setStatus(TripStatus.CLOSED);
-				tripdao.update(trip);
+				//trip.setAvailablePax(trip.getAvailablePax() - 1);
+				//if (trip.getAvailablePax() == 0)
+					//trip.setStatus(TripStatus.CLOSED);
+				//tripdao.update(trip);
 			} else {
 				Log.debug("El viaje [%s] no tiene plazas libres",
 						(trip_id + ""));

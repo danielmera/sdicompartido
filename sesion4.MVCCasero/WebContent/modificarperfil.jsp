@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="comprobarUsuarioConectado.jsp" %>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -31,25 +32,9 @@
 		</div>
 	</nav>
 	<!-- Código para mostrar mensajes informativos sobre la operación actualizar positivos-->
-	<%
-		if (request.getAttribute("messageSuccess") != null) {
-	%>
-	<div class="alert alert-success">
-		<%=request.getAttribute("messageSuccess")%>
-	</div>
-	<%
-		}
-	%>
+	<tags:messageSuccess mensaje="${requestScope.messageSuccess}"/>
 	<!-- Código para mostrar mensajes informativos sobre la operación actualizar negativos-->
-	<%
-		if (request.getAttribute("message") != null) {
-	%>
-	<div class="alert alert-danger">
-		<%=request.getAttribute("message")%>
-	</div>
-	<%
-		}
-	%>
+	<tags:messageError mensaje="${requestScope.message}"/>
 	<jsp:useBean id="user" class="uo.sdi.model.User" scope="session" />
 	<div class="container">
 		<form action="modificarDatos" class="form-signin">

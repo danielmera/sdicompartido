@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ include file="comprobarUsuarioConectado.jsp" %>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -25,28 +26,11 @@
 		</ul>
 	</div>
 	</nav>
-	<!-- Mensaje de alerta para mostrar información de la operación de registro de viajes al 
-		usuario registrado en caso de éxito-->
-	<%
-		if (request.getAttribute("messageSuccess") != null) {
-	%>
-	<div class="alert alert-success">
-		<%=request.getAttribute("messageSuccess")%>
-	</div>
-	<%
-		}
-	%>
+
 	<!-- Mensaje de alerta para mostrar información de la operación de de registro de viajes
 		al usuario registrado en caso de error -->
-	<%
-		if (request.getAttribute("message") != null) {
-	%>
-	<div class="alert alert-danger">
-		<%=request.getAttribute("message")%>
-	</div>
-	<%
-		}
-	%>
+		<tags:messageError mensaje="${requestScope.message}"/>
+
 	<div class="container">
 		<form action="registrarViaje" method="POST">
 			<h2 class="from-signin-heading">Registrar un viaje</h2>
