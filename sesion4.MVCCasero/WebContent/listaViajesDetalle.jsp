@@ -1,6 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="comprobarUsuarioConectado.jsp" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -34,7 +35,7 @@
 	<div class="container">
 		<h3>Viajes disponibles</h3>
 		<hr />
-		<table class="table table-striped">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>ID viaje</th>
@@ -56,9 +57,9 @@
 				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 					<tr id="item_${i.index}">
 						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td>${entry.closingDate}</td>
-						<td>${entry.departureDate}</td>
-						<td>${entry.arrivalDate}</td>
+						<td><fmt:formatDate type="both" value="${entry.closingDate}"/></td>
+						<td><fmt:formatDate type="both" value="${entry.arrivalDate}"/></td>
+						<td><fmt:formatDate type="both" value="${entry.departureDate}"/></td>
 						<td>${entry.departure.city}</td>
 						<td>${entry.departure.country}</td>
 						<td>${entry.destination.city}</td>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- <%@ include file="comprobarNavegacion.jsp"%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -29,21 +30,23 @@
 	<div class="container">
 		<h3>Viajes disponibles</h3>
 		<hr />
-		<table class="table table-bordered">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Origen</th>
 					<th>Destino</th>
+					<th>Fecha de salida</th>
 					<th>Plazas</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td>${entry.id}</a></td>
+						<td>${entry.id}</td>
 						<td>${entry.departure.city}</td>
 						<td>${entry.destination.city}</td>
+						<td><fmt:formatDate type="date" value="${entry.departureDate}"/></td>
 						<td>${entry.availablePax}</td>
 					</tr>
 				</c:forEach>
