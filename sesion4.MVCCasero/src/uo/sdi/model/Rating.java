@@ -21,6 +21,19 @@ public class Rating {
 	private String comment;
 	private Integer value = 0;
 
+	public Rating(){}
+	
+	public Rating(Long seatFromTripId, Long seatFromUserId,
+			Long seatAboutTripId, Long seatAboutUserId, String comment,
+			Integer value) {
+		this.seatFromTripId = seatFromTripId;
+		this.seatFromUserId = seatFromUserId;
+		this.seatAboutTripId = seatAboutTripId;
+		this.seatAboutUserId = seatAboutUserId;
+		this.comment = comment;
+		this.value = value;
+	}
+
 	public Long getId() {
 		return id;
 	}

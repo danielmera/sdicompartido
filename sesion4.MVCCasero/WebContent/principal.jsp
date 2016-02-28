@@ -68,14 +68,14 @@
 			</tbody>
 		</table>
 		<br>
-		<h3>Viajes realizados o cancelados</h3>
+		<h3>Viajes realizados</h3>
 		<hr />
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
 					<th>Fecha de cierre</th>
-					<th>Relacion</th>
+					<th>Usuarios</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -83,15 +83,8 @@
 					<tr id="item_${i.index}">
 						<td>${entry.id}</td>
 						<td>${entry.closingDate}</td>
-						<td>"HECHO"</td>
-					</tr>
-				</c:forEach>
-				<c:forEach var="entry" items="${listaViajesCancelados}"
-					varStatus="i">
-					<tr id="item_${i.index}">
-						<td>${entry.id}</td>
-						<td><fmt:formatDate type="both" value="${entry.closingDate}"/></td>
-						<td>"CANCELADO"</td>
+						<td><a class="btn btn-info"
+							href="cargarUsuarios?id=${entry.id}">Ver usuarios</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

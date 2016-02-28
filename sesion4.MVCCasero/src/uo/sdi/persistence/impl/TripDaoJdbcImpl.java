@@ -137,7 +137,7 @@ public class TripDaoJdbcImpl implements TripDao {
 			Long id) {
 		return jdbcTemplate.queryForList(
 				"TRIP_FIND_BY_BEFORECLOSINGDATE_OPENSTATUS_WITH_FILTER",
-				new TripMapper(), actualDate, id, id);
+				new TripMapper(), actualDate, id, id,id);
 	}
 
 	@Override

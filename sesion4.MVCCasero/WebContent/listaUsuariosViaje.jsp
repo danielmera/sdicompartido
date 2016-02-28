@@ -2,10 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="comprobarUsuarioConectado.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.uniovi.es/sdi" prefix="tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>ShareMyTrip - Listado de viajes</title>
+<title>ShareMyTrip - Usuarios</title>
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -33,9 +34,7 @@
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="listarViajesUsuario">Home</a></li>
-			<li><a href="listarViajes">Viajes</a></li>
-			<li><a href="modificarperfil.jsp">Perfil</a></li>
+			<li><a href="listarViajesUsuario">Volver</a></li>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
 			<li><a href="cerrarSesion">Cerrar Sesión</a></li>
@@ -43,44 +42,36 @@
 	</div>
 	</nav>
 	<div class="container">
-		<h3>Viajes disponibles</h3>
+		<h3>Promotor y pasajeros del viaje</h3>
 		<hr />
-		<table id="exampleDos" class="table table-bordered table-striped">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>ID viaje</th>
-					<th>Fecha Cierre</th>
-					<th>Fecha Llegada</th>
-					<th>Fecha Salida</th>
-					<th>Ciudad Origen</th>
-					<th>País Origen</th>
-					<th>Ciudad Destino</th>
-					<th>País Destino</th>
-					<th>Plazas libres</th>
-					<th>Precio</th>
-					<th>Estado</th>
-					<th>Promotor</th>
-					<th>Comentarios</th>
+					<th style="visibility:hidden"></th>
+					<th>Identificador</th>
+					<th>Nombre</th>
+					<th>Apellidos</th>
+					<th>Email</th>
+					<th>Añadir comentario</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
+					<tr>
+						<td>Promotor</td>
+						<td>${promotor.id}</td>
+						<td>${promotor.name}</td>
+						<td>${promotor.surname}</td>
+						<td>${promotor.email}</td>
+						<td><tags:addcomment aboutTripId="${requestScope.trip_id}" aboutUserId="${promotor.id}" /></td>
+					</tr>
+				<c:forEach var="entry" items="${pasajeros}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td><fmt:formatDate type="both" value="${entry.closingDate}" /></td>
-						<td><fmt:formatDate type="both" value="${entry.arrivalDate}" /></td>
-						<td><fmt:formatDate type="both"
-								value="${entry.departureDate}" /></td>
-						<td>${entry.departure.city}</td>
-						<td>${entry.departure.country}</td>
-						<td>${entry.destination.city}</td>
-						<td>${entry.destination.country}</td>
-						<td>${entry.availablePax}</td>
-						<td>${entry.estimatedCost}$</td>
-						<td>${entry.status}</td>
-						<td>${entry.promoterId}</td>
-						<td><a class="btn btn-info"
-							href="cargarComentarios?trip_id=${entry.id}">Ver comentarios</a></td>
+						<td>Pasajero</td>
+						<td>${entry.id}</td>
+						<td>${entry.name}</td>
+						<td>${entry.surname}</td>
+						<td>${entry.email}</td>
+						<td><tags:addcomment aboutTripId="${requestScope.trip_id}" aboutUserId="${entry.id}" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>

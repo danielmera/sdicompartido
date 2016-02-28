@@ -6,16 +6,16 @@ body {
 	background-color: #f5f5f5;
 }
 
-footer{
-	width:100%;
-	background:LightGrey;
-	position:absolute;
-	bottom:0;
-	left:0;
+footer {
+	width: 100%;
+	background: LightGrey;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
 .navbar-inner {
-	background-color:transparent;
+	background-color: transparent;
 }
 
 .form-signin {

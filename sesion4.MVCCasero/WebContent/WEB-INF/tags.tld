@@ -27,4 +27,19 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>addcomment</name>
+		<tag-class>uo.sdi.tags.AddCommentTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>aboutTripId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>aboutUserId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

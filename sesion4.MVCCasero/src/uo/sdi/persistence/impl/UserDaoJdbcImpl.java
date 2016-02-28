@@ -70,5 +70,16 @@ public class UserDaoJdbcImpl implements UserDao {
 		return jdbcTemplate.queryForObject("USER_FIND_BY_LOGIN",
 				new UserMapper(), login);
 	}
+	
+	@Override
+	public User findPromoterByTripId(Long trip_id){
+		return jdbcTemplate.queryForObject("USER_FIND_PROMOTER_BY_TRIPID",
+				new UserMapper(), trip_id);
+	}
+	
+	@Override
+	public List<User> findBySeatTripId(Long trip_id,Long user_id){
+		return jdbcTemplate.queryForList("USERS_FIND_BY_SEATTRIPID", new UserMapper(),trip_id,user_id);
+	}
 
 }

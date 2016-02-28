@@ -30,7 +30,7 @@
 
 	<form class="form-signin" action="registrarUsuario" method="POST">
 		<%-- <input id='mv' type='hidden' value='${requestScope.message}' /> --%>
-		<h4 class="from-signin-heading">Registrarse como usuario</h4>
+		<h4 class="form-signin-heading">Registrarse como usuario</h4>
 		<div class="form-group">
 				<label for="login">Login:</label> <input type="text"
 					class="form-control" id="login" name="login" required>

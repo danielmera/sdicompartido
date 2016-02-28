@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uo.sdi.acciones.Accion;
+import uo.sdi.acciones.AñadirComentario;
+import uo.sdi.acciones.CargarComentario;
+import uo.sdi.acciones.CargarComentarios;
+import uo.sdi.acciones.CargarUsuarios;
 import uo.sdi.acciones.CargarViaje;
 import uo.sdi.acciones.CerrarSesion;
 import uo.sdi.acciones.ListarViajesAction;
@@ -42,6 +46,8 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		String rolAntes, rolDespues;
 		
 		try {
+			opcion = req.getServletPath();
+			
 			opcion=req.getServletPath().replace("/","");
 				
 			rolAntes=obtenerRolDeSesion(req);
@@ -126,6 +132,10 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		mapaRegistrado.put("registrarViaje", new RegistrarViaje());
 		mapaRegistrado.put("cargarViaje", new CargarViaje());
 		mapaRegistrado.put("solicitarPlaza",new SolicitarPlaza());
+		mapaRegistrado.put("cargarComentarios",new CargarComentarios());
+		mapaRegistrado.put("cargarUsuarios",new CargarUsuarios());
+		mapaRegistrado.put("cargarComentario", new CargarComentario());
+		mapaRegistrado.put("añadirComentario",new AñadirComentario());
 		mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
 	}
 	
@@ -181,6 +191,21 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		resJSP.put("EXITO","/listarViajesUsuario");
 		resJSP.put("FRACASO","/mostrarViaje.jsp");
 		opcionResJSP.put("solicitarPlaza", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listaRatings.jsp");
+		resJSP.put("FRACASO","/error.jsp");
+		opcionResJSP.put("cargarComentarios", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listaUsuariosViaje.jsp");
+		resJSP.put("FRACASO","/error.jsp");
+		opcionResJSP.put("cargarUsuarios", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/verComentario.jsp");
+		opcionResJSP.put("cargarComentario", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/cargarUsuarios");
+		resJSP.put("FRACASO","/error.jsp");
+		opcionResJSP.put("añadirComentario", resJSP);
 		
 		mapaDeNavegacion.put("REGISTRADO",opcionResJSP);
 	}
