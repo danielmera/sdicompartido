@@ -36,15 +36,17 @@
 		<ul class="nav navbar-nav">
 			<li><a href="listarViajesUsuario">Home</a></li>
 			<li><a href="listarViajes">Viajes</a></li>
-			<li><a href="modificarperfil.jsp">Perfil</a></li>
+			<li><a href="registrarViaje.jsp">Registrar viaje</a></li>
+			<li><a href="listaViajesPromotor">Confirmar plazas</a></li>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
+			<li><a href="modificarperfil.jsp">Perfil</a></li>
 			<li><a href="cerrarSesion">Cerrar Sesión</a></li>
 		</ul>
 	</div>
 	</nav>
 	Es Vd el usuario número: ${contador}
-	<a href="registrarViaje.jsp">Registrar un viaje</a>
+	
 	<div class="container">
 		<h3>Viajes pendientes</h3>
 		<table id="example" class="table table-bordered table-striped">
@@ -60,7 +62,7 @@
 					<c:forEach var="viaje" items="${entry.viajes}" varStatus="j">
 						<tr>
 							<td><a href="mostrarViaje?id=${viaje.id}">${viaje.id}</a></td>
-							<td><fmt:formatDate type="both" value="${viaje.closingDate}"/></td>
+							<td><fmt:formatDate type="both" value="${viaje.closingDate}" /></td>
 							<td>${entry.relacion}</td>
 						</tr>
 					</c:forEach>
@@ -90,7 +92,7 @@
 					varStatus="i">
 					<tr id="item_${i.index}">
 						<td>${entry.id}</td>
-						<td><fmt:formatDate type="both" value="${entry.closingDate}"/></td>
+						<td><fmt:formatDate type="both" value="${entry.closingDate}" /></td>
 						<td>"CANCELADO"</td>
 					</tr>
 				</c:forEach>

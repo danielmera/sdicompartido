@@ -23,6 +23,11 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="listarViajesUsuario">Home</a></li>
+			<li><a href="listarViajes">Viajes</a></li>
+		</ul>
+		<ul class="nav navbar-nav pull-right">
+			<li><a href="modificarperfil.jsp">Perfil</a></li>
+			<li><a href="cerrarSesion">Cerrar Sesion</a></li>
 		</ul>
 	</div>
 	</nav>

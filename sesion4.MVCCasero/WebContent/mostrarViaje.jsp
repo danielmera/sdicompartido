@@ -25,7 +25,7 @@
 			<li><a href="listarViajes">Volver</a></li>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
-			<li><a href="cerrarSesion">CerrarSesion</a></li>
+			<li><a href="cerrarSesion">Cerrar Sesion</a></li>
 		</ul>
 	</div>
 	</nav>
@@ -81,7 +81,7 @@
 		</table>
 		<button type="submit" class="btn btn-primary"
 			onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip" />'">
-			SolicitarPlaza</button>
+			Solicitar Plaza</button>
 	</div>
 </body>
 </html>

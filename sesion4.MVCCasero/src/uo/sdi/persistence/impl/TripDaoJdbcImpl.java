@@ -108,6 +108,11 @@ public class TripDaoJdbcImpl implements TripDao {
 
 				dto.getId());
 	}
+	
+	@Override
+	public int decreaseAvailablePax(Long trip_id, Integer availablePax) {
+		return jdbcTemplate.execute("TRIP_DECREASE_AVAILABLEPAX", trip_id, availablePax);
+	}
 
 	@Override
 	public int delete(Long id) {
@@ -137,13 +142,21 @@ public class TripDaoJdbcImpl implements TripDao {
 			Long id) {
 		return jdbcTemplate.queryForList(
 				"TRIP_FIND_BY_BEFORECLOSINGDATE_OPENSTATUS_WITH_FILTER",
-				new TripMapper(), actualDate, id, id);
+				new TripMapper(), actualDate, id, id, id);
 	}
 
 	@Override
 	public Trip findByPromoterIdAndArrivalDate(Long id, Date arrivalDate) {
 		return jdbcTemplate.queryForObject("TRIP_FIND_BY_PROMOTER_AND_ARRIVAL",
 				new TripMapper(), id, arrivalDate);
+	}
+	
+	
+	@Override
+	public List<Trip> findByPromoterStatusOpenAvailablePax(Long id) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_PROMOTER_AVAILABLEPAX_STATUSOPEN",
+				new TripMapper(), id);
 	}
 
 	@Override
@@ -189,6 +202,11 @@ public class TripDaoJdbcImpl implements TripDao {
 	public List<Trip> findByPromotorId(Long id) {
 		return jdbcTemplate.queryForList("TRIP_FIND_BY_USERID_PROMOTOR",
 				new TripMapper(), id);
+	}
+
+	@Override
+	public int setOtherApplicationsToSinPlaza(Long trip_id) {
+		return jdbcTemplate.execute("TRIP_UPDATE_OTHER_APPLICATIONS_TO_SIN_PLAZA", trip_id);
 	}
 
 }

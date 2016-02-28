@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="comprobarUsuarioConectado.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%-- <%@ include file="comprobarNavegacion.jsp"%> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -24,8 +24,6 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="listarViajesUsuario">Home</a></li>
-			<li><a href="listarViajes">Viajes</a></li>
-
 		</ul>
 		<ul class="nav navbar-nav pull-right">
 			<li><a href="modificarperfil.jsp">Perfil</a></li>
@@ -34,50 +32,36 @@
 	</div>
 	</nav>
 	<div class="container">
-		<h3>Viajes disponibles</h3>
+		<h3>Viajes a confirmar</h3>
 		<hr />
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>ID viaje</th>
-					<th>Fecha Cierre</th>
-					<th>Fecha Llegada</th>
-					<th>Fecha Salida</th>
-					<th>Ciudad Origen</th>
-					<th>País Origen</th>
-					<th>Ciudad Destino</th>
-					<th>País Destino</th>
-					<th>Plazas libres</th>
-					<th>Precio</th>
-					<th>Comentarios</th>
-					<th>Estado</th>
-					<th>Promotor</th>
+					<th>Id</th>
+					<th>Origen</th>
+					<th>Destino</th>
+					<th>Fecha de salida</th>
+					<th>Plazas</th>
+					<th>Confirmación</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
+				<c:forEach var="entry" items="${viajesPromotor}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
-						<td><fmt:formatDate type="both" value="${entry.closingDate}" /></td>
-						<td><fmt:formatDate type="both" value="${entry.arrivalDate}" /></td>
-						<td><fmt:formatDate type="both"
-								value="${entry.departureDate}" /></td>
+						<td>${entry.id}</td>
 						<td>${entry.departure.city}</td>
-						<td>${entry.departure.country}</td>
 						<td>${entry.destination.city}</td>
-						<td>${entry.destination.country}</td>
+						<td><fmt:formatDate type="date"
+								value="${entry.departureDate}" /></td>
 						<td>${entry.availablePax}</td>
-						<td>${entry.estimatedCost}$</td>
-						<td>${entry.comments}</td>
-						<td>${entry.status}</td>
-						<td>${entry.promoterId}</td>
+						<td><div class="form-group" align="center">
+								<button type="button" class="btn btn-primary"
+									onclick="location.href='mostrarAplicaciones?id=${entry.id}'">Mostrar</button>
+							</div></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
-	<div class="footer navbar-fixed-bottom navbar-inner">
-		<p class="text-muted" align="center">@ShareMyTrip SDI 2016</p>
 	</div>
 </body>
 </html>

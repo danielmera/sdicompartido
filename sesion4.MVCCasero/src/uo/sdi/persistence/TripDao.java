@@ -28,4 +28,10 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByClosingDateOpenStatusWithFilter(Date actualDate, Long id);
 
+	List<Trip> findByPromoterStatusOpenAvailablePax(Long id);
+
+	int decreaseAvailablePax(Long trip_id, Integer availablePax);
+
+	int setOtherApplicationsToSinPlaza(Long trip_id);
+
 }
