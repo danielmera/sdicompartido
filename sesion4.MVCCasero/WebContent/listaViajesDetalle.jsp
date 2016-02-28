@@ -66,6 +66,7 @@
 			<tbody>
 				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
 					<tr id="item_${i.index}">
+						<c:set var="previous" scope="session" value="viajes"></c:set>
 						<td><a href="cargarViaje?id=${entry.id}">${entry.id}</a></td>
 						<td><fmt:formatDate type="both" value="${entry.closingDate}" /></td>
 						<td><fmt:formatDate type="both" value="${entry.arrivalDate}" /></td>

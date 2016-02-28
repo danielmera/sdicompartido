@@ -59,7 +59,8 @@
 				<c:forEach var="entry" items="${viajesAux}" varStatus="i">
 					<c:forEach var="viaje" items="${entry.viajes}" varStatus="j">
 						<tr>
-							<td><a href="mostrarViaje?id=${viaje.id}">${viaje.id}</a></td>
+							<c:set var="previous" scope="session" value="principal"></c:set>
+							<td><a href="cargarViaje?id=${viaje.id}">${viaje.id}</a></td>
 							<td><fmt:formatDate type="both" value="${viaje.closingDate}"/></td>
 							<td>${entry.relacion}</td>
 						</tr>

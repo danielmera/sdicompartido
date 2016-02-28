@@ -1,6 +1,6 @@
 <%@page import="javax.jws.soap.SOAPBinding.Use"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="comprobarUsuarioConectado.jsp" %>
+<%@ include file="comprobarUsuarioConectado.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -22,7 +22,12 @@
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="listarViajes">Volver</a></li>
+			<c:if test="${empty requestScope.previous}">
+				<li><a href="listarViajes">Volver</a></li>
+			</c:if>
+			<c:if test="${not empty requestScope.previous}">
+				<li><a href="listarViajesUsuario">Volver</a></li>
+			</c:if>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
 			<li><a href="cerrarSesion">CerrarSesion</a></li>
@@ -79,9 +84,11 @@
 				</tr>
 			</tbody>
 		</table>
-		<button type="submit" class="btn btn-primary"
-			onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip" />'">
-			SolicitarPlaza</button>
+		<c:if test="${empty requestScope.previous}">
+			<button type="submit" class="btn btn-primary"
+				onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip" />'">
+				SolicitarPlaza</button>
+		</c:if>
 	</div>
 </body>
 </html>
