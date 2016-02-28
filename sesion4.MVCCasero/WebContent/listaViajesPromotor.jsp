@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>ShareMyTrip - Listado de viajes</title>
+<title>ShareMyTrip - Listado de tus viajes como promotor</title>
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -24,6 +24,7 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="listarViajesUsuario">Home</a></li>
+			<li><a href="listarViajes">Viajes</a></li>
 		</ul>
 		<ul class="nav navbar-nav pull-right">
 			<li><a href="modificarperfil.jsp">Perfil</a></li>

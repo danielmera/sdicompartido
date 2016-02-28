@@ -83,11 +83,11 @@ public class ApplicationDaoJdbcImpl implements ApplicationDao {
 	
 	
 	@Override
-	public List<Application> findByTripIdNoSeat(Long tripId, Long userId) {
+	public List<Application> findByTripIdNoSeat(Long tripId) {
 		return jdbcTemplate.queryForList(
 				"APPLICATION_FIND_BY_TRIP_ID_NO_SEAT",
 				new ApplicationMapper(), 
-				tripId, userId, userId, tripId
+				tripId, tripId
 			);
 	}
 }
