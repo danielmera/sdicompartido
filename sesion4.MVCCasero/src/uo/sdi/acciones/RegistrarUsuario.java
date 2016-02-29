@@ -27,6 +27,8 @@ public class RegistrarUsuario implements Accion {
 				dao.save(usuario);
 				Log.debug("Usuario [%s] creado correctamente",
 						usuario.getLogin());
+				request.setAttribute("messageSuccess",
+						"La operación de registro ha tenido éxito, pruebe a iniciar sesión");
 			} else {
 				resultado = "FRACASO";
 				Log.debug("Usuario con login [%s] ya existe",
@@ -37,7 +39,8 @@ public class RegistrarUsuario implements Accion {
 			resultado = "FRACASO";
 			Log.info("Password [%s] y repassword [%s], deben de ser iguales",
 					password, repassword);
-			request.setAttribute("message", "Ambas contraseñas han de ser iguales");
+			request.setAttribute("message",
+					"Ambas contraseñas han de ser iguales");
 		}
 		return resultado;
 	}

@@ -11,11 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import uo.sdi.acciones.Accion;
+import uo.sdi.acciones.AceptarAplicacion;
+import uo.sdi.acciones.CancelarAplicacion;
+import uo.sdi.acciones.CargarViaje;
 import uo.sdi.acciones.CerrarSesion;
 import uo.sdi.acciones.ListarViajesAction;
+import uo.sdi.acciones.ListarViajesPromotor;
 import uo.sdi.acciones.ListarViajesUsuario;
 import uo.sdi.acciones.ModificarDatosAction;
+import uo.sdi.acciones.MostrarAplicaciones;
 import uo.sdi.acciones.RegistrarUsuario;
+import uo.sdi.acciones.RegistrarViaje;
+import uo.sdi.acciones.SolicitarPlaza;
 import uo.sdi.acciones.ValidarseAction;
 import alb.util.log.Log;
 
@@ -120,6 +127,13 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		mapaRegistrado.put("cerrarSesion",new CerrarSesion());
 		mapaRegistrado.put("listarViajes", new ListarViajesAction());
 		mapaRegistrado.put("listarViajesUsuario", new ListarViajesUsuario());
+		mapaRegistrado.put("listaViajesPromotor", new ListarViajesPromotor());
+		mapaRegistrado.put("registrarViaje", new RegistrarViaje());
+		mapaRegistrado.put("cargarViaje", new CargarViaje());
+		mapaRegistrado.put("solicitarPlaza",new SolicitarPlaza());
+		mapaRegistrado.put("mostrarAplicaciones", new MostrarAplicaciones());
+		mapaRegistrado.put("aceptarAplicacion", new AceptarAplicacion());
+		mapaRegistrado.put("cancelarAplicacion", new CancelarAplicacion());
 		mapaDeAcciones.put("REGISTRADO", mapaRegistrado);
 	}
 	
@@ -164,6 +178,28 @@ public class Controlador extends javax.servlet.http.HttpServlet {
 		resJSP=new HashMap<String, String>();
 		resJSP.put("EXITO","/principal.jsp");
 		opcionResJSP.put("listarViajesUsuario", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/registrarViaje.jsp");
+		resJSP.put("FRACASO","/registrarViaje.jsp");
+		opcionResJSP.put("registrarViaje", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/mostrarViaje.jsp");
+		opcionResJSP.put("cargarViaje", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listarViajesUsuario");
+		resJSP.put("FRACASO","/mostrarViaje.jsp");
+		opcionResJSP.put("solicitarPlaza", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/listaViajesPromotor.jsp");
+		opcionResJSP.put("listaViajesPromotor", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/mostrarAplicacionesDetalle.jsp");
+		opcionResJSP.put("mostrarAplicaciones", resJSP);
+		resJSP=new HashMap<String, String>();
+		resJSP.put("EXITO","/mostrarAplicacionesDetalle.jsp");
+		opcionResJSP.put("aceptarAplicacion", resJSP);
+		resJSP.put("EXITO","/mostrarAplicacionesDetalle.jsp");
+		opcionResJSP.put("cancelarAplicacion", resJSP);
 		
 		mapaDeNavegacion.put("REGISTRADO",opcionResJSP);
 	}

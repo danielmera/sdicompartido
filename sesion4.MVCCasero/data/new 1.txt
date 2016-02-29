@@ -1,0 +1,2 @@
+1-Refactorización del código repetido para cargar los viajes de los usuarios en las acciones Validarse y ListarViajesUsuario
+2-

@@ -12,9 +12,26 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByClosingDateOpenStatus(Date actualDate);
 
-	List<Trip> findByUserIdAndStatusOpenOrClose(Long id);
-
 	List<Trip> findByUserIdAndStatusDone(Long id);
 
-	
+	List<Trip> findByUserIdAndStatusCancelled(Long id);
+
+	List<Trip> findByUserIdPendingTrips(Long id);
+
+	List<Trip> findByPromotorId(Long id);
+
+	List<Trip> findByUserIdAndStatusOpenOrCloseAccepted(Long id);
+
+	List<Trip> findByUserIdAndStatusOpenOrCloseExcluded(Long id);
+
+	List<Trip> findByUserIdAndStatusOpenWithoutAvailablePax(Long id);
+
+	List<Trip> findByClosingDateOpenStatusWithFilter(Date actualDate, Long id);
+
+	List<Trip> findByPromoterStatusOpenAvailablePax(Long id);
+
+	int decreaseAvailablePax(Long trip_id, Integer availablePax);
+
+	int setOtherApplicationsToSinPlaza(Long trip_id);
+
 }

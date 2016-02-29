@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<title>ShareMyTrip - Listado de viajes disponibles</title>
+<title>ShareMyTrip - Listado de solicitudes en tus viajes</title>
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -22,32 +22,38 @@
 		<div class="navbar-header">
 			<a class="navbar-brand">ShareMyTrip</a>
 		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="listarViajesUsuario">Home</a></li>
+			<li><a href="listaViajesPromotor">Confirmaciones</a></li>
+
+		</ul>
 		<ul class="nav navbar-nav pull-right">
-			<li><a href="login.jsp">Login</a></li>
+			<li><a href="modificarperfil.jsp">Perfil</a></li>
+			<li><a href="cerrarSesion">Cerrar Sesión</a></li>
 		</ul>
 	</div>
 	</nav>
 	<div class="container">
-		<h3>Viajes disponibles</h3>
+		<h3>Viajes a confirmar</h3>
 		<hr />
 		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Origen</th>
-					<th>Destino</th>
-					<th>Fecha de salida</th>
-					<th>Plazas</th>
+					<th>Applicant Id</th>
+					<th>Confirmación</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="entry" items="${listaViajes}" varStatus="i">
+				<c:forEach var="entry" items="${applicationsTrip}" varStatus="i">
 					<tr id="item_${i.index}">
-						<td>${entry.id}</td>
-						<td>${entry.departure.city}</td>
-						<td>${entry.destination.city}</td>
-						<td><fmt:formatDate type="date" value="${entry.departureDate}"/></td>
-						<td>${entry.availablePax}</td>
+						<td>${entry.userId}</td>
+
+						<td><div class="form-group" align="center">
+								<button type="button" class="btn btn-primary"
+									onclick="location.href='aceptarAplicacion?id=${entry.userId}&trip_id=${entry.tripId}'">Aceptar</button>
+								<button type="button" class="btn btn-primary"
+									onclick="location.href='cancelarAplicacion?id=${entry.userId}&trip_id=${entry.tripId}'">Cancelar</button>
+							</div></td>
 					</tr>
 				</c:forEach>
 			</tbody>
