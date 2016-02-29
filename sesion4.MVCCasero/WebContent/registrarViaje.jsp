@@ -35,6 +35,10 @@
 	<!-- Mensaje de alerta para mostrar información de la operación de de registro de viajes
 		al usuario registrado en caso de error -->
 		<tags:messageError mensaje="${requestScope.message}"/>
+	
+	<!-- Mensaje de alerta para mostrar información de la operación de registro de viajes
+		de que la operación ha sido exitosa -->
+		<tags:messageSuccess mensaje="${requestScope.messageSuccess}"/>
 
 	<div class="container">
 		<form action="registrarViaje" method="POST">
@@ -141,8 +145,7 @@
 					</div>
 				</div>
 				<div class="form-group" align="center">
-					<button type="submit" class="btn btn-primary">Registrar
-						viaje</button>
+					<button type="submit" class="btn btn-primary">Registrar viaje</button>
 					<button type="button" class="btn btn-primary"
 						onclick="location.href='listarViajesUsuario'">Cancelar</button>
 				</div>

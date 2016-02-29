@@ -83,7 +83,7 @@ public class RegistrarViaje implements Accion {
 					Log.debug("Viaje [%s] creado correctamente", trip.getId());
 					request.setAttribute(
 							"messageSuccess",
-							"El viaje se ha registrado correctamente, para ver el viaje vaya a la pestaña de 'Ver viajes'");
+							"El viaje se ha registrado correctamente, para ver el viaje vaya a la pestaña de 'Viajes'");
 				} else {
 					resultado = "FRACASO";
 					Log.info("Error: la fecha límite ha de ser previa a la fecha"

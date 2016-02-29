@@ -37,7 +37,7 @@
 	<div class="container">
 		<h3>Viajes disponibles</h3>
 		<hr />
-		<table class="table table-bordered table-striped">
+		<table id="tabladetallada" class="table table-bordered table-striped" >
 			<thead>
 				<tr>
 					<th>ID viaje</th>

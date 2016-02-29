@@ -81,8 +81,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<button type="submit" class="btn btn-primary"
-			onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip" />'">
+		<button type="submit" class="btn btn-primary" id="solicitarPlaza"
+			onclick="location.href='solicitarPlaza?id=<jsp:getProperty property="id" name="trip"/>'">
 			Solicitar Plaza</button>
 	</div>
 </body>
