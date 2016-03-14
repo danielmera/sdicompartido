@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>ShareMyTrip-Index</title>
+	<title>ShareMyTrip-Registro</title>
 </h:head>
 <h:body>
 	<div class="ui-grid ui-grid-responsive">
@@ -15,33 +15,42 @@
 				</p:menuitem>
 				<p:menuitem value="Ver viajes" action="#{viajes.listado}">
 				</p:menuitem>
-				<p:menuitem value="Registrarse" url="http://localhost:8280/sdi_sharemytrip_jsf/registro.xhtml">
-				</p:menuitem>
 			</p:menubar>
 		</h:form>
 	</div>
 	<div class="ui-grid ui-grid-responsive">
 		<h:form>
-			<p:fieldset legend="Iniciar sesión"
+			<p:fieldset legend="Registro usuario"
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
 					<p:inputText id="username" value="" required="true"
 						label="username" />
+					<h:outputLabel for="nombre" value="Nombre:" />
+					<p:inputText id="nombre" value="" required="true" label="nombre" />
+					<h:outputLabel for="apellidos" value="Apellidos:" />
+					<p:inputText id="apellidos" value="" required="true"
+						label="apellidos" />
+					<h:outputLabel for="email" value="E-mail:" />
+					<p:inputText id="email" value="" required="true"
+						label="email"/>
 					<h:outputLabel for="password" value="Contraseña:" />
 					<p:password id="password" value="" required="true" label="password" />
+					<h:outputLabel for="repassword" value="Repetir contraseña:" />
+					<p:password id="repassword" value="" required="true"
+						label="repassword" />
 					<f:facet name="footer">
-						<p:commandButton value="Aceptar" />
+						<p:commandButton value="Registrarse" />
+						<p:commandButton value="Cancelar" />
 					</f:facet>
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
 	</div>
 	<div class="ui-grid ui-grid-responsive" id="footer"
-		style="width: 100%; position: absolute; bottom: 0; left: 0;text-align:center">
+		style="width: 100%; position: absolute; bottom: 0; left: 0; text-align: center">
 		<p:separator />
-		<h:outputText
-			style="color: #909090 ; background-color:transparent"
+		<h:outputText style="color: #909090 ; background-color:transparent"
 			value="@ShareMyTrip SDI-2016" />
 	</div>
 </h:body>
