@@ -2,16 +2,45 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>ShareMyTrip-Index</title>
 </h:head>
 <h:body>
-
-	<h:form>
-		<h:commandLink value="Listado de alumnos"
-			action="#{viajes.listado}"/>
-		<br></br>
-	</h:form>
+	<div class="ui-grid ui-grid-responsive">
+		<h:form>
+			<p:menubar>
+				<p:menuitem value="ShareMyTrip" disabled="true">
+				</p:menuitem>
+				<p:menuitem value="Ver viajes" action="#{viajes.listado}">
+				</p:menuitem>
+			</p:menubar>
+		</h:form>
+	</div>
+	<div class="ui-grid ui-grid-responsive">
+		<h:form>
+			<p:fieldset legend="Iniciar sesión"
+				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="username" value="Usuario:" />
+					<p:inputText id="username" value="" required="true"
+						label="username" />
+					<h:outputLabel for="password" value="Contraseña:" />
+					<p:password id="password" value="" required="true" label="password" />
+					<f:facet name="footer">
+						<p:commandButton value="Aceptar" />
+					</f:facet>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</div>
+	<div class="ui-grid ui-grid-responsive" id="footer"
+		style="width: 100%; position: absolute; bottom: 0; left: 0;text-align:center">
+		<p:separator />
+		<h:outputText
+			style="color: #909090 ; background-color:transparent"
+			value="@ShareMyTrip SDI-2016" />
+	</div>
 </h:body>
 </html>

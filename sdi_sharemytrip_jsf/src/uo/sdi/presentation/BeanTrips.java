@@ -38,12 +38,13 @@ public class BeanTrips implements Serializable {
 		this.trips = trips;
 	}
 
+	/**
+	 * Lista todos los viajes que hay en la base de datos
+	 */
 	public String listado() {
 		TripsService service;
 		try {
 			service = Factories.services.createTripsService();
-			// De esta forma le damos información a toArray para poder
-			// hacer el casting a Alumno[]
 			trips = (Trip[]) service.getTrips().toArray(new Trip[0]);
 			return "exito";
 		} catch (Exception e) {

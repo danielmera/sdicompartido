@@ -22,4 +22,5 @@ public class BeanUser implements Serializable{
 	}
 	
 	
+	
 }

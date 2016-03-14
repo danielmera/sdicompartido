@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14575421478220" configfile="/sdi_dlcal/WebContent/WEB-INF/faces-config.xml">
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14575421478220" configfile="/sdi_sharemytrip_jsf/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14575429640521" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14575429895625" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14575429895627" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14575429895625" path="/listado.xhtml"/>
   <links id="pf14575429895625" target="pf14575429895627" source="pf14575429640521" outcome="exito" fromaction="#{viajes.listado}"/>
