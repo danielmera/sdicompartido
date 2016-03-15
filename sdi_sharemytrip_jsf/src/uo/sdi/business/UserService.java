@@ -8,6 +8,8 @@ public interface UserService {
 
 	User findById(Long id) throws EntityNotFoundException;
 
+	User findByLogin(String login);
+	
 	void saveUser(User usuario) throws EntityAlreadyExistsException;
 
 	void updateUser(User usuario) throws EntityNotFoundException;

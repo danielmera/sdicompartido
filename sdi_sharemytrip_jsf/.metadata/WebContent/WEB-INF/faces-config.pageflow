@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14575421478220" configfile="/sdi_sharemytrip_jsf/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14575429640521" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14575429895625" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14575429640521" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf14575429895625 pf14580359221300" inlinks="pf14580361150762" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14575429895627" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14575429895625" path="/listado.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="registro.xhtml" id="pf14580359221301" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14580361150762" inlinks="pf14580359221300" path="/registro.xhtml"/>
   <links id="pf14575429895625" target="pf14575429895627" source="pf14575429640521" outcome="exito" fromaction="#{viajes.listado}"/>
+  <links id="pf14580359221300" target="pf14580359221301" source="pf14575429640521" outcome="registrarse"/>
+  <links id="pf14580361150762" target="pf14575429640521" source="pf14580359221301" outcome="volverLogin"/>
 </pageflow:Pageflow>

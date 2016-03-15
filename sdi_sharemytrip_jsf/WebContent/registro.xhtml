@@ -13,7 +13,8 @@
 			<p:menubar>
 				<p:menuitem value="ShareMyTrip" disabled="true">
 				</p:menuitem>
-				<p:menuitem value="Ver viajes" action="#{viajes.listado}">
+				<p:menuitem style="position:absolute;right:10px;" value="Volver"
+					action="volverLogin">
 				</p:menuitem>
 			</p:menubar>
 		</h:form>
@@ -24,16 +25,20 @@
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
-					<p:inputText id="username" value="" required="true"
+					<p:inputText id="username" value="#{usuario.user.name}" required="true"
 						label="username" />
+					<f:ajax event="keyup" render="mensaje-nombre"
+						listener="#{usuario.validarNombre}" />
+					<h:outputText id="mensaje-nombre" class="mensaje-error"
+						value="#{usuario.mensajeErrorNombre}" />
+					<p:message for="username" display="icon" />
 					<h:outputLabel for="nombre" value="Nombre:" />
 					<p:inputText id="nombre" value="" required="true" label="nombre" />
 					<h:outputLabel for="apellidos" value="Apellidos:" />
 					<p:inputText id="apellidos" value="" required="true"
 						label="apellidos" />
 					<h:outputLabel for="email" value="E-mail:" />
-					<p:inputText id="email" value="" required="true"
-						label="email"/>
+					<p:inputText id="email" value="" required="true" label="email" />
 					<h:outputLabel for="password" value="Contraseña:" />
 					<p:password id="password" value="" required="true" label="password" />
 					<h:outputLabel for="repassword" value="Repetir contraseña:" />

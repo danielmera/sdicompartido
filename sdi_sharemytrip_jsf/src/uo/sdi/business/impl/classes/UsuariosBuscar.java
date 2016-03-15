@@ -17,4 +17,11 @@ public class UsuariosBuscar {
 		return usuario;
 	}
 	
+	//Buscar usuario por login
+	public User findByLogin(String login){
+		UserDao dao = Factories.persistence.newUserDao();
+		User usuario =  dao.findByLogin(login);
+		return usuario;
+	}
+	
 }

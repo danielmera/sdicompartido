@@ -25,4 +25,9 @@ public class SimpleUserService implements UserService{
 		new UpdateUser();
 	}
 
+	@Override
+	public User findByLogin(String login) {
+		return new UsuariosBuscar().findByLogin(login);
+	}
+
 }

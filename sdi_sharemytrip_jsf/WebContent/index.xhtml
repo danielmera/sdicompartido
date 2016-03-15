@@ -15,7 +15,8 @@
 				</p:menuitem>
 				<p:menuitem value="Ver viajes" action="#{viajes.listado}">
 				</p:menuitem>
-				<p:menuitem value="Registrarse" url="http://localhost:8280/sdi_sharemytrip_jsf/registro.xhtml">
+				<p:menuitem style="position:absolute;right:10px;"
+					value="Registrarse" action="registrarse">
 				</p:menuitem>
 			</p:menubar>
 		</h:form>
@@ -38,10 +39,9 @@
 		</h:form>
 	</div>
 	<div class="ui-grid ui-grid-responsive" id="footer"
-		style="width: 100%; position: absolute; bottom: 0; left: 0;text-align:center">
+		style="width: 100%; position: absolute; bottom: 0; left: 0; text-align: center">
 		<p:separator />
-		<h:outputText
-			style="color: #909090 ; background-color:transparent"
+		<h:outputText style="color: #909090 ; background-color:transparent"
 			value="@ShareMyTrip SDI-2016" />
 	</div>
 </h:body>
