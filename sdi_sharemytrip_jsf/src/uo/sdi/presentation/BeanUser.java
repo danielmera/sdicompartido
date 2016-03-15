@@ -40,7 +40,7 @@ public class BeanUser implements Serializable{
 	}
 	
 	public void validarNombre(AjaxBehaviorEvent evento){
-		if(Factories.services.createUsersService().findByLogin(user.getName()))
+		//if(Factories.services.createUsersService().findByLogin(user.getName()))
 			
 	}
 	
