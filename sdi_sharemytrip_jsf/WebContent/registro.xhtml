@@ -21,31 +21,36 @@
 	</div>
 	<div class="ui-grid ui-grid-responsive">
 		<h:form>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<h:outputText id="mensaje-username" class="mensaje-error"
+				value="#{sessionuser.messageUserAlreadyExists}" />
 			<p:fieldset legend="Registro usuario"
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 				<h:panelGrid columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
-					<p:inputText id="username" value="#{usuario.user.name}" required="true"
-						label="username" />
-					<f:ajax event="keyup" render="mensaje-nombre"
-						listener="#{usuario.validarNombre}" />
-					<h:outputText id="mensaje-nombre" class="mensaje-error"
-						value="#{usuario.mensajeErrorNombre}" />
-					<p:message for="username" display="icon" />
+					<p:inputText id="username" value="#{sessionuser.userData.login}"
+						required="true" label="username">
+						<p:ajax event="blur" update="mensaje-username"
+							listener="#{sessionuser.validarNombre}" />
+					</p:inputText>
 					<h:outputLabel for="nombre" value="Nombre:" />
 					<p:inputText id="nombre" value="" required="true" label="nombre" />
 					<h:outputLabel for="apellidos" value="Apellidos:" />
 					<p:inputText id="apellidos" value="" required="true"
 						label="apellidos" />
 					<h:outputLabel for="email" value="E-mail:" />
-					<p:inputText id="email" value="" required="true" label="email" />
+					<p:inputText id="email" value="" required="true" label="email">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
 					<h:outputLabel for="password" value="Contraseña:" />
 					<p:password id="password" value="" required="true" label="password" />
 					<h:outputLabel for="repassword" value="Repetir contraseña:" />
 					<p:password id="repassword" value="" required="true"
 						label="repassword" />
 					<f:facet name="footer">
-						<p:commandButton value="Registrarse" />
+						<p:commandButton value="Registrarse" action="#{sessionuser.userData}" />
 						<p:commandButton value="Cancelar" />
 					</f:facet>
 				</h:panelGrid>
