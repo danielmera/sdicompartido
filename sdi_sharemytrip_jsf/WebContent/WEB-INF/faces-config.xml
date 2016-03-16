@@ -9,7 +9,7 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>usuario</managed-bean-name>
+		<managed-bean-name>sessionuser</managed-bean-name>
 		<managed-bean-class>uo.sdi.presentation.BeanUser</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>

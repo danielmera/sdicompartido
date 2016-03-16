@@ -20,14 +20,14 @@
 		</h:form>
 	</div>
 	<div class="ui-grid ui-grid-responsive">
-		<h:form>
+		<h:form id="form">
 			<p:messages id="messages" showDetail="true" autoUpdate="true"
 				closable="true" />
 			<h:outputText id="mensaje-username" class="mensaje-error"
 				value="#{sessionuser.messageUserAlreadyExists}" />
 			<p:fieldset legend="Registro usuario"
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
-				<h:panelGrid columns="2" cellpadding="5">
+				<h:panelGrid id="panel" columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
 					<p:inputText id="username" value="#{sessionuser.userData.login}"
 						required="true" label="username">
@@ -38,11 +38,13 @@
 					<p:inputText id="nombre" value="" required="true" label="nombre" />
 					<h:outputLabel for="apellidos" value="Apellidos:" />
 					<p:inputText id="apellidos" value="" required="true"
-						label="apellidos" />
+						label="apellidos">
+					</p:inputText>
 					<h:outputLabel for="email" value="E-mail:" />
 					<p:inputText id="email" value="" required="true" label="email">
 						<f:validateRegex
 							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						<p:watermark for="email" value="email@mail.com" />
 					</p:inputText>
 					<h:outputLabel for="password" value="Contraseña:" />
 					<p:password id="password" value="" required="true" label="password" />
@@ -50,8 +52,10 @@
 					<p:password id="repassword" value="" required="true"
 						label="repassword" />
 					<f:facet name="footer">
-						<p:commandButton value="Registrarse" action="#{sessionuser.userData}" />
-						<p:commandButton value="Cancelar" />
+						<p:commandButton value="Registrarse"
+							action="#{sessionuser.userData}" update="panel" />
+						<p:commandButton value="Limpiar" update="panel" process="@this"
+							actionListener="#{sessionuser.reset}" />
 					</f:facet>
 				</h:panelGrid>
 			</p:fieldset>

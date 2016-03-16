@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.primefaces.context.RequestContext;
+
 import uo.sdi.business.UserService;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.model.User;
@@ -28,12 +30,7 @@ public class BeanUser implements Serializable{
 	}
 	
 	public void iniciaUsuario(ActionEvent event){
-		//user.setId(null);
-		userdata.setLogin("nombredeusuario");
-		//user.setName("nombre");
-		//user.setSurname("apellidos");
-		//user.setEmail("email@mail.com");
-		//user.setStatus(null);
+		userdata.setLogin("");
 	}
 	
 	public User getUserData() {
@@ -72,5 +69,11 @@ public class BeanUser implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El usuario ya existe."));
 		}
 	}
+	
+	//Borrar los datos del formulario de registro cuando se cancela la operación
+	public void reset() {
+        iniciaUsuario(null);
+        RequestContext.getCurrentInstance().reset("form:panel");
+    }
 	
 }
