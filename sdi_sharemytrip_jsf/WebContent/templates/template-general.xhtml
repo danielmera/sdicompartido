@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="titulo">Título por defecto</ui:insert></title>
+</h:head>
+<h:body>
+	<div class="ui-grid ui-grid-responsive">
+		<h:form id="form-menubar">
+			<ui:insert name="menubar">MenuBar</ui:insert>
+		</h:form>
+	</div>
+	<div class="ui-grid ui-grid-responsive">
+		<p:messages id="messages" showDetail="false" closable="true"/>
+	<h:form id="form-cuerpo">
+		<ui:insert name="cuerpo">Cuerpo</ui:insert>
+	</h:form>
+	</div>
+	<h:form id="form-pie">
+		<ui:insert name="pie">Footer</ui:insert>
+	</h:form>
+</h:body>
+</html>

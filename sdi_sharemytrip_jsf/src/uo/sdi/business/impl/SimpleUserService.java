@@ -29,5 +29,12 @@ public class SimpleUserService implements UserService{
 	public User findByLogin(String login) {
 		return new UsuariosBuscar().findByLogin(login);
 	}
-
+	
+	@Override
+	public User verify(String login,String password){
+		User user = new UsuariosBuscar().findByLogin(login);
+		if(user!=null && user.getPassword().equals(password))
+			return user;
+		return null;
+	}
 }

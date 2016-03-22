@@ -17,22 +17,22 @@ import uo.sdi.model.User;
 
 @ManagedBean
 @SessionScoped
-public class BeanUser implements Serializable{
+public class BeanUser implements Serializable {
 
 	private static final long serialVersionUID = 555L;
 
 	private User userdata = new User();
-	
+
 	private String messageUserAlreadyExists = "";
-	
-	public BeanUser(){
+
+	public BeanUser() {
 		iniciaUsuario(null);
 	}
-	
-	public void iniciaUsuario(ActionEvent event){
+
+	public void iniciaUsuario(ActionEvent event) {
 		userdata.setLogin("");
 	}
-	
+
 	public User getUserData() {
 		return userdata;
 	}
@@ -40,7 +40,7 @@ public class BeanUser implements Serializable{
 	public void setUserData(User usuario) {
 		this.userdata = usuario;
 	}
-	
+
 	public String getMessageUserAlreadyExists() {
 		return messageUserAlreadyExists;
 	}
@@ -48,32 +48,33 @@ public class BeanUser implements Serializable{
 	public void setMessageUserAlreadyExists(String messageUserAlreadyExists) {
 		this.messageUserAlreadyExists = messageUserAlreadyExists;
 	}
-	
-	public String alta(){
+
+	public String alta() {
 		UserService service;
-		try{
+		try {
 			service = Factories.services.createUsersService();
-			//service.saveUser(userdata);
+			service.saveUser(userdata);
 			return "exito";
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-			return "error"; 
+			return "error";
 		}
 	}
 
-	public void validarNombre(AjaxBehaviorEvent evento){
+	public void validarNombre(AjaxBehaviorEvent evento) {
 		String login = userdata.getLogin();
-		if(Factories.services.createUsersService().findByLogin(login)==null)
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Nombre de usuario disponible"));
-		else{
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El usuario ya existe."));
+		FacesContext fc = FacesContext.getCurrentInstance();
+		if (Factories.services.createUsersService().findByLogin(login) != null) {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"", "El usuario ya existe."));
 		}
 	}
-	
-	//Borrar los datos del formulario de registro cuando se cancela la operación
+
+	// Borrar los datos del formulario de registro cuando se cancela la
+	// operación
 	public void reset() {
-        iniciaUsuario(null);
-        RequestContext.getCurrentInstance().reset("form:panel");
-    }
-	
+		iniciaUsuario(null);
+		RequestContext.getCurrentInstance().reset("form:panel");
+	}
+
 }

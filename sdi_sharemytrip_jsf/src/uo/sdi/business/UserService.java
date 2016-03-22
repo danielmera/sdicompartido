@@ -10,6 +10,8 @@ public interface UserService {
 
 	User findByLogin(String login);
 	
+	User verify(String login,String password);
+	
 	void saveUser(User usuario) throws EntityAlreadyExistsException;
 
 	void updateUser(User usuario) throws EntityNotFoundException;
