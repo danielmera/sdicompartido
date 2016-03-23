@@ -54,5 +54,15 @@
 			<from-outcome>volverLogin</from-outcome>
 			<to-view-id>/index.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{sessionuser.alta}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{sessionuser.alta}</from-action>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/registro.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 </faces-config>

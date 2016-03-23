@@ -39,13 +39,13 @@ public class BeanTrips implements Serializable {
 	}
 
 	/**
-	 * Lista todos los viajes que hay en la base de datos
+	 * Lista los viajes futuros con estado abierto
 	 */
 	public String listado() {
 		TripsService service;
 		try {
 			service = Factories.services.createTripsService();
-			trips = (Trip[]) service.getTrips().toArray(new Trip[0]);
+			trips = (Trip[]) service.getTripsAfterNow().toArray(new Trip[0]);
 			return "exito";
 		} catch (Exception e) {
 			e.printStackTrace();

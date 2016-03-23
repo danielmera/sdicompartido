@@ -21,39 +21,51 @@
 	</div>
 	<div class="ui-grid ui-grid-responsive">
 		<h:form id="form">
-			<p:messages id="messages" showDetail="true" closable="true"/>
+			<p:messages id="messages" showDetail="false" closable="true" />
 			<p:fieldset legend="Registro usuario"
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 				<h:panelGrid id="panel" columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
 					<p:inputText id="username" value="#{sessionuser.userData.login}"
-						required="true" label="username" validatorMessage="Usuario existente">
+						required="true" label="username"
+						requiredMessage="Campo usuario necesario">
 						<p:ajax event="blur" update="messages"
 							listener="#{sessionuser.validarNombre}" />
 					</p:inputText>
 					<h:outputLabel for="nombre" value="Nombre:" />
-					<p:inputText id="nombre" value="" required="true" label="nombre">
+					<p:inputText id="nombre" value="#{sessionuser.userData.name}"
+						required="true" label="nombre"
+						requiredMessage="Campo nombre necesario"
+						validatorMessage="El campo nombre debe tener, al menos, 3 caracteres">
 						<f:validateLength minimum="3" />
 					</p:inputText>
 					<h:outputLabel for="apellidos" value="Apellidos:" />
-					<p:inputText id="apellidos" value="" required="true"
-						label="apellidos">
+					<p:inputText id="apellidos" value="#{sessionuser.userData.surname}"
+						required="true" label="apellidos"
+						requiredMessage="Campo apellidos necesario"
+						validatorMessage="El campo apellidos debe tener, al menos, 3 caracteres">
 						<f:validateLength minimum="3" />
 					</p:inputText>
 					<h:outputLabel for="email" value="E-mail:" />
-					<p:inputText id="email" value="" required="true" label="email"
-							validatorMessage="Invalid email format">
-						<f:validateRegex pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" />
+					<p:inputText id="email" value="#{sessionuser.userData.email}"
+						required="true" label="email"
+						requiredMessage="Campo email necesario"
+						validatorMessage="Formato de email inválido">
+						<f:validateRegex
+							pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" />
 						<p:watermark for="email" value="example@mail.com" />
 					</p:inputText>
 					<h:outputLabel for="password" value="Contraseña:" />
-					<p:password id="password" value="" required="true" label="password">
-						<f:validateLength minimun="4"/>
+					<p:password id="password" value="#{sessionuser.userData.password}"
+						required="true" label="password"
+						requiredMessage="Campo contraseña necesario">
 					</p:password>
 					<h:outputLabel for="repassword" value="Repetir contraseña:" />
-					<p:password id="repassword" value="" required="true"
-						label="repassword">
-						<f:validateLength min="4"/>
+					<p:password id="repassword" value="#{sessionuser.repassword}"
+						required="true" label="repassword"
+						requiredMessage="Campo repetir contraseña necesario">
+					<p:ajax event="blur" update="messages"
+						listener="#{sessionuser.validarPasswords}" />
 					</p:password>
 					<f:facet name="footer">
 						<p:commandButton value="Registrarse"

@@ -1,5 +1,6 @@
 package uo.sdi.business.impl.classes;
 
+import java.util.Date;
 import java.util.List;
 
 import uo.sdi.infrastructure.Factories;
@@ -12,6 +13,11 @@ public class TripsListado {
 	public List<Trip> getAllTrips() throws Exception {
 		TripDao dao = Factories.persistence.newTripDao();
 		return  dao.findAll();
+	}
+
+	public List<Trip> getTripsByActualDateOpenStatus() {
+		TripDao dao = Factories.persistence.newTripDao();
+		return dao.findByClosingDateOpenStatus(new Date());
 	}
 	
 }

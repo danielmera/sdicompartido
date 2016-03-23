@@ -23,7 +23,11 @@ public class BeanUser implements Serializable {
 
 	private User userdata = new User();
 
-	private String messageUserAlreadyExists = "";
+	private String repassword = new String();
+
+	private boolean userNameValid = false;
+
+	private boolean passwordEquealsRePassword = false;
 
 	public BeanUser() {
 		iniciaUsuario(null);
@@ -31,6 +35,13 @@ public class BeanUser implements Serializable {
 
 	public void iniciaUsuario(ActionEvent event) {
 		userdata.setLogin("");
+		userdata.setName("");
+		userdata.setSurname("");
+		userdata.setPassword("");
+		userdata.setEmail("");
+		repassword = "";
+		setUserNameValid(false);
+		setPasswordEquealsRePassword(false);
 	}
 
 	public User getUserData() {
@@ -41,33 +52,89 @@ public class BeanUser implements Serializable {
 		this.userdata = usuario;
 	}
 
-	public String getMessageUserAlreadyExists() {
-		return messageUserAlreadyExists;
+	public String getRepassword() {
+		return repassword;
 	}
 
-	public void setMessageUserAlreadyExists(String messageUserAlreadyExists) {
-		this.messageUserAlreadyExists = messageUserAlreadyExists;
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
+
+	public boolean isUserNameValid() {
+		return userNameValid;
+	}
+
+	public void setUserNameValid(boolean userNameValid) {
+		this.userNameValid = userNameValid;
+	}
+
+	public boolean isPasswordEquealsRePassword() {
+		return passwordEquealsRePassword;
+	}
+
+	public void setPasswordEquealsRePassword(boolean passwordEquealsRePassword) {
+		this.passwordEquealsRePassword = passwordEquealsRePassword;
 	}
 
 	public String alta() {
+		FacesContext fc = FacesContext.getCurrentInstance();
 		UserService service;
-		try {
-			service = Factories.services.createUsersService();
-			service.saveUser(userdata);
-			return "exito";
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (userNameValid && passwordEquealsRePassword)
+			try {
+				service = Factories.services.createUsersService();
+				service.saveUser(userdata);
+				fc.addMessage(null, new FacesMessage(
+						FacesMessage.SEVERITY_INFO,
+						"Operación de registro exitosa, pruebe a iniciar sesión",
+						"El usuario ya existe."));
+				return "exito";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+		else {
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"El usuario ya existe", "El usuario ya existe."));
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Las contraseñas deben coincidir", "El usuario ya existe."));
+			iniciaUsuario(null);
 			return "error";
 		}
+
 	}
 
+	/**
+	 * Método que comprueba si el campo password y el campo repassword tienen
+	 * los mismo valores
+	 * 
+	 * @param evento
+	 */
+	public void validarPasswords(AjaxBehaviorEvent evento) {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		if (!userdata.getPassword().equals(repassword)){
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Las contraseñas deben coincidir", "El usuario ya existe."));
+			setPasswordEquealsRePassword(false);
+		}
+		else
+			setPasswordEquealsRePassword(true);
+	}
+
+	/**
+	 * Comprobamos si existe el nombre de usuario cuando el campo login pierde
+	 * el foco
+	 * 
+	 * @param evento
+	 */
 	public void validarNombre(AjaxBehaviorEvent evento) {
 		String login = userdata.getLogin();
 		FacesContext fc = FacesContext.getCurrentInstance();
 		if (Factories.services.createUsersService().findByLogin(login) != null) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"", "El usuario ya existe."));
-		}
+					"El usuario ya existe", "El usuario ya existe."));
+			setUserNameValid(false);
+		} else
+			setUserNameValid(true);
 	}
 
 	// Borrar los datos del formulario de registro cuando se cancela la

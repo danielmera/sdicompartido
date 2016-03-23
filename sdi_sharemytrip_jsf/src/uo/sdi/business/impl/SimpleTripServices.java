@@ -12,4 +12,9 @@ public class SimpleTripServices implements TripsService{
 	public List<Trip> getTrips() throws Exception {
 		return new TripsListado().getAllTrips();
 	}
+	
+	@Override
+	public List<Trip> getTripsAfterNow(){
+		return new TripsListado().getTripsByActualDateOpenStatus();
+	}
 }
