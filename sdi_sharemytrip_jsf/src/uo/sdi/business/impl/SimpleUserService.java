@@ -16,8 +16,8 @@ public class SimpleUserService implements UserService{
 	}
 
 	@Override
-	public void saveUser(User usuario) throws EntityAlreadyExistsException {
-		new AltaUsuario();
+	public Long saveUser(User usuario) throws EntityAlreadyExistsException {
+		return new AltaUsuario().save(usuario);
 	}
 
 	@Override

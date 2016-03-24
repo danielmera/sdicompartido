@@ -26,37 +26,37 @@
 				style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 				<h:panelGrid id="panel" columns="2" cellpadding="5">
 					<h:outputLabel for="username" value="Usuario:" />
-					<p:inputText id="username" value="#{sessionuser.userData.login}"
+					<p:inputText id="username" value="#{sessionuser.userdata.login}"
 						required="true" label="username"
 						requiredMessage="Campo usuario necesario">
 						<p:ajax event="blur" update="messages"
 							listener="#{sessionuser.validarNombre}" />
 					</p:inputText>
 					<h:outputLabel for="nombre" value="Nombre:" />
-					<p:inputText id="nombre" value="#{sessionuser.userData.name}"
+					<p:inputText id="nombre" value="#{sessionuser.userdata.name}"
 						required="true" label="nombre"
 						requiredMessage="Campo nombre necesario"
 						validatorMessage="El campo nombre debe tener, al menos, 3 caracteres">
 						<f:validateLength minimum="3" />
 					</p:inputText>
 					<h:outputLabel for="apellidos" value="Apellidos:" />
-					<p:inputText id="apellidos" value="#{sessionuser.userData.surname}"
+					<p:inputText id="apellidos" value="#{sessionuser.userdata.surname}"
 						required="true" label="apellidos"
 						requiredMessage="Campo apellidos necesario"
 						validatorMessage="El campo apellidos debe tener, al menos, 3 caracteres">
 						<f:validateLength minimum="3" />
 					</p:inputText>
 					<h:outputLabel for="email" value="E-mail:" />
-					<p:inputText id="email" value="#{sessionuser.userData.email}"
+					<p:inputText id="email" value="#{sessionuser.userdata.email}"
 						required="true" label="email"
 						requiredMessage="Campo email necesario"
 						validatorMessage="Formato de email inválido">
 						<f:validateRegex
-							pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" />
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 						<p:watermark for="email" value="example@mail.com" />
 					</p:inputText>
 					<h:outputLabel for="password" value="Contraseña:" />
-					<p:password id="password" value="#{sessionuser.userData.password}"
+					<p:password id="password" value="#{sessionuser.userdata.password}"
 						required="true" label="password"
 						requiredMessage="Campo contraseña necesario">
 					</p:password>
@@ -64,13 +64,11 @@
 					<p:password id="repassword" value="#{sessionuser.repassword}"
 						required="true" label="repassword"
 						requiredMessage="Campo repetir contraseña necesario">
-					<p:ajax event="blur" update="messages"
-						listener="#{sessionuser.validarPasswords}" />
 					</p:password>
 					<f:facet name="footer">
 						<p:commandButton value="Registrarse"
-							action="#{sessionuser.userData}" update="@all" />
-						<p:commandButton value="Limpiar" update="panel" process="@this"
+							action="#{sessionuser.alta}" update="@all" />
+						<p:commandButton value="Limpiar" update="form" process="@this"
 							actionListener="#{sessionuser.reset}" />
 					</f:facet>
 				</h:panelGrid>

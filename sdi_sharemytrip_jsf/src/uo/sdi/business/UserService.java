@@ -12,7 +12,7 @@ public interface UserService {
 	
 	User verify(String login,String password);
 	
-	void saveUser(User usuario) throws EntityAlreadyExistsException;
+	Long saveUser(User usuario) throws EntityAlreadyExistsException;
 
 	void updateUser(User usuario) throws EntityNotFoundException;
 }

@@ -14,6 +14,7 @@ import org.primefaces.context.RequestContext;
 import uo.sdi.business.UserService;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.model.User;
+import uo.sdi.model.UserStatus;
 
 @ManagedBean
 @SessionScoped
@@ -44,12 +45,12 @@ public class BeanUser implements Serializable {
 		setPasswordEquealsRePassword(false);
 	}
 
-	public User getUserData() {
+	public User getUserdata() {
 		return userdata;
 	}
 
-	public void setUserData(User usuario) {
-		this.userdata = usuario;
+	public void setUserdata(User userdata) {
+		this.userdata = userdata;
 	}
 
 	public String getRepassword() {
@@ -79,9 +80,11 @@ public class BeanUser implements Serializable {
 	public String alta() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		UserService service;
+		validarPasswords();
 		if (userNameValid && passwordEquealsRePassword)
 			try {
 				service = Factories.services.createUsersService();
+				userdata.setStatus(UserStatus.ACTIVE);
 				service.saveUser(userdata);
 				fc.addMessage(null, new FacesMessage(
 						FacesMessage.SEVERITY_INFO,
@@ -93,11 +96,10 @@ public class BeanUser implements Serializable {
 				return "error";
 			}
 		else {
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+			if(!userNameValid)
+				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"El usuario ya existe", "El usuario ya existe."));
-			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Las contraseñas deben coincidir", "El usuario ya existe."));
-			iniciaUsuario(null);
+			//iniciaUsuario(null);
 			return "error";
 		}
 
@@ -109,7 +111,7 @@ public class BeanUser implements Serializable {
 	 * 
 	 * @param evento
 	 */
-	public void validarPasswords(AjaxBehaviorEvent evento) {
+	public void validarPasswords() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		if (!userdata.getPassword().equals(repassword)){
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
