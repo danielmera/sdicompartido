@@ -4,10 +4,13 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import uo.sdi.business.TripsService;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.model.Trip;
+import uo.sdi.model.TripAndRelation;
+import uo.sdi.model.User;
 
 @ManagedBean
 @SessionScoped
@@ -19,7 +22,17 @@ public class BeanTrips implements Serializable {
 
 	private Trip[] trips = null;
 
+	private TripAndRelation[] tripsWithRelation = null;
+
 	public BeanTrips() {
+	}
+
+	public TripAndRelation[] getTripsWithRelation() {
+		return tripsWithRelation;
+	}
+
+	public void setTripsWithRelation(TripAndRelation[] tripsWithRelation) {
+		this.tripsWithRelation = tripsWithRelation;
 	}
 
 	public Trip getTrip() {
@@ -49,7 +62,31 @@ public class BeanTrips implements Serializable {
 			return "exito";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "error"; 
+			return "error";
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public String cargarViajesUsuario() {
+		TripsService service;
+		FacesContext fc = FacesContext.getCurrentInstance();
+		User user = (User) fc.getExternalContext().getSessionMap()
+				.get("LOGGEDIN_USER");
+		if (user != null) {
+			try {
+				service = Factories.services.createTripsService();
+				trips = (Trip[]) service.getTripsAfterNow()
+						.toArray(new Trip[0]);
+				tripsWithRelation = (TripAndRelation[]) service
+						.getViajesUsuario(user).toArray(new TripAndRelation[0]);
+				return "exito";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error";
+			}
+		} else
+			return "error";
 	}
 }

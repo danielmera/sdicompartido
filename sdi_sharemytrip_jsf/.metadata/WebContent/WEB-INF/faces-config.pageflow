@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14575421478220" configfile="/sdi_sharemytrip_jsf/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf14586448499130" referenceLink="//@navigationRule.2/@navigationCase.2/@toViewId|" outlinks="pf14586448499131 pf14586448499132 pf14586448499133 pf14586448499134" inlinks="pf14586448499134 pf14586448499135 pf145864525762315 pf14587548437322" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf14586448499130" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf14586448499131 pf14586448499132 pf14586448499134 pf14591797710700" inlinks="pf14586448499134 pf14586448499135 pf14587548437322 pf14591798815562" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="listado.xhtml" id="pf14586448499136" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14586448499131" path="/listado.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="registro.xhtml" id="pf14586448499137" referenceLink="//@navigationRule.2/@navigationCase.2/@toViewId|" outlinks="pf14586448499135 pf14587548437322 pf14587549852254" inlinks="pf14586448499132 pf14587549852254" path="/registro.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="opciones.xhtml" id="pf14586448499138" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf14586448499133" path="/restricted/opciones.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf145864525762316" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf145864525762315" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/principal.xhtml" id="pf14591797710701" referenceLink="//@navigationRule.1/@navigationCase.2/@toViewId|" inlinks="pf14591797710700" path="/restricted/principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="restricted/*" id="pf14591798815563" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14591798815562" path="/restricted/*"/>
   <links id="pf14586448499131" target="pf14586448499136" source="pf14586448499130" outcome="exito" fromaction="#{viajes.listado}"/>
   <links id="pf14586448499132" target="pf14586448499137" source="pf14586448499130" outcome="registrarse"/>
-  <links id="pf14586448499133" target="pf14586448499138" source="pf14586448499130" outcome="exito" fromaction="#{login.verify}"/>
   <links id="pf14586448499134" target="pf14586448499130" source="pf14586448499130" outcome="fracaso" fromaction="#{login.verify}"/>
   <links id="pf14586448499135" target="pf14586448499130" source="pf14586448499137" outcome="volverLogin"/>
-  <links id="pf145864525762315" target="pf14586448499130" source="pf145864525762316" outcome="exito" fromaction="#{login.cerrarSesion}"/>
   <links id="pf14587548437322" target="pf14586448499130" source="pf14586448499137" outcome="exito" fromaction="#{sessionuser.alta}"/>
   <links id="pf14587549852254" target="pf14586448499137" source="pf14586448499137" outcome="error" fromaction="#{sessionuser.alta}"/>
+  <links id="pf14591797710700" target="pf14591797710701" source="pf14586448499130" outcome="exito" fromaction="#{login.verify}"/>
+  <links id="pf14591798815562" target="pf14586448499130" source="pf14591798815563" outcome="exito" fromaction="#{login.cerrarSesion}"/>
 </pageflow:Pageflow>

@@ -3,8 +3,11 @@ package uo.sdi.presentation;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -20,6 +23,34 @@ public class BeanLogin implements Serializable {
 
 	private static final long serialVersionUID = 40L;
 
+	@ManagedProperty(value="#{viajes}")
+	private BeanTrips beantrips;
+	
+	public BeanTrips getBeanTrips(){
+		return this.beantrips;
+	}
+	
+	public void setBeanTrips(BeanTrips beantrips){
+		this.beantrips = beantrips;
+	}
+	
+	@PostConstruct
+    public void init() {        
+      System.out.println("BeanTrips - PostConstruct"); 
+      beantrips = (BeanTrips) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(new String("viajes"));
+      //si no existe lo creamos e inicializamos
+      if (beantrips == null) { 
+        System.out.println("BeanAlumnos - No existia");
+        beantrips = new BeanTrips();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put( "viajes", beantrips);
+      }
+    }
+	
+    @PreDestroy
+    public void end()  {
+        System.out.println("BeanTrips - PreDestroy");
+    }
+	
 	private User user = new User();
 
 	private String resultado = "";
@@ -43,10 +74,11 @@ public class BeanLogin implements Serializable {
 			UserService us = Factories.services.createUsersService();
 			User aux = us.verify(user.getLogin(), user.getPassword());
 			if (aux != null) {
-				putUserInSession();
 				user = aux;
+				putUserInSession();
 				resultado = "exito";
 				Log.info("El usuario [%s] ha iniciado sesión", user.getLogin());
+				beantrips.cargarViajesUsuario();
 			} else {
 				inicializarUsuario();
 				resultado = "fracaso";
