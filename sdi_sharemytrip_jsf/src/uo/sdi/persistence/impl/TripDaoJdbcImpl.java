@@ -215,4 +215,10 @@ public class TripDaoJdbcImpl implements TripDao {
 				new TripMapper(), id);
 	}
 
+	@Override
+	public List<Trip> findByPromoterIdAfterNow(Long id){
+		return jdbcTemplate.queryForList("TRIP_FIND_BY_PROMOTERID_AFTERNOW", 
+				new TripMapper(), id,new Date());
+	}
+	
 }

@@ -12,5 +12,9 @@ public interface UserDao extends GenericDao<User, Long>{
 	List<User> findBySeatTripId(Long trip_id,Long user_id);
 	
 	User findPromoterByTripId(Long trip_id);
+
+	List<User> findUsersWithApplicationButWithoutSeat(Long trip_id);
+
+	List<User> findUsersAdmitedInTrip(Long trip_id, Long user_id);
 	
 }

@@ -36,11 +36,11 @@ public class BeanLogin implements Serializable {
 	
 	@PostConstruct
     public void init() {        
-      System.out.println("BeanTrips - PostConstruct"); 
+      Log.info("BeanLogin - PostConstruct"); 
       beantrips = (BeanTrips) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(new String("viajes"));
       //si no existe lo creamos e inicializamos
       if (beantrips == null) { 
-        System.out.println("BeanAlumnos - No existia");
+        Log.info("BeanTrips-No existia");
         beantrips = new BeanTrips();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put( "viajes", beantrips);
       }
@@ -48,7 +48,7 @@ public class BeanLogin implements Serializable {
 	
     @PreDestroy
     public void end()  {
-        System.out.println("BeanTrips - PreDestroy");
+        System.out.println("BeanLogin - PreDestroy");
     }
 	
 	private User user = new User();

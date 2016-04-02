@@ -11,8 +11,10 @@ import javax.faces.event.AjaxBehaviorEvent;
 
 import org.primefaces.context.RequestContext;
 
+import alb.util.log.Log;
 import uo.sdi.business.UserService;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Trip;
 import uo.sdi.model.User;
 import uo.sdi.model.UserStatus;
 
@@ -26,6 +28,10 @@ public class BeanUser implements Serializable {
 
 	private String repassword = new String();
 
+	private User[] pasajeros = null;
+	
+	private User[] solicitantes = null;
+	
 	private boolean userNameValid = false;
 
 	private boolean passwordEquealsRePassword = false;
@@ -43,6 +49,22 @@ public class BeanUser implements Serializable {
 		repassword = "";
 		setUserNameValid(false);
 		setPasswordEquealsRePassword(false);
+	}
+	
+	public User[] getSolicitantes() {
+		return solicitantes;
+	}
+
+	public void setSolicitantes(User[] solicitantes) {
+		this.solicitantes = solicitantes;
+	}
+
+	public User[] getPasajeros() {
+		return pasajeros;
+	}
+
+	public void setPasajeros(User[] pasajeros) {
+		this.pasajeros = pasajeros;
 	}
 
 	public User getUserdata() {
@@ -137,6 +159,60 @@ public class BeanUser implements Serializable {
 			setUserNameValid(false);
 		} else
 			setUserNameValid(true);
+	}
+	
+	/**
+	 * Carga en la variable pasajeros de este ManagedBean los usuarios
+	 * que son pasajeros del viaje que se le pasa como parámetro a este
+	 * método.
+	 * @param trip
+	 */
+	public void cargarPasajeros(Trip trip){
+		UserService service;
+		try{
+			service = Factories.services.createUsersService();
+			User user = (User) FacesContext.getCurrentInstance().getExternalContext().
+					getSessionMap().get("LOGGEDIN_USER");
+			pasajeros = (User[]) service.getPasajerosTripId(trip.getId(), user.getId()).
+					toArray(new User[0]);
+		}catch(Exception e){
+			Log.error(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Carga en la variable pasajeros de este ManagedBean los usuarios
+	 * que son pasajeros del viaje que se le pasa como parámetro a este
+	 * método. 
+	 * @param trip
+	 */
+	public void cargarPasajerosAdmitidos(Trip trip){
+		UserService service;
+		try{
+			service = Factories.services.createUsersService();
+			User user = (User) FacesContext.getCurrentInstance().getExternalContext().
+					getSessionMap().get("LOGGEDIN_USER");
+			pasajeros = (User[]) service.getPasajerosTripOnlyAdmited(trip.getId(), user.getId()).
+					toArray(new User[0]);
+		}catch(Exception e){
+			Log.error(e.getMessage());
+		}
+	}
+
+	/**
+	 * Cargar en la variable local solicitantes los usuarios que han solicitado
+	 * plaza en el viaje que se pasa como parámetro
+	 * @param trip
+	 */
+	public void cargarSolicitantes(Trip trip){
+		UserService service;
+		try{
+			service = Factories.services.createUsersService();
+			solicitantes = (User[]) service.getSolicitantesByTripId(trip.getId()).
+					toArray(new User[0]);
+		}catch(Exception e){
+			Log.error(e.getMessage());
+		}
 	}
 
 	// Borrar los datos del formulario de registro cuando se cancela la

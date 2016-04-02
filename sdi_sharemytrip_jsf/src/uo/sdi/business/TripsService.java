@@ -12,5 +12,9 @@ public interface TripsService {
 
 	public List<Trip> getTripsAfterNow();
 	
+	public List<Trip> getTripsAfterNowByUserId(Long id);
+	
 	public List<TripAndRelation> getViajesUsuario(User user);
+
+	int updateTrip(Trip trip);
 }

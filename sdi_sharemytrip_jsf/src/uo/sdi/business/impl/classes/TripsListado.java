@@ -22,6 +22,10 @@ public class TripsListado {
 		return dao.findByPromotorId(user.getId());
 	}
 	
+	public List<Trip> getTripsByPromoterIdAfterNow(User user){
+		return dao.findByPromoterIdAfterNow(user.getId());
+	}
+	
 	/**
 	 * Lista con todos los viajes que hay en la BBDD.
 	 * @return
@@ -37,6 +41,15 @@ public class TripsListado {
 	 */
 	public List<Trip> getTripsByActualDateOpenStatus() {
 		return dao.findByClosingDateOpenStatus(new Date());
+	}
+	
+	/**
+	 * Lista de viajes que están disponibles para el usuario en sesión.
+	 * @param id del usuario que está en sesión.
+	 * @return
+	 */
+	public List<Trip> getTripsByActualDateOpenStatusWithFilter(Long id) {
+		return dao.findByClosingDateOpenStatusWithFilter(new Date(),id);
 	}
 	
 	/**
@@ -72,4 +85,5 @@ public class TripsListado {
 	public List<Trip> getUserPendingTripsWithoutAvailablePax(User user){
 		return dao.findByUserIdAndStatusOpenWithoutAvailablePax(user.getId());
 	}
+
 }

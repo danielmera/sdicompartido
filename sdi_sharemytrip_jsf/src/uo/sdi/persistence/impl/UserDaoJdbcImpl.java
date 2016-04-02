@@ -82,4 +82,15 @@ public class UserDaoJdbcImpl implements UserDao {
 		return jdbcTemplate.queryForList("USERS_FIND_BY_SEATTRIPID", new UserMapper(),trip_id,user_id);
 	}
 
+	@Override
+	public List<User> findUsersWithApplicationButWithoutSeat(Long trip_id) {
+		return jdbcTemplate.queryForList("USERS_FIND_BY_APPLICATION_TRIP_ID",
+				new UserMapper(), trip_id,trip_id);
+	}
+
+	@Override
+	public List<User> findUsersAdmitedInTrip(Long trip_id,Long user_id){
+		return jdbcTemplate.queryForList("USERS_FIND_BY_SEATTRIPID_ONLY_ADMITED",
+				new UserMapper(), trip_id,user_id);
+	}
 }

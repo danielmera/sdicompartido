@@ -5,6 +5,7 @@ import java.util.List;
 
 import uo.sdi.business.TripsService;
 import uo.sdi.business.impl.classes.TripsListado;
+import uo.sdi.business.impl.classes.UpdateTrip;
 import uo.sdi.model.Trip;
 import uo.sdi.model.TripAndRelation;
 import uo.sdi.model.User;
@@ -21,12 +22,21 @@ public class SimpleTripServices implements TripsService {
 	}
 
 	/**
-	 * Devuelve una lista con los viajes posteriores a la fecha que se manda
+	 * Devuelve una lista con los viajes posteriores a la fecha en la que se manda
 	 * la petición de este acción.
 	 */
 	@Override
 	public List<Trip> getTripsAfterNow() {
 		return new TripsListado().getTripsByActualDateOpenStatus();
+	}
+	
+	/**
+	 * Devuelve una lista con los viajes disponibles posteriores a la fecha en la que se manda
+	 * la petición de esta acción
+	 */
+	@Override
+	public List<Trip> getTripsAfterNowByUserId(Long id){
+		return new TripsListado().getTripsByActualDateOpenStatusWithFilter(id);
 	}
 
 	/**
@@ -72,7 +82,7 @@ public class SimpleTripServices implements TripsService {
 					"Obtenida lista de viajes pendientes sin plazas conteniendo [%d] viajes",
 					viajesPendientesSinPlazas.size());
 			crearMapaAuxiliar(viajesUsuario,viajesPendientesSinPlazas,"SIN PLAZAS");
-			viajesComoPromotor = tl.getTripsByPromoterId(user);
+			viajesComoPromotor = tl.getTripsByPromoterIdAfterNow(user);
 			Log.debug(
 					"Obtenida lista de viajes como promotor conteniendo [%d] viajes",
 					viajesComoPromotor.size());
@@ -82,6 +92,11 @@ public class SimpleTripServices implements TripsService {
 			Log.error("Algo ha ocurrido obteniendo la lista de viajes");
 			return null;
 		}
+	}
+
+	@Override
+	public int updateTrip(Trip trip){
+		return new UpdateTrip().update(trip);
 	}
 
 	/**

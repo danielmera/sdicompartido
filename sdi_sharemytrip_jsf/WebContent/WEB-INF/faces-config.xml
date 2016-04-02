@@ -18,6 +18,16 @@
 		<managed-bean-class>uo.sdi.presentation.BeanLogin</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>solicitudes</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanApplication</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>seat</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanSeat</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<from-view-id>/restricted/*</from-view-id>
 		<navigation-case>
@@ -31,7 +41,7 @@
 		<navigation-case>
 			<from-action>#{viajes.listado}</from-action>
 			<from-outcome>exito</from-outcome>
-			<to-view-id>/listado.xhtml</to-view-id>
+			<to-view-id>/listadoUsuarioPublico.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>registrarse</from-outcome>
@@ -63,6 +73,56 @@
 			<from-action>#{sessionuser.alta}</from-action>
 			<from-outcome>error</from-outcome>
 			<to-view-id>/registro.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/principal.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.listadoDetalle}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/listadoUsuarioValidado.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{application.eliminar(var)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>verSolicitudes</from-outcome>
+			<to-view-id>/restricted/listadoSolicitantesViaje.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>verPasajerosConPlaza</from-outcome>
+			<to-view-id>/restricted/listadoPasajerosViaje.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/listadoUsuarioValidado.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{viajes.solicitarPlaza(trip)}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/listadoPasajerosViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/listadoSolicitantesViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
