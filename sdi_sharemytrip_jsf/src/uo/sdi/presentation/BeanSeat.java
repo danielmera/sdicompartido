@@ -19,8 +19,20 @@ public class BeanSeat implements Serializable{
 
 	private static final long serialVersionUID = 1211L;
 
+	private Trip trip;
+	
 	public BeanSeat() {
 	}
+
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
+	}
+
+
 
 	public String updateToExcluded(User user, Trip trip) {
 		SeatService service;

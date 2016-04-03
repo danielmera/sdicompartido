@@ -15,18 +15,10 @@
 			<p:menuitem value="#{msgs.enlaceVerViajes}"
 				action="#{viajes.listado}">
 			</p:menuitem>
-			
-			<p:menuitem style="position:absolute;right:10px;" value="#{msgs.enlaceRegistrarse}"
+			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceRegistrarse}"
 				action="registrarse">
 			</p:menuitem>
-			<f:facet name="options">
-				<h:commandLink value="#{msgs.enlaceIdiomaES}"
-					actionListener="#{settings.setSpanish}">
-				</h:commandLink>
-				<h:commandLink value="#{msgs.enlaceIdiomaEN}"
-					actionListener="#{settings.setEnglish}">
-				</h:commandLink>
-			</f:facet>
+			<ui:include src="/snippets/idiomas.xhtml" />
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">

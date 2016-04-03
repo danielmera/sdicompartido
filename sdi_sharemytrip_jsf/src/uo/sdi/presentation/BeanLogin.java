@@ -104,13 +104,7 @@ public class BeanLogin implements Serializable {
 		HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
 				.getExternalContext().getSession(true);
 		removeUserInSession(session);
-		session.invalidate();
-//		FacesContext
-//				.getCurrentInstance()
-//				.getApplication()
-//				.getNavigationHandler()
-//				.handleNavigation(FacesContext.getCurrentInstance(), null,
-//						"index.xhtml");
+		//session.invalidate();
 		return "exito";
 	}
 

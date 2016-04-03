@@ -4,12 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:submenu id="#{msgs.subMenuIdiomas}" label="Idiomas" style="position:absolute;right:10px">
+	<p:submenu id="options" label="#{msgs.subMenuIdiomas}" style="position:absolute;right:10px">
 				<p:menuitem value="#{msgs.enlaceIdiomaES}" 
-					actionListener="#{settings.setSpanish}">
+					actionListener="#{settings.setSpanish}" update="@all">
 				</p:menuitem>
 				<p:menuitem value="#{msgs.enlaceIdiomaEN}"
-					actionListener="#{settings.setEnglish}"> 				
+					actionListener="#{settings.setEnglish}" update="@all"> 				
 				</p:menuitem>
 	</p:submenu>
 </ui:composition>

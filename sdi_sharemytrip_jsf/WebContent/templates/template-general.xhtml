@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{settings.locale}">	
 <h:head>
 	<title><ui:insert name="titulo">Título por defecto</ui:insert></title>
 </h:head>
@@ -24,4 +25,5 @@
 		<ui:insert name="pie">Footer</ui:insert>
 	</h:form>
 </h:body>
+</f:view>
 </html>
