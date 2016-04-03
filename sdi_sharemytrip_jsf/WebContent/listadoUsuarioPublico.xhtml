@@ -12,15 +12,8 @@
 		<p:menubar>
 			<p:menuitem value="ShareMyTrip" disabled="true">
 			</p:menuitem>
-			<f:facet name="options">
-				<h:commandLink value="#{msgs.enlaceIdiomaES}"
-					actionListener="#{settings.setSpanish}">
-				</h:commandLink>
-				<h:commandLink value="#{msgs.enlaceIdiomaEN}"
-					actionListener="#{settings.setEnglish}">
-				</h:commandLink>
-			</f:facet>
-			<p:menuitem style="position:absolute;right:10px;" value="#{msgs.enlaceVolver}"
+			<ui:include src="/snippets/idiomas.xhtml" />
+			<p:menuitem style="position:absolute;right:100px;" value="#{msgs.enlaceVolver}"
 				action="/index.xhtml">
 			</p:menuitem>
 		</p:menubar>
@@ -28,7 +21,8 @@
 	<ui:define name="cuerpo">
 		<br/><br/>
 		<p:dataTable id="tripsTable" var="trip" value="#{viajes.auxTrips}" style="width:100%"
-			sortMode="multiple" widgetVar="tripsTable">
+			sortMode="multiple" widgetVar="tripsTable" paginator="true" rows="5" 
+			rowsPerPageTemplate="1,5,10">
 			<f:facet name="header">
 				<h:outputText value="#{msgs.labelListadoViajes}"/>
 				<div align="right">
@@ -38,48 +32,47 @@
             	</p:outputPanel>
             	</div>
        		</f:facet>
-			<p:column filterBy="#{trip.id}" filterStyle="display:none;visibility:hidden;
-			 sortBy="#{trip.id}">
-				<f:facet name="header">Id viaje</f:facet>#{trip.id}</p:column>
+			<p:column filterBy="#{trip.id}" filterStyle="display:none;visibility:hidden;" sortBy="#{trip.id}">
+				<f:facet name="header">#{msgs.headerViajeId}</f:facet>#{trip.id}</p:column>
 			<p:column filterBy="#{trip.closingDate}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.closingDate}">
-				<f:facet name="header">Fecha Cierre</f:facet>
+				<f:facet name="header">#{msgs.headerFechaCierre}</f:facet>
 				<h:outputText value="#{trip.closingDate}">
 				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
 				</h:outputText></p:column>
 			<p:column filterBy="#{trip.arrivalDate}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.arrivalDate}">
-				<f:facet name="header">Fecha Llegada</f:facet>
+				<f:facet name="header">#{msgs.headerFechaLlegada}</f:facet>
 				<h:outputText value="#{trip.arrivalDate}">
 				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
 				</h:outputText></p:column>
 			<p:column filterBy="#{trip.departureDate}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.departureDate}">
-				<f:facet name="header">Fecha Salida</f:facet>
+				<f:facet name="header">#{msgs.headerFechaSalida}</f:facet>
 				<h:outputText value="#{trip.departureDate}">
 				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
 				</h:outputText></p:column>
 			<p:column filterBy="#{trip.departure.city}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.departure.city}">
-				<f:facet name="header">Ciudad Origen</f:facet>#{trip.departure.city}</p:column>
+				<f:facet name="header">#{msgs.headerCiudadOrigen}</f:facet>#{trip.departure.city}</p:column>
 			<p:column filterBy="#{trip.departure.country}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.departure.country}">
-				<f:facet name="header">País Origen</f:facet>#{trip.departure.country}</p:column>
+				<f:facet name="header">#{msgs.headerPaisOrigen}</f:facet>#{trip.departure.country}</p:column>
 			<p:column filterBy="#{trip.destination.city}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.destination.city}">
-				<f:facet name="header">Ciudad Destino</f:facet>#{trip.destination.city}</p:column>
+				<f:facet name="header">#{msgs.headerCiudadDestino}</f:facet>#{trip.destination.city}</p:column>
 			<p:column filterBy="#{trip.destination.country}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.destination.country}">
-				<f:facet name="header">País Destino</f:facet>#{trip.destination.country}</p:column>
+				<f:facet name="header">#{msgs.headerPaisDestino}</f:facet>#{trip.destination.country}</p:column>
 			<p:column filterBy="#{trip.availablePax}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.availablePax}">
-				<f:facet name="header">Plazas Libres</f:facet>#{trip.availablePax}</p:column>
+				<f:facet name="header">#{msgs.headerPlazasDisponibles}</f:facet>#{trip.availablePax}</p:column>
 			<p:column filterBy="#{trip.estimatedCost}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.estimatedCost}">
-				<f:facet name="header">Precio</f:facet>#{trip.estimatedCost}</p:column>
+				<f:facet name="header">#{msgs.headerPrecio}</f:facet>#{trip.estimatedCost}</p:column>
 			<p:column filterBy="#{trip.status}" filterStyle="display:none;visibility:hidden;"
 			 sortBy="#{trip.status}">
-				<f:facet name="header">Estado</f:facet>#{trip.status}</p:column>
+				<f:facet name="header">#{msgs.headerEstado}</f:facet>#{trip.status}</p:column>
 		</p:dataTable>
 	</ui:define>
 	<ui:define name="pie">

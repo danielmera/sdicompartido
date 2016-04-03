@@ -6,16 +6,24 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="/templates/template-general.xhtml">
 
-	<ui:define name="titulo">ShareMyTrip-Casa
+	<ui:define name="titulo">#{msgs.tituloPrincipal}
 	</ui:define>
 
 	<ui:define name="menubar">
 		<p:menubar>
 			<p:menuitem value="ShareMyTrip" disabled="true">
 			</p:menuitem>
-			<p:menuitem value="Ver viajes" action="#{viajes.listadoDetalle}">
+			<p:menuitem value="#{msgs.enlaceVerViajes}" action="#{viajes.listadoDetalle}">
 			</p:menuitem>
-			<p:menuitem style="position:absolute;right:10px;" value="Cerrar Sesión"
+			<f:facet name="options">
+				<h:commandLink value="#{msgs.enlaceIdiomaES}"
+					actionListener="#{settings.setSpanish}">
+				</h:commandLink>
+				<h:commandLink value="#{msgs.enlaceIdiomaEN}"
+					actionListener="#{settings.setEnglish}">
+				</h:commandLink>
+			</f:facet>
+			<p:menuitem style="position:absolute;right:10px;" value="#{msgs.enlaceCerrarSesion}"
 				action="#{login.cerrarSesion}">
 			</p:menuitem>
 		</p:menubar>
@@ -23,27 +31,27 @@
 	<ui:define name="cuerpo">
 		<br/><br/>
 		<p:dataTable id="table" var="var" value="#{viajes.tripsWithRelation}" style="width:100%">
-			<f:facet name="header">Viajes del usuario</f:facet>
+			<f:facet name="header">#{msgs.labelViajesUsuario}</f:facet>
 			<p:column>
-				<f:facet name="header">Identificador</f:facet>#{var.trip.id}</p:column>
+				<f:facet name="header">#{msgs.headerViajeId}</f:facet>#{var.trip.id}</p:column>
 			<p:column>
-				<f:facet name="header">Fecha de cierre</f:facet>
+				<f:facet name="header">#{msgs.headerFechaCierre}</f:facet>
 				<h:outputText value="#{var.trip.closingDate}">
 				<f:convertDateTime pattern="EEE d/MMM/yyyy  HH:mm:ss"/>
 				</h:outputText></p:column>
 			<p:column>
-				<f:facet name="header">Relacion</f:facet>#{var.relacion}</p:column>
+				<f:facet name="header">#{msgs.headerRelacion}</f:facet>#{var.relacion}</p:column>
 			<p:column>
 				<p:commandLink id="cancelarSolicitud" rendered="#{var.relacion eq 'PENDIENTE DE CONFIRMACIÓN'}"
-				value="Cancelar Solicitud" action="#{solicitudes.eliminar(var)}" update="table"/>
+				value="#{msgs.labelCancelarPlaza}" action="#{solicitudes.eliminar(var)}" update="table"/>
 				<p:commandLink id="cancelarPlaza" rendered="#{var.relacion eq 'ADMITIDO' 
-				or var.relacion eq 'EXCLUIDO'}" value="Cancelar Plaza"/>
+				or var.relacion eq 'EXCLUIDO'}" value="#{msgs.labelCancelarPlaza}"/>
 				<p:commandLink id="gestionarSolicitudes" rendered="#{var.relacion eq 'PROMOTOR'}"
-				 value="Gestionar solicitudes" action="verSolicitudes" 
+				 value="#{msgs.labelGestionarSolicitudes}" action="verSolicitudes" 
 				 actionListener="#{sessionuser.cargarSolicitantes(var.trip)}"/>
 				<br/>
 				<p:commandLink id="gestionarPlazas" rendered="#{var.relacion eq 'PROMOTOR'}"
-				 value="Gestionar plazas" action="verPasajerosConPlaza" 
+				 value="#{msgs.labelGestionarPlazas}" action="verPasajerosConPlaza" 
 				 actionListener="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"/></p:column>
 		</p:dataTable>
 	</ui:define>

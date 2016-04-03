@@ -5,66 +5,74 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/template-general.xhtml">
 
-	<ui:define name="titulo">ShareMyTrip-Registro
+	<ui:define name="titulo">#{msgs.tituloRegistro}
 	</ui:define>
 
 	<ui:define name="menubar">
 		<p:menubar>
-			<p:menuitem value="ShareMyTrip" disabled="true">
+			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
-			<p:menuitem style="position:absolute;right:10px;" value="Volver"
+			<f:facet name="options">
+				<h:commandLink value="#{msgs.enlaceIdiomaES}"
+					actionListener="#{settings.setSpanish}">
+				</h:commandLink>
+				<h:commandLink value="#{msgs.enlaceIdiomaEN}"
+					actionListener="#{settings.setEnglish}">
+				</h:commandLink>
+			</f:facet>
+			<p:menuitem style="position:absolute;right:10px;" value="#{msgs.enlaceVolver}"
 				action="volverLogin">
 			</p:menuitem>
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
-			<p:fieldset legend="Registro usuario"
+			<p:fieldset legend="#{msgs.labelRegistro}"
 			style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 			<h:panelGrid id="panel" columns="2" cellpadding="5">
-				<h:outputLabel for="username" value="Usuario:" />
+				<h:outputLabel for="username" value="#{msgs.labelUsuario}:" />
 				<p:inputText id="username" value="#{sessionuser.userdata.login}"
 					required="true" label="username"
-					requiredMessage="Campo usuario necesario">
+					requiredMessage="#{msgs.messageUsuarioRequerido}.">
 					<p:ajax event="blur" update="messages"
 						listener="#{sessionuser.validarNombre}" />
 				</p:inputText>
-				<h:outputLabel for="nombre" value="Nombre:" />
+				<h:outputLabel for="nombre" value="#{msgs.labelNombre}:" />
 				<p:inputText id="nombre" value="#{sessionuser.userdata.name}"
 					required="true" label="nombre"
-					requiredMessage="Campo nombre necesario"
-					validatorMessage="El campo nombre debe tener, al menos, 3 caracteres">
+					requiredMessage="#{msgs.messageNombreRequerido}."
+					validatorMessage="#{msgs.messageValidatorNombre}.">
 					<f:validateLength minimum="3" />
 				</p:inputText>
-				<h:outputLabel for="apellidos" value="Apellidos:" />
+				<h:outputLabel for="apellidos" value="#{msgs.labelApellidos}:" />
 				<p:inputText id="apellidos" value="#{sessionuser.userdata.surname}"
 					required="true" label="apellidos"
-					requiredMessage="Campo apellidos necesario"
-					validatorMessage="El campo apellidos debe tener, al menos, 3 caracteres">
+					requiredMessage="#{msgs.messageApellidosRequerido}."
+					validatorMessage="#{msgs.messageValidatorApellidos}.">
 					<f:validateLength minimum="3" />
 				</p:inputText>
-				<h:outputLabel for="email" value="E-mail:" />
+				<h:outputLabel for="email" value="#{msgs.labelEmail}:" />
 				<p:inputText id="email" value="#{sessionuser.userdata.email}"
 					required="true" label="email"
-					requiredMessage="Campo email necesario"
-					validatorMessage="Formato de email inválido">
+					requiredMessage="#{msgs.messageEmailRequerido}."
+					validatorMessage="#{msgs.messageValidatorEmail}.">
 					<f:validateRegex
 						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-					<p:watermark for="email" value="example@mail.com" />
+					<p:watermark for="email" value="#{msgs.messageEmailEjemplo}" />
 				</p:inputText>
-				<h:outputLabel for="password" value="Contraseña:" />
+				<h:outputLabel for="password" value="#{msgs.labelContraseña}:" />
 				<p:password id="password" value="#{sessionuser.userdata.password}"
 					required="true" label="password"
-					requiredMessage="Campo contraseña necesario">
+					requiredMessage="#{msgs.messageContraseñaRequerida}.">
 				</p:password>
-				<h:outputLabel for="repassword" value="Repetir contraseña:" />
+				<h:outputLabel for="repassword" value="#{msgs.labelRecontraseña}:" />
 				<p:password id="repassword" value="#{sessionuser.repassword}"
 					required="true" label="repassword"
-					requiredMessage="Campo repetir contraseña necesario">
+					requiredMessage="#{msgs.messageRecontraseñaRequerido}">
 				</p:password>
 				<f:facet name="footer">
-					<p:commandButton value="Registrarse" action="#{sessionuser.alta}"
+					<p:commandButton value="#{msgs.enlaceRegistrarse}" action="#{sessionuser.alta}"
 						update="@all" />
-					<p:commandButton value="Limpiar" update="form" process="@this"
+					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form" process="@this"
 						actionListener="#{sessionuser.reset}" />
 				</f:facet>
 			</h:panelGrid>
