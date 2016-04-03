@@ -36,16 +36,20 @@
 				<f:facet name="header">#{msgs.headerRelacion}</f:facet>#{var.relacion}</p:column>
 			<p:column>
 				<p:commandLink id="cancelarSolicitud" rendered="#{var.relacion eq 'PENDIENTE DE CONFIRMACIÓN'}"
-				value="#{msgs.labelCancelarPlaza}" action="#{solicitudes.eliminar(var)}" update="table"/>
+				value="#{msgs.labelCancelarSolicitud}" action="#{solicitudes.eliminar(var)}" update="table"/>
 				<p:commandLink id="cancelarPlaza" rendered="#{var.relacion eq 'ADMITIDO' 
-				or var.relacion eq 'EXCLUIDO'}" value="#{msgs.labelCancelarPlaza}"/>
+				or var.relacion eq 'EXCLUIDO'}" value="#{msgs.labelCancelarPlaza}"
+				action="#{seat.cancelarPlaza(var.trip)}" update="table"/>
 				<p:commandLink id="gestionarSolicitudes" rendered="#{var.relacion eq 'PROMOTOR'}"
-				 value="#{msgs.labelGestionarSolicitudes}" action="verSolicitudes" 
-				 actionListener="#{sessionuser.cargarSolicitantes(var.trip)}"/>
+				 value="#{msgs.labelGestionarSolicitudes}" 
+				 action="#{sessionuser.cargarSolicitantes(var.trip)}"
+				 actionListener="#{seat.setTrip(var.trip)}" 
+				 />
 				<br/>
 				<p:commandLink id="gestionarPlazas" rendered="#{var.relacion eq 'PROMOTOR'}"
-				 value="#{msgs.labelGestionarPlazas}" action="verPasajerosConPlaza" 
-				 actionListener="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"/></p:column>
+				 value="#{msgs.labelGestionarPlazas}" 
+				 action="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"
+				 actionListener="#{seat.setTrip(var.trip)}" /></p:column>
 		</p:dataTable>
 	</ui:define>
 	<ui:define name="pie">

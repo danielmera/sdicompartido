@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.ApplicationService;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Trip;
 import uo.sdi.model.TripAndRelation;
 import uo.sdi.model.User;
 import alb.util.log.Log;
@@ -24,7 +25,17 @@ public class BeanApplication implements Serializable {
 	@ManagedProperty(value = "#{viajes}")
 	private BeanTrips beantrips;
 
+	private Trip trip;
+	
 	public BeanApplication() {
+	}
+	
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
 	}
 
 	@PostConstruct
