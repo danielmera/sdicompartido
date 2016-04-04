@@ -51,7 +51,16 @@
 				<p:commandLink id="gestionarPlazas" rendered="#{var.relacion eq 'PROMOTOR'}"
 				 value="#{msgs.labelGestionarPlazas}" 
 				 action="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"
-				 actionListener="#{seat.setTrip(var.trip)}" /></p:column>
+				 actionListener="#{seat.setTrip(var.trip)}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerEditar}</f:facet>
+				<p:commandLink id="editarViaje" rendered="#{var.relacion eq 'PROMOTOR'}"
+				 value="#{msgs.labelEditar}" 
+				 action="editarViaje"
+				 actionListener="#{viajes.cargarViaje(var.trip)}" 
+				 />
+			</p:column>
 		</p:dataTable>
 	</ui:define>
 	<ui:define name="pie">
