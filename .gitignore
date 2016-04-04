@@ -1,1 +1,3 @@
 *.properties
+sdi_sharemytrip_jsf/data/test.properties
+sdi_sharemytrip_jsf/data/test.log
