@@ -17,4 +17,6 @@ public interface TripsService {
 	public List<TripAndRelation> getViajesUsuario(User user);
 
 	int updateTrip(Trip trip);
+
+	Long saveTrip(Trip trip);
 }

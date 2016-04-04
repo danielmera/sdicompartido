@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
+
 import uo.sdi.business.ApplicationService;
 import uo.sdi.business.TripsService;
 import uo.sdi.infrastructure.Factories;
@@ -28,7 +30,9 @@ public class BeanTrips implements Serializable {
 	private TripAndRelation[] tripsWithRelation = null;
 
 	private List<Trip> auxTrips = null;
-	
+
+	private Trip trip = new Trip();
+
 	public BeanTrips() {
 	}
 
@@ -39,8 +43,6 @@ public class BeanTrips implements Serializable {
 	public void setAuxTrips(List<Trip> auxTrips) {
 		this.auxTrips = auxTrips;
 	}
-
-
 
 	public TripAndRelation[] getTripsWithRelation() {
 		return tripsWithRelation;
@@ -58,6 +60,22 @@ public class BeanTrips implements Serializable {
 		this.trips = trips;
 	}
 
+	public String registroViaje() {
+		TripsService service;
+		try {
+			service = Factories.services.createTripsService();
+			User user = (User) FacesContext.getCurrentInstance()
+					.getExternalContext().getSessionMap().get("LOGGEDIN_USER");
+			trip.setPromoterId(user.getId());
+			trip.setStatus(TripStatus.OPEN);
+			service.saveTrip(trip);
+			return "exito";
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+			return "error";
+		}
+	}
+
 	/**
 	 * Lista los viajes futuros con estado abierto
 	 */
@@ -65,7 +83,7 @@ public class BeanTrips implements Serializable {
 		TripsService service;
 		try {
 			service = Factories.services.createTripsService();
-			//trips = (Trip[]) service.getTripsAfterNow().toArray(new Trip[0]);
+			// trips = (Trip[]) service.getTripsAfterNow().toArray(new Trip[0]);
 			auxTrips = service.getTripsAfterNow();
 			return "exito";
 		} catch (Exception e) {
@@ -109,9 +127,11 @@ public class BeanTrips implements Serializable {
 				Application app = new Application(sessionuser.getId(),
 						trip.getId());
 				service.saveApplication(app);
-				//Se actualiza la lista de viajes para que la vista de los viajes del usuario
-				//contenga el viaje con la solicitud de plaza que acaba de hacer y vea que está
-				//pendiente de confirmación.
+				// Se actualiza la lista de viajes para que la vista de los
+				// viajes del usuario
+				// contenga el viaje con la solicitud de plaza que acaba de
+				// hacer y vea que está
+				// pendiente de confirmación.
 				cargarViajesUsuario();
 				Log.info(
 						"Operación exitosa, plaza solicitada para el viaje con id [%s]",
@@ -150,5 +170,12 @@ public class BeanTrips implements Serializable {
 			}
 		} else
 			return "error";
+	}
+
+	// Borrar los datos del formulario de registro cuando se cancela la
+	// operación
+	public void reset() {
+		// iniciaUsuario(null);
+		RequestContext.getCurrentInstance().reset("form:panel");
 	}
 }

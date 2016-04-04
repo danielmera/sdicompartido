@@ -94,6 +94,10 @@
 			<to-view-id>/restricted/listadoUsuarioValidado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>registrarViaje</from-outcome>
+			<to-view-id>/registroViaje.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-action>#{application.eliminar(var)}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/principal.xhtml</to-view-id>
