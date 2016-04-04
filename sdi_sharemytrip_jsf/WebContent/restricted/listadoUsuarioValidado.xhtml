@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="titulo">#{msgs.tituloListadoPublico}
+	</ui:define>
+
+	<ui:define name="menubar">
+		<p:menubar>
+			<p:menuitem value="ShareMyTrip" disabled="true">
+			</p:menuitem>
+			<p:menuitem value="#{msgs.labelCasa}" action="#{viajes.cargarViajesUsuario}">
+			</p:menuitem>
+			<ui:include src="/snippets/idiomas.xhtml" />
+			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
+				action="#{login.cerrarSesion}">
+			</p:menuitem>
+		</p:menubar>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<br/><br/>
+		<p:dataTable var="trip" value="#{viajes.trips}" style="width:100%">
+			<f:facet name="header">#{msgs.labelListadoViajes}</f:facet>
+			<p:column>
+				<f:facet name="header">#{msgs.headerViajeId}</f:facet>#{trip.id}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerFechaCierre}</f:facet>
+				<h:outputText value="#{trip.closingDate}">
+				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
+				</h:outputText></p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerFechaLlegada}</f:facet>
+				<h:outputText value="#{trip.arrivalDate}">
+				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
+				</h:outputText></p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerFechaSalida}</f:facet>
+				<h:outputText value="#{trip.departureDate}">
+				<f:convertDateTime pattern="d/MMM/yyyy  HH:mm"/>
+				</h:outputText></p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerCiudadOrigen}</f:facet>#{trip.departure.city}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPaisOrigen}</f:facet>#{trip.departure.country}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerCiudadDestino}</f:facet>#{trip.destination.city}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPaisDestino}</f:facet>#{trip.destination.country}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPlazasDisponibles}</f:facet>#{trip.availablePax}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPrecio}</f:facet>#{trip.estimatedCost}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerEstado}</f:facet>#{trip.status}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPasajeros}</f:facet>
+				<p:commandLink id="verUsersBtn" actionListener="#{sessionuser.cargarPasajeros(trip)}" 
+				value="#{msgs.enlaceVer}" />
+				<p:overlayPanel id="moviePanel" hideEffect="fade" for="verUsersBtn"
+				dynamic="true" style="width:80%" showCloseIcon="true">
+        			<p:dataTable var="user" value="#{sessionuser.pasajeros}" rows="5">
+            			<p:column headerText="#{msgs.labelNombre}">
+                			<h:outputText value="#{user.name}" />
+            			</p:column>
+            			<p:column headerText="#{msgs.labelApellidos}">
+                			<h:outputText value="#{user.surname}" />
+            			</p:column>
+            			<p:column headerText="#{msgs.labelEmail}">
+                			<h:outputText value="#{user.email}" />
+            			</p:column>
+        			</p:dataTable>
+   			 	</p:overlayPanel>
+			</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerPromotorId}</f:facet>#{trip.promoterId}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerSolicitarPlaza}</f:facet>
+				<p:commandLink id="solicitarPlaza" action="#{viajes.solicitarPlaza(trip)}"
+				 value="#{msgs.enlaceSolicitar}"></p:commandLink>
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+	<ui:define name="pie">
+		<ui:include src="/snippets/footer.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -7,6 +7,14 @@ package uo.sdi.model;
 public class Waypoint {
 
 	private Double lat;
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+	public void setLon(Double lon) {
+		this.lon = lon;
+	}
+
 	private Double lon;
 	
 	public Waypoint(Double lat, Double lon) {

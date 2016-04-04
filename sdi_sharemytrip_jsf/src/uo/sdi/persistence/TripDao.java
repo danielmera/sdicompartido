@@ -36,4 +36,5 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findByPromoterIdDone(Long id);
 
+	List<Trip> findByPromoterIdAfterNow(Long id);
 }

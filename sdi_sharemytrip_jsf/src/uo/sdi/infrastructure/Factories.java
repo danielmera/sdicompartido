@@ -26,5 +26,4 @@ import uo.sdi.persistence.impl.SimplePersistenceFactory;
 public class Factories {
 	public static ServicesFactory services = new SimpleServicesFactory();
 	public static PersistenceFactory persistence = new SimplePersistenceFactory();
-
 }

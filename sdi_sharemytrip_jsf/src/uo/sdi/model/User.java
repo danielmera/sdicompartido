@@ -1,15 +1,21 @@
 package uo.sdi.model;
 
+import java.io.Serializable;
+
 /**
  * This class is not an entity, it is a DTO with the same fields as a row in the
  * table
+ * 
+ * Implementa la interfaz Serializable para que el objeto User se pueda guardar en Sesión
  * 
  * @see Data Transfer Object pattern
  * @author alb
  *
  */
-public class User {
+public class User implements Serializable{
 
+
+	private static final long serialVersionUID = 41L;
 	private Long id;
 	private String login;
 	private String password;

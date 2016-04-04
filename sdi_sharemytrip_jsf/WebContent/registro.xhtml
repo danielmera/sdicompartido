@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="titulo">#{msgs.tituloRegistro}
+	</ui:define>
+
+	<ui:define name="menubar">
+		<p:menubar>
+			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
+			</p:menuitem>
+			<ui:include src="/snippets/idiomas.xhtml" />
+			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceVolver}"
+				action="volverLogin">
+			</p:menuitem>
+		</p:menubar>
+	</ui:define>
+	<ui:define name="cuerpo">
+			<p:fieldset legend="#{msgs.labelRegistro}"
+			style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
+			<h:panelGrid id="panel" columns="2" cellpadding="5">
+				<h:outputLabel for="username" value="#{msgs.labelUsuario}:" />
+				<p:inputText id="username" value="#{sessionuser.userdata.login}"
+					required="true" label="username"
+					requiredMessage="#{msgs.messageUsuarioRequerido}.">
+					<p:ajax event="blur" update="messages"
+						listener="#{sessionuser.validarNombre}" />
+				</p:inputText>
+				<h:outputLabel for="nombre" value="#{msgs.labelNombre}:" />
+				<p:inputText id="nombre" value="#{sessionuser.userdata.name}"
+					required="true" label="nombre"
+					requiredMessage="#{msgs.messageNombreRequerido}."
+					validatorMessage="#{msgs.messageValidatorNombre}.">
+					<f:validateLength minimum="3" />
+				</p:inputText>
+				<h:outputLabel for="apellidos" value="#{msgs.labelApellidos}:" />
+				<p:inputText id="apellidos" value="#{sessionuser.userdata.surname}"
+					required="true" label="apellidos"
+					requiredMessage="#{msgs.messageApellidosRequerido}."
+					validatorMessage="#{msgs.messageValidatorApellidos}.">
+					<f:validateLength minimum="3" />
+				</p:inputText>
+				<h:outputLabel for="email" value="#{msgs.labelEmail}:" />
+				<p:inputText id="email" value="#{sessionuser.userdata.email}"
+					required="true" label="email"
+					requiredMessage="#{msgs.messageEmailRequerido}."
+					validatorMessage="#{msgs.messageValidatorEmail}.">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					<p:watermark for="email" value="#{msgs.messageEmailEjemplo}" />
+				</p:inputText>
+				<h:outputLabel for="password" value="#{msgs.labelContraseña}:" />
+				<p:password id="password" value="#{sessionuser.userdata.password}"
+					required="true" label="password"
+					requiredMessage="#{msgs.messageContraseñaRequerida}.">
+				</p:password>
+				<h:outputLabel for="repassword" value="#{msgs.labelRecontraseña}:" />
+				<p:password id="repassword" value="#{sessionuser.repassword}"
+					required="true" label="repassword"
+					requiredMessage="#{msgs.messageRecontraseñaRequerido}">
+				</p:password>
+				<f:facet name="footer">
+					<p:commandButton value="#{msgs.enlaceRegistrarse}" action="#{sessionuser.alta}"
+						update="@all" />
+					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form" process="@this"
+						actionListener="#{sessionuser.reset}" />
+				</f:facet>
+			</h:panelGrid>
+		</p:fieldset>
+	</ui:define>
+	<ui:define name="pie">
+		<ui:include src="/snippets/footer.xhtml" />
+	</ui:define>
+</ui:composition>

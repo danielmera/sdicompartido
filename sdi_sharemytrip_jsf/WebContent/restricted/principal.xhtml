@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="titulo">#{msgs.tituloPrincipal}
+	</ui:define>
+
+	<ui:define name="menubar">
+		<p:menubar>
+			<p:menuitem value="ShareMyTrip" disabled="true">
+			</p:menuitem>
+			<p:menuitem value="#{msgs.enlaceVerViajes}" action="#{viajes.listadoDetalle}">
+			</p:menuitem>
+			<p:menuitem value="#{msgs.enlaceRegistrarViaje}" action="registroViaje" >
+			</p:menuitem>
+			<ui:include src="/snippets/idiomas.xhtml" />
+			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
+				action="#{login.cerrarSesion}">
+			</p:menuitem>
+		</p:menubar>
+	</ui:define>
+	<ui:define name="cuerpo">
+		<br/><br/>
+		<p:dataTable id="table" var="var" value="#{viajes.tripsWithRelation}" style="width:100%">
+			<f:facet name="header">#{msgs.labelViajesUsuario}</f:facet>
+			<p:column>
+				<f:facet name="header">#{msgs.headerViajeId}</f:facet>#{var.trip.id}</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerFechaCierre}</f:facet>
+				<h:outputText value="#{var.trip.closingDate}">
+				<f:convertDateTime pattern="EEE d/MMM/yyyy  HH:mm:ss"/>
+				</h:outputText></p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerRelacion}</f:facet>#{var.relacion}</p:column>
+			<p:column>
+				<p:commandLink id="cancelarSolicitud" rendered="#{var.relacion eq 'PENDIENTE DE CONFIRMACIÓN'}"
+				value="#{msgs.labelCancelarSolicitud}" action="#{solicitudes.eliminar(var)}" update="table"/>
+				<p:commandLink id="cancelarPlaza" rendered="#{var.relacion eq 'ADMITIDO' 
+				or var.relacion eq 'EXCLUIDO'}" value="#{msgs.labelCancelarPlaza}"
+				action="#{seat.cancelarPlaza(var.trip)}" update="table"/>
+				<p:commandLink id="gestionarSolicitudes" rendered="#{var.relacion eq 'PROMOTOR'}"
+				 value="#{msgs.labelGestionarSolicitudes}" 
+				 action="#{sessionuser.cargarSolicitantes(var.trip)}"
+				 actionListener="#{seat.setTrip(var.trip)}" 
+				 />
+				<br/>
+				<p:commandLink id="gestionarPlazas" rendered="#{var.relacion eq 'PROMOTOR'}"
+				 value="#{msgs.labelGestionarPlazas}" 
+				 action="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"
+				 actionListener="#{seat.setTrip(var.trip)}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerEditar}</f:facet>
+				<p:commandLink id="editarViaje" rendered="#{var.relacion eq 'PROMOTOR'}"
+				 value="#{msgs.labelEditar}" 
+				 action="editarViaje"
+				 actionListener="#{viajes.cargarViaje(var.trip)}" 
+				 />
+			</p:column>
+		</p:dataTable>
+	</ui:define>
+	<ui:define name="pie">
+		<ui:include src="/snippets/footer.xhtml" />
+	</ui:define>
+</ui:composition>
