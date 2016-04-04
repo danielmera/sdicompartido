@@ -167,7 +167,7 @@ public class BeanUser implements Serializable {
 	 * método.
 	 * @param trip
 	 */
-	public void cargarPasajeros(Trip trip){
+	public String cargarPasajeros(Trip trip){
 		UserService service;
 		try{
 			service = Factories.services.createUsersService();
@@ -175,8 +175,10 @@ public class BeanUser implements Serializable {
 					getSessionMap().get("LOGGEDIN_USER");
 			pasajeros = (User[]) service.getPasajerosTripId(trip.getId(), user.getId()).
 					toArray(new User[0]);
+			return "exito";
 		}catch(Exception e){
 			Log.error(e.getMessage());
+			return "error";
 		}
 	}
 	
@@ -186,7 +188,7 @@ public class BeanUser implements Serializable {
 	 * método. 
 	 * @param trip
 	 */
-	public void cargarPasajerosAdmitidos(Trip trip){
+	public String cargarPasajerosAdmitidos(Trip trip){
 		UserService service;
 		try{
 			service = Factories.services.createUsersService();
@@ -194,8 +196,10 @@ public class BeanUser implements Serializable {
 					getSessionMap().get("LOGGEDIN_USER");
 			pasajeros = (User[]) service.getPasajerosTripOnlyAdmited(trip.getId(), user.getId()).
 					toArray(new User[0]);
+			return "exito";
 		}catch(Exception e){
 			Log.error(e.getMessage());
+			return "error";
 		}
 	}
 
@@ -204,14 +208,16 @@ public class BeanUser implements Serializable {
 	 * plaza en el viaje que se pasa como parámetro
 	 * @param trip
 	 */
-	public void cargarSolicitantes(Trip trip){
+	public String cargarSolicitantes(Trip trip){
 		UserService service;
 		try{
 			service = Factories.services.createUsersService();
 			solicitantes = (User[]) service.getSolicitantesByTripId(trip.getId()).
 					toArray(new User[0]);
+			return "exito";
 		}catch(Exception e){
 			Log.error(e.getMessage());
+			return "error";
 		}
 	}
 

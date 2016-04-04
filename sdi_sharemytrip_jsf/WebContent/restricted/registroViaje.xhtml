@@ -13,137 +13,154 @@
 			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
-			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceVolver}"
-				action="volverLogin">
+			<p:menuitem style="position:absolute;right:115px;"
+				value="#{msgs.enlaceVolver}" action="volverLogin">
 			</p:menuitem>
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
-			<p:fieldset legend="#{msgs.labelRegistroViaje}"
-			style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
-			<h:panelGrid id="panel" columns="2" cellpadding="5">
-				
-				<h2>#{msgs.labelLugarSalida}:</h2>
-				<br/>
-				<h:outputLabel for="calleSalida" value="#{msgs.labelCalle}:"/>
-				<p:inputText id="calleSalida" value="#{trip.departure.address}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCalleRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="ciudadSalida" value="#{msgs.labelCiudad}:"/>
-				<p:inputText id="ciudadSalida" value="#{trip.departure.city}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCiudadRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="provinciaSalida" value="#{msgs.labelProvincia}:"/>
-				<p:inputText id="provinciaSalida" value="#{trip.departure.state}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageProvinciaRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="paisSalida" value="#{msgs.labelPais}:"/>
-				<p:inputText id="paisSalida" value="#{trip.departure.country}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messagePaisRequerido}.">
-				</p:inputText>
-				
-				<h:outputLabel for="zipSalida" value="#{msgs.labelCP}:"/>
-				<p:inputText id="zipSalida" value="#{trip.departure.zip}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCodigoPostalRequerido}.">
-				</p:inputText>
-				
-				<h:outputLabel for="latitudSalida" value="#{msgs.labelLatitud}:" />
-				<p:inputText id="latitudSalida" value="#{trip.departure.waypoint.lat}"
-					label="latitudSalida">
-				</p:inputText>
-				
-				<h:outputLabel for="longitudSalida" value="#{msgs.labelLongitud}:" />
-				<p:inputText id="longitudSalida" value="#{trip.departure.waypoint.lon}"
-					label="longitudSalida">
-				</p:inputText>
-				
-				<h2>#{msgs.labelFechaSalida}</h2>
-				<br/>
-				<h:outputLabel for="fechaSalida" value="#{msgs.labelFechaSalida}:" />
-       			<p:calendar id="fechaSalida" value="#{trip.departureDate}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
-       			requiredMessage="#{msgs.messageFechaSalidaRequerida}."/>
-       			
-       			<h2>#{msgs.labelLugarLlegada}</h2>
-				<br/>
-				<h:outputLabel for="calleLlegada" value="#{msgs.labelCalle}:"/>
-				<p:inputText id="calleLlegada" value="#{trip.destination.address}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCalleRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="ciudadLlegada" value="#{msgs.labelCiudad}:"/>
-				<p:inputText id="ciudadLlegada" value="#{trip.destination.city}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCiudadRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="provinciaLlegada" value="#{msgs.labelProvincia}:"/>
-				<p:inputText id="provinciaLlegada" value="#{trip.destination.state}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageProvinciaRequerida}.">
-				</p:inputText>
-				
-				<h:outputLabel for="paisLlegada" value="#{msgs.labelPais}:"/>
-				<p:inputText id="paisLlegada" value="#{trip.destination.country}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messagePaisRequerido}.">
-				</p:inputText>
-				
-				<h:outputLabel for="zipLlegada" value="#{msgs.labelCP}:"/>
-				<p:inputText id="zipLlegada" value="#{trip.destination.zip}" required="true" label="calleSalida"
-					requiredMessage="#{msgs.messageCodigoPostalRequerido}.">
-				</p:inputText>
-				
-				<h:outputLabel for="latitudLlegada" value="#{msgs.labelLatitud}:" />
-				<p:inputText id="latitudLlegada" value="#{trip.destination.waypoint.lat}"
-					label="latitudLlegada">
-				</p:inputText>
-				
-				<h:outputLabel for="longitudLlegada" value="#{msgs.labelLongitud}:" />
-				<p:inputText id="longitudLlegada" value="#{trip.destination.waypoint.lon}"
-					label="longitudLlegada">
-				</p:inputText>
-       			
-       			<h2>#{msgs.labelFechaLlegada}</h2>
-       			<br/>
-       			<h:outputLabel for="fechaLlegada" value="#{msgs.labelFechaLlegada}:" />
-       			<p:calendar id="fechaLlegada" value="#{trip.arrivalDate}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
-       			requiredMessage="#{msgs.messageFechaLlegadaRequerida}."/>
+		<p:fieldset legend="#{msgs.labelRegistroViaje}"
+			style="text-align: center;width:160px;margin:0 auto;margin-top:30px">
+			<h:panelGrid id="panel" columns="4" cellpadding="5">
 
-				<h2>#{msgs.labelFechaCierre}</h2>
-       			
-       			<h:outputLabel for="fechaCierre" value="#{msgs.labelFechaCierre}:" />
-       			<p:calendar id="fechaCierre" value="#{trip.closingDate}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
-       			requiredMessage="#{msgs.messageFechaCierreRequerida}."/>
-       			
-       			<h:outputLabel for="plazasTotales" value="#{msgs.labelPlazasTotales}:" />
-       			<p:inputText id="plazasTotales" value="#{trip.maxPax}"
+				<h2>#{msgs.labelLugarSalida}:</h2>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+				
+				<h:outputLabel for="calleSalida" value="#{msgs.labelCalle}:" />
+				<p:inputText id="calleSalida" value="#{viajes.trip.departure.address}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCalleRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="ciudadSalida" value="#{msgs.labelCiudad}:" />
+				<p:inputText id="ciudadSalida" value="#{viajes.trip.departure.city}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCiudadRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="provinciaSalida" value="#{msgs.labelProvincia}:" />
+				<p:inputText id="provinciaSalida" value="#{viajes.trip.departure.state}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageProvinciaRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="paisSalida" value="#{msgs.labelPais}:" />
+				<p:inputText id="paisSalida" value="#{viajes.trip.departure.country}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messagePaisRequerido}.">
+				</p:inputText>
+
+				<h:outputLabel for="zipSalida" value="#{msgs.labelCP}:" />
+				<p:inputText id="zipSalida" value="#{viajes.trip.departure.zipCode}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCodigoPostalRequerido}.">
+				</p:inputText>
+
+				<h:outputLabel for="latitudSalida" value="#{msgs.labelLatitud}:" />
+				<p:inputText id="latitudSalida"
+					value="#{viajes.trip.departure.waypoint.lat}" label="latitudSalida">
+				</p:inputText>
+
+				<h:outputLabel for="longitudSalida" value="#{msgs.labelLongitud}:" />
+				<p:inputText id="longitudSalida"
+					value="#{viajes.trip.departure.waypoint.lon}" label="longitudSalida">
+				</p:inputText>
+
+				<h:outputLabel for="fechaSalida" value="#{msgs.labelFechaSalida}:" />
+				<p:calendar id="fechaSalida" value="#{viajes.trip.departureDate}"
+					pattern="dd/MM/yyyy HH:mm:ss" required="true"
+					requiredMessage="#{msgs.messageFechaSalidaRequerida}." />
+
+
+				<h2>#{msgs.labelLugarLlegada}</h2>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+				<h:outputText></h:outputText>
+				
+				<h:outputLabel for="calleLlegada" value="#{msgs.labelCalle}:" />
+				<p:inputText id="calleLlegada" value="#{viajes.trip.destination.address}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCalleRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="ciudadLlegada" value="#{msgs.labelCiudad}:" />
+				<p:inputText id="ciudadLlegada" value="#{viajes.trip.destination.city}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCiudadRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="provinciaLlegada"
+					value="#{msgs.labelProvincia}:" />
+				<p:inputText id="provinciaLlegada" value="#{viajes.trip.destination.state}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageProvinciaRequerida}.">
+				</p:inputText>
+
+				<h:outputLabel for="paisLlegada" value="#{msgs.labelPais}:" />
+				<p:inputText id="paisLlegada" value="#{viajes.trip.destination.country}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messagePaisRequerido}.">
+				</p:inputText>
+
+				<h:outputLabel for="zipLlegada" value="#{msgs.labelCP}:" />
+				<p:inputText id="zipLlegada" value="#{viajes.trip.destination.zipCode}"
+					required="true" label="calleSalida"
+					requiredMessage="#{msgs.messageCodigoPostalRequerido}.">
+				</p:inputText>
+
+				<h:outputLabel for="latitudLlegada" value="#{msgs.labelLatitud}:" />
+				<p:inputText id="latitudLlegada"
+					value="#{viajes.trip.destination.waypoint.lat}" label="latitudLlegada">
+				</p:inputText>
+
+				<h:outputLabel for="longitudLlegada" value="#{msgs.labelLongitud}:" />
+				<p:inputText id="longitudLlegada"
+					value="#{viajes.trip.destination.waypoint.lon}" label="longitudLlegada">
+				</p:inputText>
+
+				<h:outputLabel for="fechaLlegada" value="#{msgs.labelFechaLlegada}:" />
+				<p:calendar id="fechaLlegada" value="#{viajes.trip.arrivalDate}"
+					pattern="dd/MM/yyyy HH:mm:ss" required="true"
+					requiredMessage="#{msgs.messageFechaLlegadaRequerida}." />
+
+				<h:outputLabel for="fechaCierre" value="#{msgs.labelFechaCierre}:" />
+				<p:calendar id="fechaCierre" value="#{viajes.trip.closingDate}"
+					pattern="dd/MM/yyyy HH:mm:ss" required="true"
+					requiredMessage="#{msgs.messageFechaCierreRequerida}." />
+
+				<h:outputLabel for="plazasTotales"
+					value="#{msgs.labelPlazasTotales}:" />
+				<p:inputText id="plazasTotales" value="#{viajes.trip.maxPax}"
 					required="true" label="plazasTotales"
 					requiredMessage="#{msgs.messagePlazasTotalesRequerido}.">
 				</p:inputText>
-       			
-       			<h:outputLabel for="plazasLibres" value="#{msgs.labelPlazasLibres}:" />
-       			<p:inputText id="plazasLibres" value="#{trip.availablePax}"
+
+				<h:outputLabel for="plazasLibres" value="#{msgs.labelPlazasLibres}:" />
+				<p:inputText id="plazasLibres" value="#{viajes.trip.availablePax}"
 					required="true" label="plazasLibres"
 					requiredMessage="#{msgs.messagePlazasLibresRequerido}.">
 				</p:inputText>
-				
+
 				<h:outputLabel for="coste" value="#{msgs.labelCoste}:" />
-       			<p:inputText id="coste" value="#{trip.estimatedCost}"
+				<p:inputText id="coste" value="#{viajes.trip.estimatedCost}"
 					required="true" label="coste"
 					requiredMessage="#{msgs.messageCosteRequerido}.">
 				</p:inputText>
-				
+
 				<h:outputLabel for="comentarios" value="#{msgs.labelComentarios}:" />
-       			<p:inputText id="comentarios" value="#{trip.comments}"
+				<p:inputText id="comentarios" value="#{viajes.trip.comments}"
 					required="true" label="comentarios"
 					requiredMessage="#{msgs.messageComentariosRequerido}.">
 				</p:inputText>
-       			
+
+
 				<f:facet name="footer">
-					<p:commandButton value="#{msgs.enlaceRegistrarViaje}" action="#{viajes.registroViaje}"
-						update="@all" />
-					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form" process="@this"
-						actionListener="#{viajes.reset}" />
+					<p:commandButton value="#{msgs.enlaceRegistrarViaje}"
+						action="#{viajes.registroViaje}" update="@all" />
+					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form"
+						process="@this" actionListener="#{viajes.reset}" />
 				</f:facet>
 			</h:panelGrid>
 		</p:fieldset>

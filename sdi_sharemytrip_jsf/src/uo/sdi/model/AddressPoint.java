@@ -7,6 +7,30 @@ package uo.sdi.model;
  */
 public class AddressPoint {
 	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public void setWaypoint(Waypoint waypoint) {
+		this.waypoint = waypoint;
+	}
+
 	private String address;
 	private String city;
 	private String state;

@@ -103,13 +103,16 @@
 			<to-view-id>/restricted/principal.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>verSolicitudes</from-outcome>
+			<from-action>#{sessionuser.cargarSolicitantes(var.trip)}</from-action>
+			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/listadoSolicitantesViaje.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>verPasajerosConPlaza</from-outcome>
+			<from-action>#{sessionuser.cargarPasajerosAdmitidos(var.trip)}</from-action>
+			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/listadoPasajerosViaje.xhtml</to-view-id>
 		</navigation-case>
+		
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/restricted/listadoUsuarioValidado.xhtml</from-view-id>
@@ -136,6 +139,14 @@
 		<from-view-id>/restricted/listadoSolicitantesViaje.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/registroViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.registroViaje}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/principal.xhtml</to-view-id>
 		</navigation-case>

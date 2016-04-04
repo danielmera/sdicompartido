@@ -1,22 +1,26 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.context.RequestContext;
 
 import uo.sdi.business.ApplicationService;
 import uo.sdi.business.TripsService;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.AddressPoint;
 import uo.sdi.model.Application;
 import uo.sdi.model.Trip;
 import uo.sdi.model.TripAndRelation;
 import uo.sdi.model.TripStatus;
 import uo.sdi.model.User;
+import uo.sdi.model.Waypoint;
 import alb.util.log.Log;
 
 @ManagedBean
@@ -33,7 +37,16 @@ public class BeanTrips implements Serializable {
 
 	private Trip trip = new Trip();
 
+	public Trip getTrip() {
+		return trip;
+	}
+
+	public void setTrip(Trip trip) {
+		this.trip = trip;
+	}
+
 	public BeanTrips() {
+		iniciarViaje(null);
 	}
 
 	public List<Trip> getAuxTrips() {
@@ -59,6 +72,18 @@ public class BeanTrips implements Serializable {
 	public void setTrips(Trip[] trips) {
 		this.trips = trips;
 	}
+	
+	public void iniciarViaje(ActionEvent event){
+		trip.setDeparture(new AddressPoint("", "", "", "", "", new Waypoint(4343.3,4343.3)));
+		trip.setDestination(new AddressPoint("", "", "", "", "", new Waypoint(4343.3,4343.3)));
+		trip.setArrivalDate(new Date());
+		trip.setClosingDate(new Date());
+		trip.setDepartureDate(new Date());
+		trip.setAvailablePax(0);
+		trip.setMaxPax(0);
+		trip.setEstimatedCost(0.0);
+		trip.setComments("");
+	}
 
 	public String registroViaje() {
 		TripsService service;
@@ -69,6 +94,7 @@ public class BeanTrips implements Serializable {
 			trip.setPromoterId(user.getId());
 			trip.setStatus(TripStatus.OPEN);
 			service.saveTrip(trip);
+			iniciarViaje(null);
 			return "exito";
 		} catch (Exception e) {
 			Log.error(e.getMessage());
