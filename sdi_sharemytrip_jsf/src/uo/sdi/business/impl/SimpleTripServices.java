@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uo.sdi.business.TripsService;
+import uo.sdi.business.impl.classes.AltaViaje;
 import uo.sdi.business.impl.classes.TripsListado;
 import uo.sdi.business.impl.classes.UpdateTrip;
 import uo.sdi.model.Trip;
@@ -19,6 +20,12 @@ public class SimpleTripServices implements TripsService {
 	@Override
 	public List<Trip> getTrips() throws Exception {
 		return new TripsListado().getAllTrips();
+	}
+	
+	@Override
+	public Long saveTrip(Trip trip) {
+		// TODO Auto-generated method stub
+		return new AltaViaje().save(trip);
 	}
 
 	/**
@@ -113,4 +120,6 @@ public class SimpleTripServices implements TripsService {
 			auxViajes.add(new TripAndRelation(t,mensaje));
 		}
 	}
+
+	
 }

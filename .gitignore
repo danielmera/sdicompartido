@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 *.properties
 sdi_sharemytrip_jsf/data/test.properties
+sdi_sharemytrip_jsf/data/test.log
+=======
+*.properties
+*.properties
+*.pageflow
+>>>>>>> branch 'develop_jsf_dani' of https://github.com/danielmera/sdicompartido.git
+
+sdi_sharemytrip_jsf/data/test.log
 sdi_sharemytrip_jsf/data/test.log

@@ -94,6 +94,10 @@
 			<to-view-id>/restricted/listadoUsuarioValidado.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>registrarViaje</from-outcome>
+			<to-view-id>/registroViaje.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-action>#{application.eliminar(var)}</from-action>
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/principal.xhtml</to-view-id>
@@ -108,7 +112,11 @@
 			<from-outcome>exito</from-outcome>
 			<to-view-id>/restricted/listadoPasajerosViaje.xhtml</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-outcome>editarViaje</from-outcome>
+			<to-view-id>/restricted/editarViaje.xhtml</to-view-id>
+		</navigation-case>
+
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/restricted/listadoUsuarioValidado.xhtml</from-view-id>
@@ -133,6 +141,32 @@
 	</navigation-rule>
 	<navigation-rule>
 		<from-view-id>/restricted/listadoSolicitantesViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/registroViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.registroViaje}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{viajes.cargarViajesUsuario}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/restricted/editarViaje.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viajes.editarViaje}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/restricted/principal.xhtml</to-view-id>
+		</navigation-case>
 		<navigation-case>
 			<from-action>#{viajes.cargarViajesUsuario}</from-action>
 			<from-outcome>exito</from-outcome>

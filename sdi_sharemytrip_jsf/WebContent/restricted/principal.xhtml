@@ -15,6 +15,8 @@
 			</p:menuitem>
 			<p:menuitem id="linkViajes" value="#{msgs.enlaceVerViajes}" action="#{viajes.listadoDetalle}">
 			</p:menuitem>
+			<p:menuitem value="#{msgs.enlaceRegistrarViaje}" action="registroViaje" >
+			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
 			<p:menuitem id="cerrarsesion" style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
 				action="#{login.cerrarSesion}">
@@ -49,7 +51,16 @@
 				<p:commandLink id="gestionarPlazas" rendered="#{var.relacion eq 'PROMOTOR'}"
 				 value="#{msgs.labelGestionarPlazas}" 
 				 action="#{sessionuser.cargarPasajerosAdmitidos(var.trip)}"
-				 actionListener="#{seat.setTrip(var.trip)}" /></p:column>
+				 actionListener="#{seat.setTrip(var.trip)}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">#{msgs.headerEditar}</f:facet>
+				<p:commandLink id="editarViaje" rendered="#{var.relacion eq 'PROMOTOR'}"
+				 value="#{msgs.labelEditar}" 
+				 action="editarViaje"
+				 actionListener="#{viajes.cargarViaje(var.trip)}" 
+				 />
+			</p:column>
 		</p:dataTable>
 	</ui:define>
 	<ui:define name="pie">

@@ -1,5 +1,8 @@
 /test.log
 /test.properties
 /test.tmp
+<<<<<<< HEAD
 /.gitignore
 /test.lck
+=======
+>>>>>>> branch 'develop_jsf_dani' of https://github.com/danielmera/sdicompartido.git
