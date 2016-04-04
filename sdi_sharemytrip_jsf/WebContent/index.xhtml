@@ -9,22 +9,22 @@
 	</ui:define>
 
 	<ui:define name="menubar">
-		<p:menubar>
+		<p:menubar id="menubar">
 			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
-			<p:menuitem value="#{msgs.enlaceVerViajes}"
+			<p:menuitem id="linkViajes" value="#{msgs.enlaceVerViajes}"
 				action="#{viajes.listado}">
 			</p:menuitem>
-			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceRegistrarse}"
+			<p:menuitem id="registrarse" style="position:absolute;right:115px;" value="#{msgs.enlaceRegistrarse}"
 				action="registrarse">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
-		<p:fieldset legend="#{msgs.iniciarSesion}"
+		<p:fieldset id="fieldSetLogin" legend="#{msgs.iniciarSesion}"
 			style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
-			<h:panelGrid id="panel" columns="2" cellpadding="5">
+			<h:panelGrid id="panel-signin" columns="2" cellpadding="5">
 				<h:outputLabel for="username" value="#{msgs.labelUsuario}:" />
 				<p:inputText id="username" value="#{login.user.login}"
 					required="true" label="username"
@@ -34,7 +34,7 @@
 					required="true" label="password"
 					requiredMessage="#{msgs.messageContraseñaRequerida}." />
 				<f:facet name="footer">
-					<p:commandButton type="submit" value="#{msgs.botonAceptar}"
+					<p:commandButton id="submitButton" type="submit" value="#{msgs.botonAceptar}"
 						action="#{login.verify}" update="form,messages" />
 				</f:facet>
 			</h:panelGrid>

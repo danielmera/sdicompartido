@@ -13,13 +13,13 @@
 			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
-			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceVolver}"
-				action="volverLogin">
+			<p:menuitem id="return" style="position:absolute;right:115px;"
+				value="#{msgs.enlaceVolver}" action="volverLogin">
 			</p:menuitem>
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
-			<p:fieldset legend="#{msgs.labelRegistro}"
+		<p:fieldset id="fieldsetRegistro" legend="#{msgs.labelRegistro}"
 			style="text-align: center;width:80px;margin:0 auto;margin-top:30px">
 			<h:panelGrid id="panel" columns="2" cellpadding="5">
 				<h:outputLabel for="username" value="#{msgs.labelUsuario}:" />
@@ -63,10 +63,10 @@
 					requiredMessage="#{msgs.messageRecontraseñaRequerido}">
 				</p:password>
 				<f:facet name="footer">
-					<p:commandButton value="#{msgs.enlaceRegistrarse}" action="#{sessionuser.alta}"
-						update="@all" />
-					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form" process="@this"
-						actionListener="#{sessionuser.reset}" />
+					<p:commandButton id="submitButton" value="#{msgs.enlaceRegistrarse}"
+						action="#{sessionuser.alta}" update="@all" />
+					<p:commandButton id="cleanButton" value="#{msgs.labelLimpiarCampos}" update="form"
+						process="@this" actionListener="#{sessionuser.reset}" />
 				</f:facet>
 			</h:panelGrid>
 		</p:fieldset>

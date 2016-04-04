@@ -5,10 +5,10 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:submenu id="options" label="#{msgs.subMenuIdiomas}" style="position:absolute;right:10px">
-				<p:menuitem value="#{msgs.enlaceIdiomaES}" 
+				<p:menuitem id="spanish" value="#{msgs.enlaceIdiomaES}" 
 					actionListener="#{settings.setSpanish}" update="@all">
 				</p:menuitem>
-				<p:menuitem value="#{msgs.enlaceIdiomaEN}"
+				<p:menuitem id="english" value="#{msgs.enlaceIdiomaEN}"
 					actionListener="#{settings.setEnglish}" update="@all"> 				
 				</p:menuitem>
 	</p:submenu>
