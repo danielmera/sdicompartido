@@ -221,4 +221,11 @@ public class TripDaoJdbcImpl implements TripDao {
 				new TripMapper(), id,new Date());
 	}
 	
+	@Override
+	public List<Trip> findByUserIdAndStatusCancelledAccepted(Long id) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_USERID_STATUSCANCELLED_ADMITED",
+				new TripMapper(), id);
+	}
+	
 }

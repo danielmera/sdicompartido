@@ -3,6 +3,7 @@ package uo.sdi.presentation;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -32,11 +33,29 @@ public class BeanTrips implements Serializable {
 
 	private Trip[] trips = null;
 
-	private TripAndRelation[] tripsWithRelation = null;
+	private List<TripAndRelation> tripsWithRelation = null;
+
+	private List<TripAndRelation> tripsToCancel = null;
 
 	private List<Trip> auxTrips = null;
 
 	private Trip trip = new Trip();
+
+	public BeanTrips(){
+		this.trip = new Trip();
+		this.trip.setDeparture(new AddressPoint("", "", "", "", "",
+				new Waypoint(0.0, 0.0)));
+		this.trip.setDestination(new AddressPoint("", "", "", "", "",
+				new Waypoint(0.0, 0.0)));
+	}
+
+	public List<TripAndRelation> getTripsToCancel() {
+		return tripsToCancel;
+	}
+
+	public void setTripsToCancel(List<TripAndRelation> tripsToCancel) {
+		this.tripsToCancel = tripsToCancel;
+	}
 
 	public Trip getTrip() {
 		return trip;
@@ -44,10 +63,6 @@ public class BeanTrips implements Serializable {
 
 	public void setTrip(Trip trip) {
 		this.trip = trip;
-	}
-
-	public BeanTrips() {
-		iniciarViaje(null);
 	}
 
 	public List<Trip> getAuxTrips() {
@@ -58,11 +73,11 @@ public class BeanTrips implements Serializable {
 		this.auxTrips = auxTrips;
 	}
 
-	public TripAndRelation[] getTripsWithRelation() {
+	public List<TripAndRelation> getTripsWithRelation() {
 		return tripsWithRelation;
 	}
 
-	public void setTripsWithRelation(TripAndRelation[] tripsWithRelation) {
+	public void setTripsWithRelation(List<TripAndRelation> tripsWithRelation) {
 		this.tripsWithRelation = tripsWithRelation;
 	}
 
@@ -286,8 +301,8 @@ public class BeanTrips implements Serializable {
 		if (user != null) {
 			try {
 				service = Factories.services.createTripsService();
-				tripsWithRelation = (TripAndRelation[]) service
-						.getViajesUsuario(user).toArray(new TripAndRelation[0]);
+				tripsWithRelation = service.getViajesUsuario(user);
+
 				return "exito";
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -313,9 +328,7 @@ public class BeanTrips implements Serializable {
 				"CiudadPrecargada2", "ProvinciaPrecargada2", "PaisPrecargado2",
 				"10101", new Waypoint(3434.5, 3434.5)));
 		Date closingDate = new Date();
-		System.out.println(closingDate);
 		closingDate.setHours(closingDate.getHours() + 2);
-		System.out.println(closingDate);
 		trip.setClosingDate(closingDate);
 		Date departureDate = new Date();
 		departureDate.setHours(departureDate.getHours() + 3);
@@ -323,7 +336,6 @@ public class BeanTrips implements Serializable {
 		Date arrivalDate = new Date();
 		arrivalDate.setHours(arrivalDate.getHours() + 4);
 		trip.setArrivalDate(arrivalDate);
-
 		trip.setAvailablePax(4);
 		trip.setMaxPax(5);
 		trip.setEstimatedCost(55.5);
@@ -333,5 +345,46 @@ public class BeanTrips implements Serializable {
 	public String cargarViaje(Trip trip) {
 		this.trip = trip;
 		return "exito";
+	}
+
+	public void cancelarViajes() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		if (tripsToCancel.size() > 0) {
+			for (TripAndRelation t : tripsToCancel) {
+				cancelTrip(t.getTrip());
+				fc.addMessage(null, new FacesMessage(
+						FacesMessage.SEVERITY_INFO, "Viaje con id ["
+								+ t.getTrip().getId() + "] cancelado", ""));
+			}
+			cargarViajesUsuario();
+			tripsToCancel.clear();
+		} else {
+			ResourceBundle bundle = fc.getApplication().getResourceBundle(fc,
+					"msgs");
+			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					bundle.getString("viajesNoSeleccionadoCancelar"), ""));
+		}
+	}
+
+	/**
+	 * Método para cancelar el viaje que se pasa como parámetro
+	 * 
+	 * @param trip
+	 * @return
+	 */
+	public String cancelTrip(Trip trip) {
+		try {
+			trip.setStatus(TripStatus.CANCELLED);
+			TripsService ts = Factories.services.createTripsService();
+			int filasAfectadas = ts.updateTrip(trip);
+			if (filasAfectadas == 1)
+				return "exito";
+			else {
+				Log.debug("No se ha cancelado ningún viaje");
+			}
+		} catch (Exception e) {
+			Log.error(e.getMessage());
+		}
+		return "error";
 	}
 }

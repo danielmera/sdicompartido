@@ -12,10 +12,10 @@
 		<p:menubar>
 			<p:menuitem value="ShareMyTrip" disabled="true">
 			</p:menuitem>
-			<p:menuitem value="#{msgs.labelCasa}" action="#{viajes.cargarViajesUsuario}">
+			<p:menuitem id="linkCasa" value="#{msgs.labelCasa}" action="#{viajes.cargarViajesUsuario}">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
-			<p:menuitem style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
+			<p:menuitem id="cerrarsesion" style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
 				action="#{login.cerrarSesion}">
 			</p:menuitem>
 		</p:menubar>

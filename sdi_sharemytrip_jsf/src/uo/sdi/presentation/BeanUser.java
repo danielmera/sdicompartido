@@ -1,6 +1,7 @@
 package uo.sdi.presentation;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -101,6 +102,7 @@ public class BeanUser implements Serializable {
 
 	public String alta() {
 		FacesContext fc = FacesContext.getCurrentInstance();
+		ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msgs");
 		UserService service;
 		validarPasswords();
 		if (userNameValid && passwordEquealsRePassword)
@@ -110,8 +112,8 @@ public class BeanUser implements Serializable {
 				service.saveUser(userdata);
 				fc.addMessage(null, new FacesMessage(
 						FacesMessage.SEVERITY_INFO,
-						"Operación de registro exitosa, pruebe a iniciar sesión",
-						"El usuario ya existe."));
+						bundle.getString("operacionRegistroExito"),
+						""));
 				return "exito";
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -120,8 +122,7 @@ public class BeanUser implements Serializable {
 		else {
 			if(!userNameValid)
 				fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"El usuario ya existe", "El usuario ya existe."));
-			//iniciaUsuario(null);
+					bundle.getString("usuarioYaExiste"), ""));
 			return "error";
 		}
 
@@ -135,9 +136,10 @@ public class BeanUser implements Serializable {
 	 */
 	public void validarPasswords() {
 		FacesContext fc = FacesContext.getCurrentInstance();
+		ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msgs");
 		if (!userdata.getPassword().equals(repassword)){
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Las contraseñas deben coincidir", "El usuario ya existe."));
+					bundle.getString("contraseñadDebenCoincidir"), ""));
 			setPasswordEquealsRePassword(false);
 		}
 		else
@@ -153,9 +155,10 @@ public class BeanUser implements Serializable {
 	public void validarNombre(AjaxBehaviorEvent evento) {
 		String login = userdata.getLogin();
 		FacesContext fc = FacesContext.getCurrentInstance();
+		ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msgs");
 		if (Factories.services.createUsersService().findByLogin(login) != null) {
 			fc.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"El usuario ya existe", "El usuario ya existe."));
+					bundle.getString("usuarioYaExiste"), ""));
 			setUserNameValid(false);
 		} else
 			setUserNameValid(true);

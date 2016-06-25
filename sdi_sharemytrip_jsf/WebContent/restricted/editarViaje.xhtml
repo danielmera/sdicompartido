@@ -13,14 +13,14 @@
 			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
-			<p:menuitem style="position:absolute;right:115px;"
+			<p:menuitem id="linkVolver" style="position:absolute;right:115px;"
 				value="#{msgs.enlaceVolver}" action="#{viajes.cargarViajesUsuario}">
 			</p:menuitem>
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
 		<p:fieldset legend="#{msgs.labelEditarViaje}"
-			style="text-align: center;width:160px;margin:0 auto;margin-top:30px">
+			style="text-align: center;width:160px;margin:0 auto;margin-top:30px;margin-bottom:30px">
 			<h:panelGrid id="panel" columns="4" cellpadding="5">
 
 				<h2>#{msgs.labelLugarSalida}:</h2>
@@ -164,8 +164,13 @@
 					requiredMessage="#{msgs.messageComentariosRequerido}.">
 				</p:inputText>
 
+				<h:outputLabel id="statusLabel" for="status" value="#{msgs.labelStatus}:" />
+				<p:inputText id="status" value="#{viajes.trip.status}"
+					required="true" label="statusLabel">
+				</p:inputText>
+	
 				<f:facet name="footer">
-					<p:commandButton value="#{msgs.labelEditarViaje}"
+					<p:commandButton id="editButton" value="#{msgs.labelEditarViaje}"
 						action="#{viajes.editarViaje}" update="@all" />
 				</f:facet>
 			</h:panelGrid>

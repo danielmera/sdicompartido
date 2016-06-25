@@ -15,7 +15,7 @@
 			</p:menuitem>
 			<p:menuitem id="linkViajes" value="#{msgs.enlaceVerViajes}" action="#{viajes.listadoDetalle}">
 			</p:menuitem>
-			<p:menuitem value="#{msgs.enlaceRegistrarViaje}" action="registroViaje" >
+			<p:menuitem id="registrarViajes" value="#{msgs.enlaceRegistrarViaje}" action="registroViaje" >
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
 			<p:menuitem id="cerrarsesion" style="position:absolute;right:115px;" value="#{msgs.enlaceCerrarSesion}"
@@ -25,8 +25,12 @@
 	</ui:define>
 	<ui:define name="cuerpo">
 		<br/><br/>
-		<p:dataTable id="table" var="var" value="#{viajes.tripsWithRelation}" style="width:100%">
+		<p:dataTable id="table" var="var" value="#{viajes.tripsWithRelation}"
+			selection="#{viajes.tripsToCancel}" rowKey="#{var.trip.id}" style="width:100%"
+			disabledSelection="#{!(var.relacion eq 'PROMOTOR') or (var.relacion eq 'PROMOTOR' and var.trip.status eq 'CANCELLED')}">
 			<f:facet name="header">#{msgs.labelViajesUsuario}</f:facet>
+ 			<p:column selectionMode="multiple" style="width:16px;text-align:center">			
+ 			</p:column>
 			<p:column>
 				<f:facet name="header">#{msgs.headerViajeId}</f:facet>#{var.trip.id}</p:column>
 			<p:column>
@@ -57,11 +61,13 @@
 				<f:facet name="header">#{msgs.headerEditar}</f:facet>
 				<p:commandLink id="editarViaje" rendered="#{var.relacion eq 'PROMOTOR'}"
 				 value="#{msgs.labelEditar}" 
-				 action="editarViaje"
+				 action="editarViaje?faces-redirect=true"
 				 actionListener="#{viajes.cargarViaje(var.trip)}" 
 				 />
 			</p:column>
 		</p:dataTable>
+		<p:commandButton id="cancelTrips" update="form,messages,table" action="#{viajes.cancelarViajes}" value="#{msgs.labelCancelarViajes}" 
+			style="margin-top:10px;margin-right:20px;float:right"/>
 	</ui:define>
 	<ui:define name="pie">
 		<ui:include src="/snippets/footer.xhtml" />

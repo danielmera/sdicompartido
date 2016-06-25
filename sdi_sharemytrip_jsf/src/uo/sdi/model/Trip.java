@@ -34,7 +34,7 @@ public class Trip implements Serializable{
 	private Long promoterId;
 	
 	public Trip(){}
-
+	
 	public Trip(Long promoterId, AddressPoint departure, Date departureDate,
 			AddressPoint destination, Date arrivalDate, Date closingDate,
 			Double estimatedCost, String comments, Integer maxPax) {

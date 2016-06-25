@@ -13,14 +13,14 @@
 			<p:menuitem value="#{msgs.tituloHead}" disabled="true">
 			</p:menuitem>
 			<ui:include src="/snippets/idiomas.xhtml" />
-			<p:menuitem style="position:absolute;right:115px;"
+			<p:menuitem style="position:absolute;right:115px;" id="linkVolver"
 				value="#{msgs.enlaceVolver}" action="#{viajes.cargarViajesUsuario}">
 			</p:menuitem>
 		</p:menubar>
 	</ui:define>
 	<ui:define name="cuerpo">
 		<p:fieldset legend="#{msgs.labelRegistroViaje}"
-			style="text-align: center;width:160px;margin:0 auto;margin-top:30px">
+			style="text-align: center;width:160px;margin:0 auto;margin-top:30px;margin-bottom:30px">
 			<h:panelGrid id="panel" columns="4" cellpadding="5">
 
 				<h2>#{msgs.labelLugarSalida}:</h2>
@@ -85,14 +85,14 @@
 				<h:outputLabel for="calleLlegada" value="#{msgs.labelCalle}:" />
 				<p:inputText id="calleLlegada"
 					value="#{viajes.trip.destination.address}" required="true"
-					label="calleSalida"
+					label="calleLlegada"
 					requiredMessage="#{msgs.messageCalleRequerida}.">
 				</p:inputText>
 
 				<h:outputLabel for="ciudadLlegada" value="#{msgs.labelCiudad}:" />
 				<p:inputText id="ciudadLlegada"
 					value="#{viajes.trip.destination.city}" required="true"
-					label="calleSalida"
+					label="ciudadLlegad"
 					requiredMessage="#{msgs.messageCiudadRequerida}.">
 				</p:inputText>
 
@@ -100,20 +100,20 @@
 					value="#{msgs.labelProvincia}:" />
 				<p:inputText id="provinciaLlegada"
 					value="#{viajes.trip.destination.state}" required="true"
-					label="calleSalida"
+					label="provinciaLlegada"
 					requiredMessage="#{msgs.messageProvinciaRequerida}.">
 				</p:inputText>
 
 				<h:outputLabel for="paisLlegada" value="#{msgs.labelPais}:" />
 				<p:inputText id="paisLlegada"
 					value="#{viajes.trip.destination.country}" required="true"
-					label="calleSalida" requiredMessage="#{msgs.messagePaisRequerido}.">
+					label="paisLlegada" requiredMessage="#{msgs.messagePaisRequerido}.">
 				</p:inputText>
 
 				<h:outputLabel for="zipLlegada" value="#{msgs.labelCP}:" />
 				<p:inputText id="zipLlegada"
 					value="#{viajes.trip.destination.zipCode}" required="true"
-					label="calleSalida"
+					label="zipLlegada"
 					requiredMessage="#{msgs.messageCodigoPostalRequerido}.">
 				</p:inputText>
 
@@ -166,11 +166,11 @@
 
 
 				<f:facet name="footer">
-					<p:commandButton value="#{msgs.enlaceRegistrarViaje}"
+					<p:commandButton id="registrar" value="#{msgs.enlaceRegistrarViaje}"
 						action="#{viajes.registroViaje}" update="@all" />
-					<p:commandButton value="#{msgs.labelLimpiarCampos}" update="form"
+					<p:commandButton id="limpiar" value="#{msgs.labelLimpiarCampos}" update="form"
 						process="@this" actionListener="#{viajes.reset}" />
-					<p:commandButton value="#{msgs.enlacePrecargaDatos}" update="form"
+					<p:commandButton id="precargar" value="#{msgs.enlacePrecargaDatos}" update="form"
 						process="@this" actionListener="#{viajes.precargaDatos}" />
 				</f:facet>
 			</h:panelGrid>

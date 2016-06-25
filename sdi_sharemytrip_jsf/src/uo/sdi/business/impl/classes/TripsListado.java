@@ -85,5 +85,15 @@ public class TripsListado {
 	public List<Trip> getUserPendingTripsWithoutAvailablePax(User user){
 		return dao.findByUserIdAndStatusOpenWithoutAvailablePax(user.getId());
 	}
-
+	
+	/**
+	 * Lista de viajes que tiene el usuario que se pasa como parámetro
+	 * en los que ha sido admitido pero el viaje ha sido cancelado por el 
+	 * promotor
+	 * @param user
+	 * @return
+	 */
+	public List<Trip> getUserPendingTripsWithStatusCancelledAccepted(User user){
+		return dao.findByUserIdAndStatusCancelledAccepted(user.getId());
+	}
 }

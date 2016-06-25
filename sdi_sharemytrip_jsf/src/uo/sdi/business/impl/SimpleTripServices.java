@@ -57,6 +57,7 @@ public class SimpleTripServices implements TripsService {
 		List<Trip> viajesPendientesConfirmadosExcluidos;
 		List<Trip> viajesPendientesSinPlazas;
 		List<Trip> viajesPendientesSinConfirmar;
+		List<Trip> viajesPendientesCanceladosAdmitidos;
 		List<Trip> viajesComoPromotor;
 		// List<Trip> viajesHechosPromotor;
 		// List<Trip> viajesHechos;
@@ -77,6 +78,13 @@ public class SimpleTripServices implements TripsService {
 					"Obtenida lista de viajes pendientes confirmados admitidos conteniendo [%d] viajes",
 					viajesPendientesConfirmadosAdmitidos.size());
 			crearMapaAuxiliar(viajesUsuario,viajesPendientesConfirmadosAdmitidos,"ADMITIDO");
+			viajesPendientesCanceladosAdmitidos = 
+					tl.getUserPendingTripsWithStatusCancelledAccepted(user);
+			Log.debug(
+					"Obtenida lista de viajes cancelados en los que el usuario estaba admitido"
+					+ " conteniendo [%d] viajes",
+					viajesPendientesCanceladosAdmitidos.size());
+			crearMapaAuxiliar(viajesUsuario,viajesPendientesCanceladosAdmitidos,"CANCELADO");
 			viajesPendientesConfirmadosExcluidos = tl
 					.getUserPendingTripsExcluded(user);
 			Log.debug(
@@ -105,7 +113,7 @@ public class SimpleTripServices implements TripsService {
 	public int updateTrip(Trip trip){
 		return new UpdateTrip().update(trip);
 	}
-
+	
 	/**
 	 * Método auxiliar para crear mapas auxiliares para establecer la relación
 	 * que tiene la lista de viajes obtenida con el usuario en sesión (Esto es 
